@@ -1,4 +1,4 @@
-const express = require("express")
+const express = require('express')
 
 const app = express()
 
@@ -34,10 +34,10 @@ app.use((err, req, res, next) => {
 
 const port = process.env.PORT || 8080;
 
-const init = async () => {
-  try{
-      
-    app.listen(port, ()=> console.log(`listening on port ${port}`));
+const init = () => {
+  try {
+
+    app.listen(port, () => console.log(`listening on port ${port}`));
   }
   catch (err) {
     console.log(err);
