@@ -2,6 +2,7 @@ const _ = require('lodash');
 const User = require('../models/User');
 const driver = require('../db');
 
+// EXPRESS ROUTE WILL CALL THIS FUNCTION DIRECTLY
 function getUser(username) {
 
     // Uses default neo4j database in neo4j desktop, which developers must run
