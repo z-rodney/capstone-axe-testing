@@ -9,7 +9,6 @@ const App = () => {
     return (
         <Router>
             <NavBar />
-            <h1>Capstone!!</h1>
                 <Switch>
                     <Route exact path="/profile" component={UserProfile} />
                     <Route exact path="/friends" component={FriendProfile} />

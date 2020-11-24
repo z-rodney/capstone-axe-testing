@@ -3,6 +3,7 @@
 body {
   margin: 0;
   font-family: 'Roboto Mono', monospace;
+  font-weight: 300;
 }
 
 a, a:visited {
@@ -12,6 +13,11 @@ a, a:visited {
 
 a:hover {
   color: #EC4E20;
+}
+
+.spaced {
+  padding: 0 10px;
+  margin: 0;
 }
 
 /* NAV BAR */
@@ -27,6 +33,19 @@ nav {
 nav a, nav a:visited {
   color: white;
   padding: 10px;
+}
+
+.profile-pic {
+  height: 15%;
+  width: 15%;
+}
+
+.pref-true {
+  list-style-type: '✓ '
+}
+
+.pref-false {
+  list-style-type: '𐄂 '
 }
 
 
