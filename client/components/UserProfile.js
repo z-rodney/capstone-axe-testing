@@ -1,58 +1,17 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { FriendCard, RiskCard, RowContainer, ColumnContainer, Card, Sidebar } from './styledComponents'
+import { RowContainer, ColumnContainer, Card, Sidebar } from './styledComponents'
+import RiskProfile from './RiskProfile'
+import FriendList from './FriendList'
 
-//temp settings until db set up
-const riskSettings = [
-  {
-    setting: 'Mask',
-    preference: true,
-  },
-  {
-    setting: 'Indoor Dining',
-    preference: false,
-  },
-  {
-    setting: 'Outdoor Dining',
-    preference: true,
-  }
-]
 
-const friends = [
-  {name: 'Ann'},
-  {name: 'David'},
-  {name: 'Susie'}
-]
-
-const UserProfile = ({ risks = riskSettings, friendsList = friends }) => {
+const UserProfile = () => {
   return (
     <RowContainer>
       <Sidebar>
-        <RiskCard>
-          <h2>Risk Profile</h2>
-          <ul>
-            {risks.map(risk => {
-              const {setting, preference} = risk
-              return (
-                <li className={`pref-${preference}`}>{setting}</li>
-              )
-            })}
-
-          </ul>
-        </RiskCard>
+        <RiskProfile />
         <div>
           <h2>Friends</h2>
-          <FriendCard>
-            <Link to="/friends">View All Friends</Link>
-            {friendsList.map(friend => {
-              return (
-                <RowContainer>
-                  <img className="profile-pic" src="https://cdn.onlinewebfonts.com/svg/img_415067.png"/>
-                  <p className="spaced">{friend.name}</p>
-                </RowContainer>
-              )})
-            }
-          </FriendCard>
+          <FriendList />
         </div>
       </Sidebar>
       <ColumnContainer>

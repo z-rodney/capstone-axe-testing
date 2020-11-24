@@ -17,11 +17,17 @@ export const RiskCard = styled(Card)`
   color: white;
   box-shadow: 4px 4px 6px rbga(0,0,0,.25);
   border: none;
+  margin-top: 28px;
+`
+
+export const ResultsCard = styled(RiskCard)`
+  background: #EC4E20;
+  margin-top: 28px;
 `
 
 export const Container = styled.div`
   display: flex;
-  padding: 10px;
+  padding: 8px;
 `
 
 export const RowContainer = styled(Container)`
@@ -30,11 +36,17 @@ export const RowContainer = styled(Container)`
 
 export const ColumnContainer = styled(Container)`
   flex-flow: column nowrap;
-  flex: 1 1 65%;
+  flex: 0 1 50%;
 `
 
 export const Sidebar = styled(ColumnContainer)`
-  flex: 0 1 25%;
+  flex: 0 2 25%;
+  padding-right: 30px;
+`
+
+export const SidebarRight = styled(Sidebar)`
+  padding-left: 50px;
+  padding-right 10px;
 `
 
 
