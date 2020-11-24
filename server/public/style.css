@@ -1,0 +1,32 @@
+/*  GENERAL STYLING */
+
+body {
+  margin: 0;
+  font-family: 'Roboto Mono', monospace;
+}
+
+a, a:visited {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #EC4E20;
+}
+
+/* NAV BAR */
+
+nav {
+  background: #254441;
+  margin: 0;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+nav a, nav a:visited {
+  color: white;
+  padding: 10px;
+}
+
+
