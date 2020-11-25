@@ -1,16 +1,19 @@
 const express = require('express')
-
+const path = require('path')
 const app = express()
 
 app.use(require('express').json());
-
 const morgan = require('morgan')
-
-const path = require('path')
-
 app.use(morgan('dev'))
+app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, './public')))
+
+// app.use('/api', require('./api')); // api routes
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+}); // Send index.html
 
 //404 handler
 app.use((req, res, next) => {
@@ -22,13 +25,7 @@ app.use((req, res, next) => {
 //500 handler
 app.use((err, req, res, next) => {
     console.log(err, err.stack);
-    res.status(err.status || 500).send(`
-    <html>
-      <body>
-        <h1 style = color:crimson>${err}</h1>
-        <p>${err.stack}</p>
-      </body>
-    </html>`)
+    res.status(err.status || 500).send(err.message || 'Internal Server Error')
   })
 
 

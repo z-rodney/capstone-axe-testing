@@ -10,6 +10,12 @@
     "start-server": "nodemon server/index.js -e html,js,css --ignore public",
     "start-dev": "npm run build-watch & npm run start-server"
   },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Capstone-Heroes/capstone-heroes.git"
@@ -27,10 +33,15 @@
     "morgan": "^1.10.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-icons": "^3.11.0",
     "react-redux": "^7.2.2",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "redux": "^4.0.5"
+    "react-scripts": "^4.0.1",
+    "react-scroll": "^1.8.1",
+    "react-styled-carousel": "^0.5.1",
+    "redux": "^4.0.5",
+    "styled-components": "^5.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
