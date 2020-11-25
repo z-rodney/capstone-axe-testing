@@ -2,23 +2,23 @@ import React from 'react';
 import {
   HeroBg,
   HeroContainer,
-  // VideoBg,
+  // ImageBg,
   HeroContent,
   HeroH1,
   HeroP,
   HeroBtnWrapper,
 } from './HeroElements';
-// import Video from '../../videos/video.mp4';
+// import Image from '../../images/image/png';
 import { Button } from '../ButtonElement';
 
 const HeroSection = () => {
   return (
     <HeroContainer id="home">
       <HeroBg>
-        {/* <VideoBg autoPlay loop muted src={videoUrl} type="video/mp4" /> */}
+        {/* <ImageBg src={Image} type="image/png" /> */}
       </HeroBg>
       <HeroContent>
-        <HeroH1>Welcome to Capstone App</HeroH1>
+        <HeroH1>Welcome to Proximity App</HeroH1>
         <HeroP>
           Sign up for a new account today and start protecting yourself, your family, friends, and play active role in protecting your community and fighting infectious diseases
         </HeroP>

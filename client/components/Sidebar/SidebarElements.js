@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link as LinkRouter } from 'react-router-dom';
-// import { Link as LinkScroll } from 'react-scroll';
+import { Link as LinkScroll } from 'react-scroll';
 import { FaTimes } from 'react-icons/fa';
 
 export const SidebarContainer = styled.aside`
@@ -8,7 +8,7 @@ export const SidebarContainer = styled.aside`
   z-index: 999;
   width: 100%;
   height: 100%;
-  background: #0d0d0d;
+  background: #B2B09B;
   display: grid;
   align-items: center;
   top: 0;
@@ -45,7 +45,7 @@ export const SidebarLink = styled(LinkRouter)`
   text-decoration: none;
   list-style: none;
   transition: all 0.2s ease-in-out;
-  color: #fff;
+  color: #010606;
   cursor: pointer;
 
   &:hover {
@@ -64,7 +64,7 @@ export const SidebarMenu = styled.ul`
   grid-template-columns: 0.95fr;
   grid-template-rows: repeat(5, 80px);
   text-align: center;
-  padding: 2rem;
+  padding: 1rem;
 
   @media screen and (max-width: 768px) {
     /* SidebarMenu will trigger in this screen size */
@@ -73,10 +73,10 @@ export const SidebarMenu = styled.ul`
 `;
 
 export const SidebarRoute = styled(LinkRouter)`
-  border-radius: 50px;
+  border-radius: 40px;
   background: #01bf71;
   white-space: nowrap;
-  padding: 16px 50px;
+  padding: 10px 30px;
   margin: 10px;
   color: #010606;
   font-size: 18px;

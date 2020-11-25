@@ -60,11 +60,11 @@ const Navbar = ({ toggle }) => {
                 <NavLinks
                   to="/"
                   id="home"
-                  smooth={true}
-                  duration={500}
-                  spy={true}
-                  exact="true"
-                  offset={-80}
+                  // smooth={true}
+                  // duration={500}
+                  // spy={true}
+                  // exact="true"
+                  // offset={-80}
                   onClick={toggleHome}
                 >
                   Home
@@ -74,12 +74,12 @@ const Navbar = ({ toggle }) => {
                 <NavLinkDown
                   to="about-us"
                   id="about-us"
-                  smooth={true}
-                  duration={500}
-                  spy={true}
-                  exact="true"
-                  offset={-80}
-                  onClick={toggleFooter}
+                  // smooth={true}
+                  // duration={500}
+                  // spy={true}
+                  // exact="true"
+                  // offset={-80}
+                  // onClick={toggleFooter}
                 >
                   About Us
                 </NavLinkDown>
@@ -88,7 +88,7 @@ const Navbar = ({ toggle }) => {
                 <NavLinks
                   to="/profile"
                   id="profile"
-                  spy={true} exact="true"
+                  // spy={true} exact="true"
                 >
                   My Account
                    <FaRegUser />

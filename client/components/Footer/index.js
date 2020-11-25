@@ -37,7 +37,8 @@ const Footer = () => {
           <FooterLinksWrapper>
             <FooterLinkItems id="about-us">
               <FooterLinkTitle>About Us</FooterLinkTitle>
-              <FooterLink to="/">Company Info</FooterLink>
+              <FooterLink to="/">Who We Are</FooterLink>
+              <FooterLink to="/">Project Info</FooterLink>
             </FooterLinkItems>
             <FooterLinkItems id="contact-us">
               <FooterLinkTitle>Contact Us</FooterLinkTitle>
@@ -90,7 +91,7 @@ const Footer = () => {
 
           <WebsiteRights>
             Designed by <i>Capstone Heroes Team - </i> Copyright &copy;
-            {new Date().getFullYear()} Capstone. All rights reserved.
+            {new Date().getFullYear()} Proximity. All rights reserved.
           </WebsiteRights>
         </SocialMediaWrap>
       </FooterWrap>
