@@ -1,5 +1,5 @@
 import React from 'react'
-import { RiskCard } from './styledComponents'
+import { RiskCard } from './StyleElements'
 
 //temp settings until db set up
 const riskSettings = [

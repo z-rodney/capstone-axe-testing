@@ -7,27 +7,14 @@ export const Card = styled.div`
   padding: 10px;
 `
 
-export const FriendCard = styled(Card)`
-  background: #e5eafa;
-  box-shadow: 4px 4px 6px rbga(0,0,0,.25);
-`
-
-export const RiskCard = styled(Card)`
-  background: #43aa8b;
-  color: white;
-  box-shadow: 4px 4px 6px rbga(0,0,0,.25);
-  border: none;
-  margin-top: 28px;
-`
-
-export const ResultsCard = styled(RiskCard)`
-  background: #EC4E20;
-  margin-top: 28px;
-`
-
 export const Container = styled.div`
   display: flex;
   padding: 8px;
+`
+
+export const ThreeQuartContainer = styled(Container)`
+  width: 85%;
+  align-self: center;
 `
 
 export const RowContainer = styled(Container)`

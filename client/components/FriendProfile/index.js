@@ -1,7 +1,9 @@
 import React from 'react'
-import { ColumnContainer, RowContainer, Card, SidebarRight, ResultsCard } from './styledComponents'
-import FriendList from './FriendList'
-import RiskProfile from './RiskProfile'
+//at some point will be able to remove card from imports
+import { ColumnContainer, RowContainer, Card, SidebarRight } from '../styledComponents/index'
+import { ResultsCard } from './StyleElements'
+import FriendList from '../FriendsList'
+import RiskProfile from '../RiskProfile'
 
 const friend = {
   name: 'Stanley',
@@ -20,6 +22,7 @@ const FriendProfile = () => {
       </RowContainer>
       <RowContainer>
         <ColumnContainer>
+          {/* TO-DO: get react calendar component and insert here */}
           <div>
           <h2>November 2020</h2>
            <Card>
@@ -32,14 +35,14 @@ const FriendProfile = () => {
         </ColumnContainer>
         <SidebarRight flex="0 1 35%">
           <div>
-            <h2>{`${friend.name}'s Pod`}</h2>
-            <FriendList />
-          </div>
-          <div>
             <ResultsCard>
               <h2>Test Results</h2>
               <p>Negative: 10.20.20</p>
             </ResultsCard>
+          </div>
+          <div>
+            <h2>Following</h2>
+            <FriendList />
           </div>
         </SidebarRight>
       </RowContainer>
