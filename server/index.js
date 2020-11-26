@@ -1,16 +1,16 @@
-const express = require('express')
+const express = require('express');
+const morgan = require('morgan');
+const path = require('path');
+const auth = require('./middleware/auth');
 
-const app = express()
+const app = express();
 
 app.use(require('express').json());
+app.use(morgan('dev'));
+app.use(express.static(path.join(__dirname, './public')));
 
-const morgan = require('morgan')
-
-const path = require('path')
-
-app.use(morgan('dev'))
-
-app.use(express.static(path.join(__dirname, './public')))
+app.use(auth);
+app.use('/api', require('./api'));
 
 //404 handler
 app.use((req, res, next) => {
