@@ -11,15 +11,14 @@ function getUser(username) {
     // create a session to run cypher statements in
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
 
-    return session.readTransaction((tx) => 
-            tx.run("MATCH (user:User {username:$username} \
-                    RETURN user") // NEED TO CONFIRM IF THIS QUERY WORKS
+    return session.readTransaction((tx) =>
+            tx.run("MATCH (user:User {username:$username}) \
+                    RETURN user", { username })
         )
         .then(result => {
             if (_.isEmpty(result.records)) return null;
-
             const record = result.records[0];
-            return new User(record.get('user')); // NOT SURE EXACTLY WHAT IS PASSED HERE...?
+            return new User(record.get('user')); // return user node with properties
         })
         .catch(err => {
             throw err;

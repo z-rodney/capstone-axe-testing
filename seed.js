@@ -17,52 +17,40 @@ const seed = async (db) => {
 
         // drop existing db records (similar to force: true in sequelize)
         await session.run('MATCH (n) DETACH DELETE n');
-        
+
         // create 4 new users
         await session.run(
-            'MERGE (u:User { username:$username, password:$password, householdSize:$householdSize, \
-                covidPosContact:$covidPosContact, covidTest:$covidTest, testDate:$testDate }) RETURN u', 
+            'UNWIND $props AS map \
+            CREATE (u:User) \
+            SET u = map',
             {
-                username: 'zoe',
-                password: hashedPW,
-                householdSize: 2,
-                covidPosContact: false,
-                covidTest: 'negative', 
-                testDate: '2020-11-23' 
-            }
-        );
-        await session.run(
-            'MERGE (u:User { username:$username, password:$password, householdSize:$householdSize, \
-                covidPosContact:$covidPosContact }) RETURN u', 
-            {
-                username: 'zaina',
-                password: hashedPW,
-                householdSize: 4,
-                covidPosContact: false,
-            }
-        );
-        await session.run(
-            'MERGE (u:User { username:$username, password:$password, householdSize:$householdSize, \
-                covidPosContact:$covidPosContact, covidTest:$covidTest, testDate:$testDate }) RETURN u', 
-            {
-                username: 'rehab',
-                password: hashedPW,
-                householdSize: 3,
-                covidPosContact: false,
-                covidTest: 'negative', 
-                testDate: '2020-11-02' 
-            }
-        );
-        await session.run(
-            'MERGE (u:User { username:$username, password:$password, householdSize:$householdSize, \
-                covidPosContact:$covidPosContact, covidTest:$covidTest, testDate:$testDate }) RETURN u', 
-            {
-                username: 'ranffi',
-                password: hashedPW,
-                householdSize: 2,
-                covidPosContact: false,
-                covidTest: 'negative', 
-                testDate: '2020-11-01'
+                "props": [{
+                    "username": "zoe",
+                    "password": hashedPW,
+                    "householdSize": 2,
+                    "covidPosContact": false,
+                    "covidTest": "negative",
+                    "testDate": "2020-11-23"
+                }, {
+                    "username": "zaina",
+                    "password": hashedPW,
+                    "householdSize": 4,
+                    "covidPosContact": false
+                }, {
+                    "username": "rehab",
+                    "password": hashedPW,
+                    "householdSize": 3,
+                    "covidPosContact": false,
+                    "covidTest": "negative",
+                    "testDate": "2020-11-02"
+                }, {
+                    "username": "ranffi",
+                    "password": hashedPW,
+                    "householdSize": 2,
+                    "covidPosContact": false,
+                    "covidTest": "negative",
+                    "testDate": "2020-11-01"
+                }]
             }
         );
 
@@ -92,6 +80,7 @@ const seed = async (db) => {
             }
         );
 
+        console.log('seed complete!');
         session.close();
     }
     catch(err) {
