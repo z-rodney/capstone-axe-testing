@@ -18,6 +18,9 @@ const seed = async (db) => {
         // drop existing db records (similar to force: true in sequelize)
         await session.run('MATCH (n) DETACH DELETE n');
 
+        // add unique constraint for username
+        await session.run("CREATE CONSTRAINT unique_username IF NOT EXISTS ON (user:User) ASSERT user.username IS UNIQUE");
+
         // create 4 new users
         await session.run(
             'UNWIND $props AS map \

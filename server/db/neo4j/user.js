@@ -1,8 +1,10 @@
 const _ = require('lodash');
+const apoc = require('apoc');
 const User = require('../models/User');
+const Session = require('../models/Session');
 const driver = require('../db');
 
-// Finds the user node for a given cookie sessionId
+// INPUT: cookie's sessionId OUTPUT: user node
 function getSession(sessionId) {
     // create a session to run cypher statements in
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
@@ -25,7 +27,7 @@ function getSession(sessionId) {
         });
 }
 
-// EXPRESS ROUTE WILL CALL THIS FUNCTION DIRECTLY
+// INPUT: username OUTPUT: user node
 function getUser(username) {
 
     // Uses default neo4j database in neo4j desktop, which developers must run
@@ -52,16 +54,20 @@ function getUser(username) {
         });
 }
 
+// INPUT: user properties OUTPUT: newly created user node
 function createUser(username, password) {
+    console.log('in createUser');
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
 
-    // include logic here or elsewhere that handles duplicate usernames?
     return session.writeTransaction((tx) =>
-        tx.run("CREATE (user:User { username: $username, password: $password }) RETURN user",
-            {
-                username: username,
-                password: password
-            })
+        tx.run("CREATE (user:User $props) RETURN user",
+                {
+                    "props": {
+                        "username": username,
+                        "password": password
+                    }
+                }
+            )
         )
         .then(result => {
             if (_.isEmpty(result.records)) return null;
@@ -76,22 +82,25 @@ function createUser(username, password) {
         });
 }
 
+// INPUT: username OUTPUT: newly created session node
 function createSession(username) {
+    console.log('in createSession');
+
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
 
     return session.writeTransaction((tx) =>
-        tx.run("MATCH user:User { username: $username } \
-                CREATE session:Session { sessionId: apoc.create.uuid() } \
-                CREATE (user)-[rel:HAS_SESSION]->(session) \
+        tx.run("MATCH (user:User { username: $username }) \
+                CREATE (user)-[rel:HAS_SESSION]->(session:Session { sessionId: $sessionId }) \
                 RETURN session",
             {
                 username: username,
+                sessionId: 123 //apoc.create.uuid()
             })
         )
         .then(result => {
             if (_.isEmpty(result.records)) return null;
             const record = result.records[0];
-            return new User(record.get('session'));
+            return new Session(record.get('session'));
         })
         .catch(err => {
             throw err;
