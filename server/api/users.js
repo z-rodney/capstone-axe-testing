@@ -11,21 +11,30 @@ router.post('/', async (req, res) => {
   const { username, password } = req.body;
   const hashedPW = await bcrypt.hash(password, 10);
 
+  const mailFormat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
   try {
-    const newUser = await createUser(username, hashedPW);
-    if (newUser) {
-      const newSession = await createSession(username);
-      res.cookie('sessionId', newSession.sessionId, {
-        maxAge: A_WEEK_IN_SECONDS,
-        path: '/',
+    // validate email address before createUser
+    if (!username.match(mailFormat)) {
+      res.status(400).send({
+        unError: 'Not a valid email address.'
       });
-
-      //another password emptier:
-      newUser.password = ''
-
-      res.status(201).send(newUser);
     } else {
-      res.sendStatus(400);
+      const newUser = await createUser(username, hashedPW);
+      if (newUser) {
+        const newSession = await createSession(username);
+        res.cookie('sessionId', newSession.sessionId, {
+          maxAge: A_WEEK_IN_SECONDS,
+          path: '/',
+        });
+
+        //another password emptier:
+        newUser.password = ''
+
+        res.status(201).send(newUser);
+      } else {
+        res.sendStatus(400);
+      }
     }
   } catch (e) {
     //this checks the type of error coming from sequelize
