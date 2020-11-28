@@ -1,5 +1,3 @@
-//this logic will eventually need to be moved to server side locations
-
 export const generateJSONFeatures = (locations) => {
   const geoJSONData = {
     type: 'geojson',
