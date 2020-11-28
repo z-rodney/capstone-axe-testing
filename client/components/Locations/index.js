@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import mapboxgl from 'mapbox-gl'
-import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl'
-import { MAPBOXPK, mapBoxStyleURL } from '../../../constants'
 import { Card } from '../styledComponents/'
+import { MAPBOXPK, mapBoxStyleURL } from '../../../constants'
 import { generateJSONFeatures } from '../../utils'
 
 mapboxgl.accessToken = MAPBOXPK
 
+//object formatted for mapbox Map
 const sourceData = {
   id: 'visited-locations-layer',
   source: 'visited-locations-data',
@@ -22,6 +22,8 @@ const sourceData = {
 function Locations() {
   const locations = useSelector(state => state.locations)
   const mapContainerRef = useRef(null)
+  //helper function that takes array of coordinates and turns it into
+  //specifically formatted JSON for geographic information
   const geoJSONSource = generateJSONFeatures(locations)
 
   useEffect(() => {
@@ -33,7 +35,9 @@ function Locations() {
     });
 
     map.on("load", () => {
+      //source with visited locations to render
       map.addSource('visited-locations-data', geoJSONSource)
+      //layer on map that renders source
       map.addLayer(sourceData)
     })
 
@@ -49,33 +53,3 @@ function Locations() {
 }
 
 export default Locations
-
-
-/*<Map
-        style={mapBoxStyleURL}
-        containerStyle={{
-          height: '40vh',
-          width: '50vw'
-        }}
-        center={[-73.94, 40.73]}
-        zoom={[10]}
-      >
-        <Layer
-          type="symbol"
-          id="markers"
-          layout={{
-            "icon-image": "za-provincial-2",
-            "icon-anchor": "bottom",
-            "text-field": "Visited"
-          }}
-        >
-          {userLocations.map(coords => {
-            return (
-              <Feature coordinates={coords}/>
-              )
-            })}
-          <Feature coordinates={[-73.96666700000003, 40.785167]} />
-          <Feature coordinates={[-73.96900904305689, 40.6627416764545]} />
-          <Feature coordinates={[-73.92555771551504, 40.87191365945296]} />
-        </Layer>
-      </Map>*/
