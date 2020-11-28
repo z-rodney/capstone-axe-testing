@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const apoc = require('apoc');
 const User = require('../models/User');
 const Session = require('../models/Session');
 const driver = require('../db');
@@ -90,12 +89,9 @@ function createSession(username) {
 
     return session.writeTransaction((tx) =>
         tx.run("MATCH (user:User { username: $username }) \
-                CREATE (user)-[rel:HAS_SESSION]->(session:Session { sessionId: $sessionId }) \
+                CREATE (user)-[rel:HAS_SESSION]->(session:Session { sessionId: apoc.create.uuid() }) \
                 RETURN session",
-            {
-                username: username,
-                sessionId: 123 //apoc.create.uuid()
-            })
+            { username: username })
         )
         .then(result => {
             if (_.isEmpty(result.records)) return null;
