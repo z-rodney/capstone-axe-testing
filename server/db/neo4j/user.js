@@ -3,6 +3,9 @@ const apoc = require('apoc');
 const User = require('../models/User');
 const Session = require('../models/Session');
 const driver = require('../db');
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 
 // INPUT: cookie's sessionId OUTPUT: user node
 function getSession(sessionId) {
@@ -56,7 +59,6 @@ function getUser(username) {
 
 // INPUT: user properties OUTPUT: newly created user node
 function createUser(username, password) {
-    console.log('in createUser');
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
 
     return session.writeTransaction((tx) =>
@@ -84,8 +86,6 @@ function createUser(username, password) {
 
 // INPUT: username OUTPUT: newly created session node
 function createSession(username) {
-    console.log('in createSession');
-
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
 
     return session.writeTransaction((tx) =>

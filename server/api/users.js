@@ -8,7 +8,6 @@ const A_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 // POST /api/users
 // Creates new user in db
 router.post('/', async (req, res) => {
-  console.log(req.body)
   const { username, password } = req.body;
   const hashedPW = await bcrypt.hash(password, 10);
 
@@ -40,13 +39,11 @@ router.post('/', async (req, res) => {
         pwError: 'Something went horribly wrong.'
       })
     }
-    console.log(e);
   }
 })
 
 // POST /api/users/login
 router.post('/login', async (req, res) => {
-  console.log(req.body);
   const { username, password } = req.body
 
   if (typeof username !== 'string' || typeof password !== 'string') {
