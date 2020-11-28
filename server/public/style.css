@@ -79,4 +79,10 @@ h1 {
   margin-top: 0;
 }
 
+/* MAP */
+.map-container {
+  height: 40vh;
+  width: 50vw
+}
+
 

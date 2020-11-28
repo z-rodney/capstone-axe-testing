@@ -2,6 +2,7 @@ import React from 'react'
 import { RowContainer, ColumnContainer, Card, Sidebar } from '../styledComponents'
 import RiskProfile from '../RiskProfile'
 import FriendList from '../FriendsList'
+import Locations from '../Locations'
 
 
 const UserProfile = () => {
@@ -19,9 +20,7 @@ const UserProfile = () => {
         <ColumnContainer>
           <div>
             <h2>My Locations</h2>
-            <Card>
-              <p>Map to go here</p>
-            </Card>
+            <Locations />
           </div>
           <div>
             <h2>My Events</h2>
