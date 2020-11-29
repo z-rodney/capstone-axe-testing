@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import mapboxgl from 'mapbox-gl'
 import { Card } from '../styledComponents/'
 import { MAPBOXPK, mapBoxStyleURL } from '../../../constants'
 import { generateJSONFeatures } from '../../utils'
-import LocationForm from './LocationForm'
+import FormWrapper from './LocationForm'
 
 mapboxgl.accessToken = MAPBOXPK
 
@@ -21,7 +21,6 @@ const sourceData = {
 }
 
 function Locations() {
-  const [showForm, setShowForm] = useState(false)
   const locations = useSelector(state => state.locations)
   const mapContainerRef = useRef(null)
   //helper function that takes array of coordinates and turns it into
@@ -48,7 +47,7 @@ function Locations() {
 
   return (
     <Card>
-      <LocationForm />
+      <FormWrapper />
       <div className="map-container" ref={mapContainerRef} />
     </Card>
   )

@@ -1,4 +1,22 @@
+import axios from 'axios'
+import { ADD_LOCATION } from './actionConstants'
 
+export const _addLocation = (location) => ({
+  type: ADD_LOCATION,
+  location
+})
+
+export const addLocation = (location) => {
+  return async (dispatch) => {
+    try {
+      //await axios.post('api/users/API URL HERE', {location})
+      dispatch(_addLocation(location))
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+}
 
 //temp state until hooked up to the backend
 const tempInitialState = [
@@ -9,6 +27,8 @@ const tempInitialState = [
 
 export default function locationsReducer(state = tempInitialState, action) {
   switch (action.type) {
+    case ADD_LOCATION:
+      return [action.location, ...state]
     default:
       return state
   }
