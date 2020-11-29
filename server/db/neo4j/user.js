@@ -106,9 +106,36 @@ function createSession(username) {
         });
 }
 
+// INPUT: username & new data OUTPUT: updated user node
+function updateUser(username, data) {
+    const session = driver.session({ database: process.env.NEO4J_DATABASE });
+
+    return session.writeTransaction((tx) =>
+        tx.run("UNWIND $props AS map \
+                MATCH (user:User { username: $username }) \
+                SET user += map",
+            {
+                "props": [ data ],
+                "username": username
+            })
+        )
+        .then(result => {
+            if (_.isEmpty(result.records)) return null;
+            const record = result.records[0];
+            return new User(record.get('user'));
+        })
+        .catch(err => {
+            throw err;
+        })
+        .finally(() => {
+            return session.close();
+        });
+}
+
 module.exports = {
     getSession,
     getUser,
     createUser,
-    createSession
+    createSession,
+    updateUser
 }

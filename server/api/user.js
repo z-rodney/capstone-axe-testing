@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const { createUser, createSession, getUser } = require('../db/neo4j/user');
+const { createUser, createSession, getUser, getSession, updateUser } = require('../db/neo4j/user');
 
 const A_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 
-// POST /api/users
+// POST /api/user
 // Creates new user in db
 router.post('/', async (req, res) => {
   const { username, password } = req.body;
@@ -51,7 +51,7 @@ router.post('/', async (req, res) => {
   }
 })
 
-// POST /api/users/login
+// POST /api/user/login
 router.post('/login', async (req, res) => {
   const { username, password } = req.body
 
@@ -93,6 +93,19 @@ router.post('/login', async (req, res) => {
         message: e.message,
       })
     }
+  }
+})
+
+// PUT /api/user
+router.put('/', async (req, res, next) => {
+  try {
+    // const { username } = req.user;
+    const username ='zoe'
+    const updatedUser = await updateUser(username, req.body);
+    res.status(200).send(updatedUser);
+  }
+  catch(err) {
+    next(err);
   }
 })
 
