@@ -1,5 +1,4 @@
 const express = require('express')
-
 const app = express()
 
 app.use(require('express').json());
@@ -14,6 +13,10 @@ app.use(express.static(path.join(__dirname, './public')))
 
 app.use('/api', require('./routes'))
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'))
+})
+
 //404 handler
 app.use((req, res, next) => {
     const error = Error(`Page not found(${req.url})`)
@@ -24,13 +27,7 @@ app.use((req, res, next) => {
 //500 handler
 app.use((err, req, res, next) => {
     console.log(err, err.stack);
-    res.status(err.status || 500).send(`
-    <html>
-      <body>
-        <h1 style = color:crimson>${err}</h1>
-        <p>${err.stack}</p>
-      </body>
-    </html>`)
+    res.status(err.status || 500).send(err.message || 'Internal Server Error')
   })
 
 
@@ -38,7 +35,6 @@ const port = process.env.PORT || 8080;
 
 const init = () => {
   try {
-
     app.listen(port, () => console.log(`listening on port ${port}`));
   }
   catch (err) {
