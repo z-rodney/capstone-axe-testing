@@ -12,6 +12,8 @@ app.use(morgan('dev'))
 
 app.use(express.static(path.join(__dirname, './public')))
 
+app.use('/api', require('./routes'))
+
 //404 handler
 app.use((req, res, next) => {
     const error = Error(`Page not found(${req.url})`)
