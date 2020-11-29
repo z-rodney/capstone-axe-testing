@@ -8,7 +8,7 @@ import {
   HeroP,
   HeroBtnWrapper,
 } from './HeroElements';
-// import Image from '../../images/image/png';
+// import Image from '../../../server/public/images/contract-tracing';
 import { Button } from '../ButtonElement';
 
 const HeroSection = () => {

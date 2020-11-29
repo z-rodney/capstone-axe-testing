@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaBars, FaRegUser } from 'react-icons/fa';
+import { FaBars, FaRegUserCircle } from 'react-icons/fa';
 import { GrLocation } from 'react-icons/gr';
 // import { BsSearch } from 'react-icons/bs';
 import { animateScroll as scroll } from 'react-scroll';
@@ -12,6 +12,7 @@ import {
   NavLinks,
   NavMenu,
   NavItem,
+  NavIcon,
   NavBtn,
   NavBtnLink,
   // Form,
@@ -19,6 +20,7 @@ import {
   // FormButton,
   NavLinkDown,
 } from './NavbarElements';
+// import Image from '../../../server/public/images/LogoIcon.ico';
 
 const Navbar = ({ toggle }) => {
   const [scrollNav, setScrollNav] = useState(false);
@@ -45,10 +47,10 @@ const Navbar = ({ toggle }) => {
 
   return (
     <>
-      <IconContext.Provider value={{ color: '#010606' }}>
+      <IconContext.Provider value={{ color: '#fff' }}>
         <Nav scrollNav={scrollNav}>
           <NavbarContainer>
-            <NavLogo to="/" onClick={toggleHome}>
+            <NavLogo to="/" onClick={toggleHome} >
               <GrLocation />
               Proximity
             </NavLogo>
@@ -91,9 +93,12 @@ const Navbar = ({ toggle }) => {
                   // spy={true} exact="true"
                 >
                   My Account
-                   <FaRegUser />
+
                 </NavLinks>
               </NavItem>
+                <NavIcon>
+                    <FaRegUserCircle />
+                </NavIcon>
             </NavMenu>
             {/* <NavItem>
               <Form className="search-form" action="#">

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const HeroContainer = styled.nav`
-  background: #EC4E20;
+  background: #B2B09B;
   height: 600px;
   padding: 0 10px;
   display: flex;
@@ -22,13 +22,13 @@ export const HeroBg = styled.nav`
   overflow: hidden;
 `;
 
-// export const ImageBg = styled.video`
-//   width: 100%;
-//   height: 100%;
-//   -o-object-fit: cover;
-//   object-fit: cover;
-//   background: #232a34;
-// `;
+export const ImageBg = styled.image`
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  background: #232a34;
+`;
 
 export const HeroContent = styled.nav`
   max-width: 1200px;

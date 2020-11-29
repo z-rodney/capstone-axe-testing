@@ -4,7 +4,7 @@ import { Link as LinkScroll } from 'react-scroll';
 
 export const Nav = styled.nav`
   ${'' /* background: ${({ scrollNav }) => (scrollNav ? '#43AA8B' : 'transparent')}; */}
-  background: #B2B09B;
+  background: #254441;
   height: 80px;
   ${'' /* margin-top: -80px; */}
   margin-top: 0;
@@ -33,7 +33,7 @@ export const NavbarContainer = styled.div`
 `;
 
 export const NavLogo = styled(LinkRouter)`
-  color: #010606;
+  color: #fff;
   display: flex;
   justify-self: flex-start;
   align-items: center;
@@ -57,6 +57,7 @@ export const NavLogo = styled(LinkRouter)`
 
 export const MobileIcon = styled.div`
   display: none;
+  color: #fff;
 
   @media screen and (max-width: 860px) {
     /* MobileIcon will trigger in this screen size */
@@ -94,8 +95,19 @@ export const NavItem = styled.li`
   padding: 0 1rem;
 `;
 
+export const NavIcon = styled.div`
+  color: #fff;
+  height: 100px;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  align-self: left;
+  margin: 0;
+  padding: 0;
+  `;
+
 export const NavLinks = styled(LinkRouter)`
-  color: #010606;
+  color: #fff;
   display: flex;
   align-items: center;
   height: 100%;
@@ -111,12 +123,12 @@ export const NavLinks = styled(LinkRouter)`
 
   &:hover {
     transition: all 0.2s ease-in-out;
-    color: #01bf71;
+    color: #EC4E20;
   }
 `;
 
 export const NavLinkDown = styled(LinkScroll)`
-  color: #010606;
+  color: #fff;
   display: flex;
   align-items: center;
   height: 100%;
@@ -130,7 +142,7 @@ export const NavLinkDown = styled(LinkScroll)`
   }
   &:hover {
     transition: all 0.2s ease-in-out;
-    color: #01bf71;
+    color: #EC4E20;
   }
 `;
 
@@ -148,11 +160,11 @@ export const NavBtn = styled.nav`
 
 export const NavBtnLink = styled(LinkRouter)`
   border-radius: 50px;
-  background: #43AA8B;
+  background: #EC4E20;
   white-space: nowrap;
   padding: 10px 20px;
   margin-bottom: 20px;
-  color: #010606;
+  color: #fff;
   font-size: 18px;
   outline: none;
   border: none;
@@ -161,9 +173,9 @@ export const NavBtnLink = styled(LinkRouter)`
   transition: all 0.2s ease-in-out;
 
   &:hover {
-    background: #fff;
+    background: #01bf71;
     transition: all 0.2s ease-in-out;
-    color: #010606;
+    color: #fff;
   }
 `;
 
