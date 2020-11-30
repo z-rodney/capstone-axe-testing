@@ -12,6 +12,8 @@ To run this project locally and seed the database
 
 Install Neo4j desktop (https://neo4j.com/download/) and create a new database with the default name of neo4j and password 2007flex.
 
+Add Neo4j APOC library to your database (https://neo4j.com/developer/neo4j-apoc/).
+
 ```
 npm install
 npm run seed

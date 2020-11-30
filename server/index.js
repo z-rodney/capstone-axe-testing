@@ -1,15 +1,16 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const morgan = require('morgan');
+const path = require('path');
+const auth = require('./middleware/auth');
+
+const app = express();
 
 app.use(require('express').json());
+app.use(morgan('dev'));
+app.use(express.static(path.join(__dirname, './public')));
 
-const morgan = require('morgan')
-
-const path = require('path')
-
-app.use(morgan('dev'))
-
-app.use(express.static(path.join(__dirname, './public')))
+app.use(auth);
+app.use('/api', require('./api'));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './public/index.html'))
