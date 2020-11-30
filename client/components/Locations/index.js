@@ -4,7 +4,6 @@ import mapboxgl from 'mapbox-gl'
 import { Card } from '../styledComponents/'
 import { MAPBOXPK, mapBoxStyleURL } from '../../../constants'
 import { generateJSONFeatures } from '../../utils'
-import FormWrapper from './LocationForm'
 
 mapboxgl.accessToken = MAPBOXPK
 
@@ -14,9 +13,9 @@ const sourceData = {
   source: 'visited-locations-data',
   type: 'symbol',
   layout: {
-    "icon-image": "za-provincial-2",
-    "icon-anchor": "bottom",
-    "icon-allow-overlap": true,
+    'icon-image': 'za-provincial-2',
+    'icon-anchor': 'bottom',
+    'icon-allow-overlap': true,
   }
 }
 
@@ -35,7 +34,7 @@ function Locations() {
     zoom: 10
     });
 
-    map.on("load", () => {
+    map.on('load', () => {
       //source with visited locations to render
       map.addSource('visited-locations-data', geoJSONSource)
       //layer on map that renders source
@@ -47,7 +46,6 @@ function Locations() {
 
   return (
     <Card>
-      <FormWrapper />
       <div className="map-container" ref={mapContainerRef} />
     </Card>
   )

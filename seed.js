@@ -1,3 +1,4 @@
+/* eslint-disable no-multi-str */
 const bcrypt = require('bcrypt');
 const driver = require('./server/db/db');
 const { NEO4J_DATABASE } = require('./constants');
@@ -49,7 +50,7 @@ const seed = async (db) => {
                     "householdSize": 2,
                     "covidPosContact": false,
                     "covidTest": "negative",
-                    "testDate": "2020-11-01"
+                    'testDate': '2020-11-01'
                 }]
             }
         );
@@ -83,7 +84,7 @@ const seed = async (db) => {
         console.log('seed complete!');
         session.close();
     }
-    catch(err) {
+    catch (err) {
         console.log(err);
     }
 

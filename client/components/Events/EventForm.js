@@ -3,7 +3,7 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import { MAPBOXPK } from '../../../constants'
 import { useDispatch } from 'react-redux'
 import { addLocation } from '../../redux/userLocations'
-import { LocationFormStyle, LocationFormInput, LocationButton, Button } from './StyleElements'
+import { LocationFormStyle, LocationFormInput, LocationButton, Button } from '../Locations/StyleElements'
 import { useInput } from '../../customHooks/useInput'
 
 function LocationForm({ setShowForm }) {

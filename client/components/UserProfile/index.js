@@ -1,8 +1,9 @@
 import React from 'react'
-import { RowContainer, ColumnContainer, Card, Sidebar } from '../styledComponents'
+import { RowContainer, ColumnContainer, Sidebar } from '../styledComponents'
 import RiskProfile from '../RiskProfile'
 import FriendList from '../FriendsList'
 import Locations from '../Locations'
+import Events from '../Events'
 
 
 const UserProfile = () => {
@@ -24,9 +25,7 @@ const UserProfile = () => {
           </div>
           <div>
             <h2>My Events</h2>
-            <Card>
-              <p>Calendar to go here</p>
-            </Card>
+            <Events />
           </div>
         </ColumnContainer>
       </RowContainer>
