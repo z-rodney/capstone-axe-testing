@@ -1,5 +1,6 @@
 import React from 'react'
 import AddEvent from './EventForm'
+import EventDetails from './EventDetails'
 import { Card } from '../styledComponents'
 
 function Events() {
@@ -9,6 +10,7 @@ function Events() {
       <div>
         <p>Calendar to go here</p>
       </div>
+      <EventDetails />
     </Card>
   )
 }

@@ -3,11 +3,13 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import { MAPBOXPK } from '../../../constants'
 import { useDispatch } from 'react-redux'
 import { addLocation } from '../../redux/userLocations'
-import { LocationFormStyle, LocationFormInput, LocationButton, Button } from '../Locations/StyleElements'
+import { LocationFormStyle, LocationFormInput, LocationButton, Button } from './StyleElements'
 import { useInput } from '../../customHooks/useInput'
 
 function LocationForm({ setShowForm }) {
+  const [title, setTitle] = useInput('')
   const [date, setDate] = useInput('')
+  const [placeName, setPlaceName] = useState('')
   const [coords, setCoords] = useState([])
   //container that holds geocoder
   const geocoderContainer = useRef(document.getElementById('geocoder'))
@@ -36,6 +38,7 @@ function LocationForm({ setShowForm }) {
 
   //when a location is selected, save the coords
   geocoder.on('result', (ev) => {
+    setPlaceName(ev.result.place_name)
     setCoords(ev.result.geometry.coordinates)
   })
 
@@ -43,8 +46,10 @@ function LocationForm({ setShowForm }) {
     ev.preventDefault()
     console.log('submitted', coords)
     let newLocationData = {
+      title,
       date,
-      coordinates: coords
+      coordinates: coords,
+      placeName
     }
     dispatch(addLocation(newLocationData))
     setShowForm(false)
@@ -53,8 +58,8 @@ function LocationForm({ setShowForm }) {
   return (
   <LocationFormStyle id="location-form" onSubmit={handleSubmit}>
     <div id="geocoder" ref={geocoderContainer} />
+      <LocationFormInput id="title" placeholder="Title" onChange={ (ev) => (setTitle(ev)) } />
       <LocationFormInput id="date-visited" placeholder="Date Visited" onChange={(ev) => { setDate(ev) }} />
-      <LocationFormInput />
     <LocationButton type="submit">Submit</LocationButton>
   </LocationFormStyle>
   )

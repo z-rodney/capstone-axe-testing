@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const Button = styled.button`
-  float: right;
   margin: 5px 0;
   font-size: 1rem;
   font-family: "Roboto Mono";
@@ -44,4 +43,17 @@ export const LocationButton = styled.button`
 export const LocationFormInput = styled.input`
   height: 36px;
   margin: 6px 0;
+`
+
+export const DetailCard = styled.div`
+  background: #F7F7F7;
+  border-radius: 9px;
+  box-sizing: border-box;
+  padding: 7px;
+`
+
+export const Title = styled.h4`
+  color: #ec4e20;
+  margin-bottom: 0;
+  text-align: center;
 `
