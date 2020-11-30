@@ -53,7 +53,8 @@ function LocationForm({ setShowForm }) {
   return (
   <LocationFormStyle id="location-form" onSubmit={handleSubmit}>
     <div id="geocoder" ref={geocoderContainer} />
-      <LocationFormInput id="date-visited" placeholder="Date Visited" onChange={(ev) => { setDate(ev) }}/>
+      <LocationFormInput id="date-visited" placeholder="Date Visited" onChange={(ev) => { setDate(ev) }} />
+      <LocationFormInput />
     <LocationButton type="submit">Submit</LocationButton>
   </LocationFormStyle>
   )
@@ -61,14 +62,14 @@ function LocationForm({ setShowForm }) {
 
 //separated into two components to fix some render weirdness with the geocoder
 //and so the map doesnt re-render whenever you hide and show the form
-function FormWrapper() {
+function AddEvent() {
   const [showForm, setShowForm] = useState(false)
   return (
     <div>
       <Button onClick={() => { setShowForm(!showForm) }}>{showForm ? 'x Cancel' : '+ Add New Location'}</Button>
-      {showForm && <LocationForm setShowForm={setShowForm}/>}
+      {showForm && <LocationForm setShowForm={setShowForm} />}
     </div>
   )
 }
 
-export default FormWrapper
+export default AddEvent
