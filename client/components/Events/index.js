@@ -1,10 +1,14 @@
 import React from 'react'
+import EventForm from './EventForm'
 import { Card } from '../styledComponents'
 
 function Events() {
   return (
     <Card>
-      <p>Calendar to go here</p>
+
+      <div>
+        <p>Calendar to go here</p>
+      </div>
     </Card>
   )
 }
