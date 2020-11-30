@@ -8,6 +8,7 @@ const app = express();
 app.use(require('express').json());
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, './public')));
+app.use(express.urlencoded({ extended: true }));
 
 app.use(auth);
 app.use('/api', require('./api'));
