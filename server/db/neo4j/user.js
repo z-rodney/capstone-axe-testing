@@ -2,7 +2,11 @@ const _ = require('lodash');
 const User = require('../models/User');
 const driver = require('../db');
 
-// EXPRESS ROUTE WILL CALL THIS FUNCTION DIRECTLY
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
+// INPUT: username OUTPUT: user node
 function getUser(username) {
 
     // Uses default neo4j database in neo4j desktop, which developers must run
@@ -12,13 +16,13 @@ function getUser(username) {
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
 
     return session.readTransaction((tx) =>
-            tx.run("MATCH (user:User {username:$username}) \
+            tx.run("MATCH (user:User {username: $username}) \
                     RETURN user", { username })
         )
         .then(result => {
             if (_.isEmpty(result.records)) return null;
             const record = result.records[0];
-            return new User(record.get('user')); // return user node with properties
+            return new User(record.get('user'));
         })
         .catch(err => {
             throw err;
@@ -29,6 +33,65 @@ function getUser(username) {
         });
 }
 
+// INPUT: user properties OUTPUT: newly created user node
+function createUser(username, password) {
+    const session = driver.session({ database: process.env.NEO4J_DATABASE });
+
+    return session.writeTransaction((tx) =>
+        tx.run("CREATE (user:User $props) RETURN user",
+                {
+                    "props": {
+                        "username": username,
+                        "password": password
+                    }
+                }
+            )
+        )
+        .then(result => {
+            if (_.isEmpty(result.records)) return null;
+            const record = result.records[0];
+            const newUser = new User(record.get('user'));
+            newUser.password = '';
+            return newUser;
+        })
+        .catch(err => {
+            throw err;
+        })
+        .finally(() => {
+            return session.close();
+        });
+}
+
+// INPUT: username & new data OUTPUT: updated user node
+function updateUser(username, data) {
+    const session = driver.session({ database: process.env.NEO4J_DATABASE });
+
+    return session.writeTransaction((tx) =>
+        tx.run("UNWIND $props AS map \
+                MATCH (user:User { username: $username }) \
+                SET user += map",
+            {
+                "props": [ data ],
+                "username": username
+            })
+        )
+        .then(result => {
+            if (_.isEmpty(result.records)) return null;
+            const record = result.records[0];
+            const newUser = new User(record.get('user'));
+            newUser.password = "";
+            return newUser;
+        })
+        .catch(err => {
+            throw err;
+        })
+        .finally(() => {
+            return session.close();
+        });
+}
+
 module.exports = {
-    getUser
+    getUser,
+    createUser,
+    updateUser
 }
