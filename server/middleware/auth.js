@@ -1,4 +1,4 @@
-const { getSession } = require('../db/neo4j/user');
+const { getSession } = require('../db/neo4j/session');
 
 const auth = async (req, res, next) => {
   if (req.cookies) {

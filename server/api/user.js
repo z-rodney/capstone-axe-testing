@@ -1,13 +1,14 @@
 const express = require('express');
-const router = express.Router();
+const userRouter = express.Router();
 const bcrypt = require('bcrypt');
-const { createUser, createSession, getUser, getSession, updateUser } = require('../db/neo4j/user');
+const { createUser, updateUser } = require('../db/neo4j/user');
+const { createSession } = require('../db/neo4j/session');
 
 const A_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 
 // POST /api/user
 // Creates new user in db
-router.post('/', async (req, res) => {
+userRouter.post('/', async (req, res) => {
   const { username, password } = req.body;
   const hashedPW = await bcrypt.hash(password, 10);
 
@@ -27,9 +28,6 @@ router.post('/', async (req, res) => {
           maxAge: A_WEEK_IN_SECONDS,
           path: '/',
         });
-
-        //another password emptier:
-        newUser.password = ''
 
         res.status(201).send(newUser);
       } else {
@@ -51,56 +49,11 @@ router.post('/', async (req, res) => {
   }
 })
 
-// POST /api/user/login
-router.post('/login', async (req, res) => {
-  const { username, password } = req.body
-
-  if (typeof username !== 'string' || typeof password !== 'string') {
-    res.status(400).send({
-      message: 'Username and password must both be strings.',
-    });
-  } else {
-    try {
-      const foundUser = await getUser(username);
-
-      if (foundUser) {
-        //if a user is found, check PW
-        const comparisonResult = await bcrypt.compare(password, foundUser.password);
-        if (!comparisonResult) {
-          //if passwords don't match, send that error
-          res.status(401).send({pwError: 'Incorrect password.', unError: null});
-        } else {
-          // create a new session for the user
-
-          //another password emptier:
-          foundUser.password = '';
-
-          const createdSession = await createSession(username);
-
-          res.cookie('sessionId', createdSession.sessionId, {
-            maxAge: A_WEEK_IN_SECONDS,
-            path: '/',
-          });
-          res.status(201).send(foundUser);
-        }
-      } else {
-        //if a user isn't found, send such an error
-        res.status(404).send({unError: 'User not found.'})
-      }
-    } catch (e) {
-      console.error(e.message)
-      res.status(500).send({
-        message: e.message,
-      })
-    }
-  }
-})
-
 // PUT /api/user
-router.put('/', async (req, res, next) => {
+// use for adding NEW properties to the user node
+userRouter.put('/', async (req, res, next) => {
   try {
-    // const { username } = req.user;
-    const username ='zoe'
+    const { username } = req.user;
     const updatedUser = await updateUser(username, req.body);
     res.status(200).send(updatedUser);
   }
@@ -109,4 +62,4 @@ router.put('/', async (req, res, next) => {
   }
 })
 
-module.exports = router;
+module.exports = userRouter;
