@@ -1,5 +1,4 @@
 const express = require('express')
-const path = require('path')
 const app = express()
 
 app.use(require('express').json());
@@ -9,11 +8,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, './public')))
 
-// app.use('/api', require('./api')); // api routes
-
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './public/index.html'));
-}); // Send index.html
+  res.sendFile(path.join(__dirname, './public/index.html'))
+})
 
 //404 handler
 app.use((req, res, next) => {
@@ -33,7 +30,6 @@ const port = process.env.PORT || 8080;
 
 const init = () => {
   try {
-
     app.listen(port, () => console.log(`listening on port ${port}`));
   }
   catch (err) {

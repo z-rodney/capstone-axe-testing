@@ -6,6 +6,10 @@ import Footer from './Footer';
 import Sidebar from './Sidebar';
 // import SignIn from './SignIn';
 // import SignUp from './SignUp';
+import AccountSettings from './Account'
+import AllFriends from './AllFriends'
+import FriendProfile from './FriendProfile'
+import UserProfile from './UserProfile'
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,11 +27,16 @@ function App() {
         <Route path="/" component={Home} exact />
         {/* <Route path="/signIn" component={SignIn} exact />
         <Route path="/signUp" component={SignUp} exact /> */}
+
+        <Route exact path="/profile" component={UserProfile} />
+        <Route exact path="/friends" component={AllFriends} />
+        <Route exact path="/friends/:friendId" component={FriendProfile} />
+        <Route exact path="/account" component={AccountSettings} />
       </Switch>
       <Footer />
     </Router>
   );
 }
 
-export default App;
 
+  export default App;
