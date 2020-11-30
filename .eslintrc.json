@@ -1,5 +1,11 @@
 {
-    "extends" : "fullstack",
-    "root" : true
-
+    "extends" : ["fullstack", "eslint:recommended"],
+    "root" : true,
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "rules": {
+        
+    }
 }
