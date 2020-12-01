@@ -1,16 +1,16 @@
 const driver = require('../db');
 
-const addFriend = async({userName, friend}) => {
+const addFriend = async({username, friend}) => {
     let session = driver.session()
 
     try{
-        user = await session.run(
-            'Match (me:User {username: $userName }) \
-            Match (friend:User {username: $friend}) \
-            Create (me)-[r:FOLLOWS]->(friend) \
-            Return me, friend', 
+        const user = await session.run(
+            'MATCH (me:User {username: $username }) \
+            MATCH (friend:User {username: $friend}) \
+            CREATE (me)-[r:FOLLOWS]->(friend) \
+            RETURN me, friend', 
             {
-            userName : userName,
+            username : username,
             friend : friend,
 
         })

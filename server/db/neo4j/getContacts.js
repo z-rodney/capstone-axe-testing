@@ -1,13 +1,13 @@
 const driver = require('../db');
 
 
-const getContacts = async({userName}) => {
+const getContacts = async({username}) => {
     let session = driver.session()
     //this function returns user and date contacted
     //still need to return it in a better way
     try{
-        user = await session.run('match (n:User)-[r:CONTACTED]->(:User {username: $userName}) return r, n' , {
-            userName : userName
+        const user = await session.run('MATCH (n:User)-[r:CONTACTED]->(:User {username: $username}) RETURN r, n' , {
+            username : username
         })
        return user.records
     }

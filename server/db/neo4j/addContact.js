@@ -1,19 +1,19 @@
 const driver = require('../db');
 
-const addlocation = async({userName, contacted, date}) => {
+const addContact = async({username, contacted, date}) => {
     let session = driver.session()
 
     try{
-        user = await session.run(
-            'Match (me:User {username: $userName }) \
-            Match (friend:User {username: $contacted}) \
-            Create (me)-[r:CONTACTED]->(friend) \
-            Create (friend)-[r2:CONTACTED]->(me) \
-            Set r.contactDate = $date \
-            Set r2.contactDate = $date \
-            Return me, friend', 
+        const user = await session.run(
+           'MATCH (me:User {username: $username }) \
+            MATCH (friend:User {username: $contacted}) \
+            CREATE (me)-[r:CONTACTED]->(friend) \
+            CREATE (friend)-[r2:CONTACTED]->(me) \
+            SET r.contactDate = $date \
+            SET r2.contactDate = $date \
+            RETURN me, friend', 
             {
-            userName : userName,
+            username : username,
             contacted : contacted,
             date : date
 
@@ -27,4 +27,4 @@ const addlocation = async({userName, contacted, date}) => {
     
 }
 
-module.exports = addlocation
+module.exports = addContact

@@ -63,41 +63,37 @@ const seed = async (db) => {
             SET p = map',
             {
                 "props": [{
-                    "belongsTo": 'ranffi',
                     "mask": true,
-                    "indoor": false,
-                    "publicTransport": true,
-                    "avgNumOfPeople": 10,
-                    "immunoCompromised": false,
-                    "remoteWork": true,
-                    "highRiskJob": false
+                    "indoorDining": false,
+                    "outdoorDining": true,
+                    "pubTrans": true,
+                    "householdSize": 3,
+                    "immunocompromised": false,
+                    "essentialWorker": false
                 }, {
-                    "belongsTo": 'zoe',
                     "mask": true,
-                    "indoor": true,
-                    "publicTransport": false,
-                    "avgNumOfPeople": 2,
-                    "immunoCompromised": false,
-                    "remoteWork": true,
-                    "highRiskJob": false
+                    "indoorDining": true,
+                    "outdoorDining": false,
+                    "pubTrans": false,
+                    "householdSize": 2,
+                    "immunocompromised": false,
+                    "essentialWorker": false
                 }, {
-                    "belongsTo": 'zaina',
                     "mask": true,
-                    "indoor": false,
-                    "publicTransport": false,
-                    "avgNumOfPeople": 55,
-                    "immunoCompromised": false,
-                    "remoteWork": false,
-                    "highRiskJob": true
+                    "indoorDining": false,
+                    "outdoorDining": true,
+                    "pubTrans": false,
+                    "householdSize": 5,
+                    "immunocompromised": false,
+                    "essentialWorker": true
                 }, {
-                    "belongsTo": 'rehab',
                     "mask": true,
-                    "indoor": false,
-                    "publicTransport": false,
-                    "avgNumOfPeople": 5,
-                    "immunoCompromised": false,
-                    "remoteWork": true,
-                    "highRiskJob": false
+                    "indoorDining": false,
+                    "outdoorDining": true,
+                    "pubTrans": false,
+                    "householdSize": 6,
+                    "immunocompromised": false,
+                    "essentialWorker": false
                 }]
             }
         );
@@ -108,14 +104,14 @@ const seed = async (db) => {
                 MATCH (zaina:User {username:$zaina}) \
                 MATCH (ranffi:User {username:$ranffi}) \
                 MATCH (rehab:User {username:$rehab}) \
-                MATCH (p1:Preferences {belongsTo:$zoe}) \
-                MATCH (p2:Preferences {belongsTo:$zaina})  \
-                MATCH (p3:Preferences {belongsTo:$ranffi})  \
-                MATCH (p4:Preferences {belongsTo:$rehab})  \
-                CREATE (zoe)-[rel1:Prefers]->(p1) \
-                CREATE (zaina)-[rel2:Prefers]->(p2) \
-                CREATE (ranffi)-[rel3:Prefers]->(p3) \
-                CREATE (rehab)-[rel4:Prefers]->(p4)',
+                MATCH (p1:Preferences) WHERE p1.householdSize = 3 \
+                MATCH (p2:Preferences) WHERE p2.householdSize = 2 \
+                MATCH (p3:Preferences) WHERE p3.householdSize = 5 \
+                MATCH (p4:Preferences) WHERE p4.householdSize = 6  \
+                CREATE (zoe)-[rel1:PREFERS]->(p1) \
+                CREATE (zaina)-[rel2:PREFERS]->(p2) \
+                CREATE (ranffi)-[rel3:PREFERS]->(p3) \
+                CREATE (rehab)-[rel4:PREFERS]->(p4)',
                 {
                     zoe: 'zoe',
                     zaina: 'zaina',

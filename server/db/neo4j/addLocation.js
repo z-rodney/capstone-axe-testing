@@ -1,17 +1,17 @@
 const driver = require('../db');
 
-const addlocation = async({latitude, longitude, userName}) => {
+const addLocation = async({latitude, longitude, username}) => {
     let session = driver.session()
 
     try{
-        user = await session.run('Create (n:Location {latitude: $latitude, longitude: $longitude})', {
-            userName : userName,
+        const location = await session.run('MATCH (u:User {username: $username}) MERGE (l:Location {latitude: $latitude, longitude: $longitude}) CREATE (u)-[v:VISITED]->(l) RETURN l', {
+            username : username,
             latitude: latitude,
             longitude: longitude
 
         })
        
-       return user
+       return location
     }
     catch(err) {
         console.log(err)
@@ -19,4 +19,4 @@ const addlocation = async({latitude, longitude, userName}) => {
     
 }
 
-module.exports = addlocation
+module.exports = addLocation

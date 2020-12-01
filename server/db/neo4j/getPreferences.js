@@ -1,15 +1,15 @@
 const driver = require('../db');
+const Preferences = require('../models/Preferences')
 
-const getPreferences= async({userName}) => {
+const getPreferences = async({username}) => {
     let session = driver.session()
 
     try{
-        preferences = await session.run('Match (p:Preferences {belongsTo : $userName}) return p', {
-            userName : userName
+        const preferences = await session.run('MATCH (u:User {username: $username}) MATCH (p:Preferences)<-[:PREFERS]-(u) RETURN p', {
+            username : username
         })
-        return preferences.records.map((preference) => {
-            return preference._fields[0].properties
-        })
+        const record = preferences.records[0]
+        return new Preferences(record.get('p'))
    
     }
     catch(err) {

@@ -1,17 +1,17 @@
 const driver = require('../db');
+const User = require('../models/User')
 
-const getFriends = async({userName}) => {
+const getFriends = async({username}) => {
     let session = driver.session()
-    let user = "No user was created"
 
     //still need to exclude the password when returning user 
     try{
-        user = await session.run('MATCH (n:User {username: $userName})<-[:FOLLOWS]-(User) return User', {
-            userName : userName
+        const user = await session.run('MATCH (n:User {username: $username})<-[:FOLLOWS]-(User) RETURN User', {
+            username : username
         })
-        return user.records.map((friends) => {
-            return friends._fields[0].properties
-        })
+        const record = user.records[0]
+        return new User(record.get('User'))
+      
     }
     catch(err) {
         console.log(err)
