@@ -1,17 +1,17 @@
 // redirect to this route upon account creation, path "/my-risk"
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { CenteredContainer, Container } from '../styledComponents';
+import { CenteredContainer } from '../styledComponents';
 import { FormCard, RadioContainer } from './StyleElements';
 
 export default function RiskForm() {
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit, errors } = useForm();
   const onSubmit = data => console.log(data);
 
   return (
     <CenteredContainer>
     <div>
-      <h3>Please fill in the following details on your risk and risk tolerance.</h3>
+      <h3>Please fill in the following details on your preferences.</h3>
       <form onSubmit={ handleSubmit(onSubmit) }>
         <FormCard>
           <label className="question">What is your household size, including yourself?</label>

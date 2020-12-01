@@ -42,5 +42,3 @@ export const SidebarRight = styled(Sidebar)`
   padding-left: 50px;
   padding-right 10px;
 `
-
-
