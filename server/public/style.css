@@ -35,7 +35,6 @@ select {
 }
 
 #submit-btn {
-  position: absolute;
   left: 50%;
   margin: 1rem;
   background-color: #EC4E20;

@@ -1,12 +1,17 @@
 // redirect to this route upon account creation, path "/my-risk"
+import axios from 'axios';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { CenteredContainer } from '../styledComponents';
 import { FormCard, RadioContainer } from './StyleElements';
 
-export default function RiskForm() {
+export default function RiskForm(props) {
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = data => console.log(data);
+  const onSubmit = async (data) => {
+    data.householdSize *= 1;
+    await axios.put('/api/user', data);
+    props.history.push('/profile');
+  }
 
   return (
     <CenteredContainer>
@@ -118,7 +123,6 @@ export default function RiskForm() {
             </RadioContainer>
           </RadioContainer>
         </FormCard>
-
         <input type="submit" id="submit-btn" />
       </form>
     </div>
