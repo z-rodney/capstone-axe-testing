@@ -1,7 +1,8 @@
 const bcrypt = require('bcrypt');
 const driver = require('./server/db/db');
-const { NEO4J_DATABASE } = require('./constants');
-
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 
 const seed = async (db) => {
     console.log('in seed')
@@ -13,12 +14,14 @@ const seed = async (db) => {
 
     try {
         // create database session
-        const session = db.session({ database: NEO4J_DATABASE });
+        const session = db.session({ database: process.env.NEO4J_DATABASE });
 
         // drop existing db records (similar to force: true in sequelize)
         await session.run('MATCH (n) DETACH DELETE n');
 
           
+        // add unique constraint for username
+        await session.run("CREATE CONSTRAINT unique_username IF NOT EXISTS ON (user:User) ASSERT user.username IS UNIQUE");
 
         // create 4 new users
         await session.run(

@@ -26,6 +26,13 @@ export const ColumnContainer = styled(Container)`
   flex: 0 1 50%;
 `
 
+export const CenteredContainer = styled(Container)`
+  width: 50%;
+  align-self: center;
+  margin-left: 25%;
+  margin-right: 25%;
+`
+
 export const Sidebar = styled(ColumnContainer)`
   flex: 0 2 25%;
   padding-right: 30px;
@@ -35,5 +42,3 @@ export const SidebarRight = styled(Sidebar)`
   padding-left: 50px;
   padding-right 10px;
 `
-
-
