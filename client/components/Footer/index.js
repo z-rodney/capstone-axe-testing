@@ -44,7 +44,7 @@ const Footer = () => {
               <FooterLinkTitle>Contact Us</FooterLinkTitle>
               <FooterLinkP to="/">250 Capstone Ave, New York, NY 10004</FooterLinkP>
               <FooterLinkP to="/">(707) 707-0770</FooterLinkP>
-              <FooterLinkP to="/">capstone-heros@fullstackacademy.com</FooterLinkP>
+              <FooterLinkP to="/">capstone-heroes@fullstackacademy.com</FooterLinkP>
             </FooterLinkItems>
             <FooterLinkItems>
               <FooterLinkTitle>Follow Us</FooterLinkTitle>

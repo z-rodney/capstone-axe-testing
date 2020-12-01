@@ -36,7 +36,7 @@ userRouter.post('/', async (req, res) => {
     }
   } catch (e) {
     //this checks the type of error coming from sequelize
-    if(e.code === 'Neo.ClientError.Schema.ConstraintValidationFailed') {
+    if (e.code === 'Neo.ClientError.Schema.ConstraintValidationFailed') {
       res.status(400).send({
         unError: 'This username is already taken.'
       })
@@ -53,12 +53,11 @@ userRouter.post('/', async (req, res) => {
 // use for adding NEW properties to the user node
 userRouter.put('/', async (req, res, next) => {
   try {
-    // const { username } = req.user;
-    const username = 'zoe'
+    const { username } = req.user;
     const updatedUser = await updateUser(username, req.body);
     res.status(200).send(updatedUser);
   }
-  catch(err) {
+  catch (err) {
     next(err);
   }
 })
