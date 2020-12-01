@@ -24,6 +24,28 @@ a:hover {
   margin: 0;
 }
 
+select {
+  width: fit-content;
+}
+
+/* RISK TOLERANCE FORM */
+
+.question {
+  font-weight: bolder;
+}
+
+#submit-btn {
+  position: absolute;
+  left: 50%;
+  margin: 1rem;
+  background-color: #EC4E20;
+  color: white;
+  padding: 0.5rem;
+  font-family: 'Roboto Mono', monospace;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
 /* NAV BAR */
 
 nav {
