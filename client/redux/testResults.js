@@ -1,15 +1,31 @@
 import axios from 'axios'
-import { ADD_TEST_RESULTS } from './actionConstants'
+import { ADD_TEST_RESULTS, GET_TEST_RESULTS } from './actionConstants'
 
-const _addTestResults = (results) => ({
-  type: ADD_TEST_RESULTS,
+const _getTestResults = (results) => ({
+  type: GET_TEST_RESULTS,
   results
 })
+
+const _addTestResults = (result) => ({
+  type: ADD_TEST_RESULTS,
+  result
+})
+
+export const getTestResults = () => {
+  return async (dispatch) => {
+    try {
+      const allResults = await axios.get('/api/user/results')
+      dispatch(_getTestResults(allResults.data))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
 
 export const addTestResults = (results) => {
   return async (dispatch) => {
     try {
-      const testResults = await axios.post('SOME URL HERE', results)
+      const testResults = await axios.post('/api/user/results', results)
       dispatch(_addTestResults(testResults.data))
     } catch (err) {
       console.log(err)
@@ -19,8 +35,10 @@ export const addTestResults = (results) => {
 
 export default function testResultsReducer(state = [], action) {
   switch (action.type) {
+    case GET_TEST_RESULTS:
+      return action.results
     case ADD_TEST_RESULTS:
-      return [action.results, ...state]
+      return [action.result, ...state]
     default:
       return state
   }
