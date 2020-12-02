@@ -35,9 +35,6 @@ select {
 }
 
 #submit-btn {
-  position: absolute;
-  left: 50%;
-  margin: 1rem;
   background-color: #EC4E20;
   color: white;
   padding: 0.5rem;
@@ -99,6 +96,12 @@ h1 {
 
 .profile-heading p {
   margin-top: 0;
+}
+
+/* MAP */
+.map-container {
+  height: 40vh;
+  width: 50vw
 }
 
 
