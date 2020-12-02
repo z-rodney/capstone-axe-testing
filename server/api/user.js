@@ -3,6 +3,7 @@ const userRouter = express.Router();
 const bcrypt = require('bcrypt');
 const { createUser, updateUser } = require('../db/neo4j/user');
 const { createSession } = require('../db/neo4j/session');
+const { postResults } = require('../db/neo4j/testResults')
 const {getContacts, getFriends, getLocations, getPreferences,
   addFriend, addLocation, addContact, addPreferences} = require('../db/neo4j')
 
@@ -156,6 +157,20 @@ userRouter.post('/addPreferences', async(req, res, next) => {
     res.status(201).send(insert)
   }
   catch (err) {
+    next(err)
+  }
+})
+
+//POST /api/user/results
+userRouter.post('/results', async (req, res, next) => {
+  try {
+    //hardcoded test
+    const username = 'zaina'
+    const { result, date } = req.body
+    const newResult = await postResults(username, result, date)
+    console.log(newResult)
+    res.status(201).send(newResult)
+  } catch (err) {
     next(err)
   }
 })

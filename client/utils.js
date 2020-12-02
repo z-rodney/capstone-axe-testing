@@ -16,12 +16,11 @@ export const generateJSONFeatures = (locations) => {
         },
         properties: {
           id,
-          name: `Random Point #${id}`,
+          title: locData.title,
           date: locData.date,
           description: `description for Random Point #${id}`,
         },
     })
-    }
-  )
+  })
   return geoJSONData
 }

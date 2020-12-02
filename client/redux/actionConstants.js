@@ -1,1 +1,3 @@
 export const ADD_LOCATION = 'ADD_LOCATION'
+
+export const ADD_TEST_RESULTS = 'ADD_TEST_RESULTS'

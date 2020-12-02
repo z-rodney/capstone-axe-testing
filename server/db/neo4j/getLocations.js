@@ -4,9 +4,9 @@ const Location = require('../models/Location')
 
 const getLocations = async({username}) => {
     let session = driver.session()
-    try{
-        const location = await session.run('MATCH (n:User {username: $username})-[v:VISITED]-(l:Location) RETURN l, v' , {
-            username : username
+    try {
+        const location = await session.run('MATCH (n:User {username: $username})-[v:VISITED]-(l:Location) RETURN l, v', {
+            username: username
         })
         const record = location.records[0]
         console.log(location)
@@ -15,10 +15,9 @@ const getLocations = async({username}) => {
         resObj.dateVisited = new Location(record.get('v'))
         return resObj
     }
-    catch(err) {
+    catch (err) {
         console.log(err)
     }
-    
 }
 
 module.exports = getLocations
