@@ -112,7 +112,6 @@ const Navbar = ({ toggle }) => {
               </NavItem> :
               <NavItem>
                 <NavBtn onClick={logoutSubmit}>
-                  {/* TODO: Make this link to a sign out route! */}
                   <NavBtnLink to="/signin" id="signin">
                     Log Out
                   </NavBtnLink>

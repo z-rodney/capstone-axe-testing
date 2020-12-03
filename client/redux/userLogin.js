@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT } from './actionConstants';
-import { getCookieValue } from '../utils';
 
 export const _loginRequest = () => ({
   type: USER_LOGIN_REQUEST

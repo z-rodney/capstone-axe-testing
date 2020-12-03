@@ -51,7 +51,6 @@ function createSession(username) {
 
 // INPUT: sessionId
 function destroySession(sessionId) {
-    console.log('in destroy session');
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
     return session.writeTransaction((tx) => {
         tx.run('MATCH (session:Session { sessionId: $sessionId }) \
