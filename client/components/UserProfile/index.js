@@ -4,6 +4,7 @@ import RiskProfile from '../RiskProfile'
 import FriendList from '../FriendsList'
 import Locations from '../Locations'
 import Events from '../Events'
+import TestResults from '../TestResults'
 
 
 const UserProfile = () => {
@@ -13,6 +14,7 @@ const UserProfile = () => {
       <RowContainer>
         <Sidebar>
           <RiskProfile />
+          <TestResults />
           <div>
             <h2>Friends</h2>
             <FriendList />

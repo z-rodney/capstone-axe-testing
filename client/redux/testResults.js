@@ -36,7 +36,7 @@ export const addTestResults = (results) => {
 export default function testResultsReducer(state = [], action) {
   switch (action.type) {
     case GET_TEST_RESULTS:
-      return action.results
+      return [...action.results]
     case ADD_TEST_RESULTS:
       return [action.result, ...state]
     default:
