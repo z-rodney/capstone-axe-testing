@@ -23,10 +23,10 @@ function App() {
 
   // const userSignIn = useSelector((state) => state.userSignIn);
   // const { userInfo } = userSignIn;
-  const dispatch = useDispatch();
-  const signOutHandler = () => {
-    dispatch(logout());
-  };
+  // const dispatch = useDispatch();
+  // const signOutHandler = () => {
+  //   dispatch(logout());
+  // };
 
   return (
     <Router>
@@ -43,7 +43,6 @@ function App() {
                 </Link>
               </div>
             ) : ( */}
-              <Link to="/signin">Log In</Link>
             {/* )} */}
           </div>
         </header>

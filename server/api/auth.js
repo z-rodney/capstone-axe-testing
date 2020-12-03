@@ -2,7 +2,7 @@ const express = require('express');
 const authRouter = express.Router();
 const bcrypt = require('bcrypt');
 const { getUser } = require('../db/neo4j/user');
-const { createSession } = require('../db/neo4j/session');
+const { createSession, destroySession } = require('../db/neo4j/session');
 const A_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 
 // GET /api/auth/whoami
@@ -10,7 +10,7 @@ authRouter.get('/whoami', (req, res, next) => {
   if (req.user) {
     res.send(req.user.username);
   } else {
-    res.sendStatus(401);
+    res.send('Not logged in.');
   }
 })
 
@@ -54,6 +54,18 @@ authRouter.post('/login', async (req, res) => {
         message: e.message,
       })
     }
+  }
+})
+
+// DELETE /api/auth/logout/:sessionId
+authRouter.delete('/logout/:sessionId', async (req, res, next) => {
+  try {
+    await destroySession(req.params.sessionId);
+    res.clearCookie('sessionId');
+    req.user = null;
+    res.status(205).send();
+  } catch (e) {
+    next(e);
   }
 })
 

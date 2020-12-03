@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GrLocation } from 'react-icons/gr';
 import { signUp } from '../../redux/userSignUp';
-import MessageBox from '../Home/MessageBox';
+import MessageBox from '../MessageBox';
 import {
   SignUpContainer,
   FormWrap,
@@ -16,7 +16,6 @@ import {
   FormLinkP,
   FormButton,
 } from './SignUpElements';
-// import Axios from 'axios';
 
 const SignUp = (props) => {
   const [username, setUsername] = useState('');
@@ -25,7 +24,6 @@ const SignUp = (props) => {
 
   // const userSignUp = useSelector((state) => state.userSignUp);
   // const { userInfo, error } = userSignUp;
-  // const userInfo = await Axios.get('/api/auth/whoami')
 
   // const redirect = props.location.search
   //   ? props.location.search.split('=')[1]

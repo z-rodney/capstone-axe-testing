@@ -9,7 +9,6 @@ const auth = async (req, res, next) => {
     } else {
       // get user with given sessionId
       const session = await getSession(sessionId);
-
       if (!session) {
         console.log('Invalid sessionId.');
         res.clearCookie('sessionId');

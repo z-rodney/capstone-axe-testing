@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT } from './actionConstants';
+import { getCookieValue } from '../utils';
 
 export const _loginRequest = () => ({
   type: USER_LOGIN_REQUEST
@@ -36,11 +37,10 @@ export const login = (username, password) => {
   }
 };
 
-export const logout = () => {
-  return (dispatch) => {
-    // TODO: CREATE LOG OUT EXPRESS ROUTE TO DELETE THE SESSION AND CLEAR THE COOKIE
+export const logout = (sessionId) => {
+  return async (dispatch) => {
+    await axios.delete(`/api/auth/logout/${sessionId}`);
     dispatch(_logout());
-    document.location.href = '/login';
   }
 };
 
