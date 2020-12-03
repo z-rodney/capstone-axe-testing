@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { FaBars, FaRegUserCircle } from 'react-icons/fa';
 import { GrLocation } from 'react-icons/gr';
-// import { BsSearch } from 'react-icons/bs';
 import { animateScroll as scroll } from 'react-scroll';
 import { IconContext } from 'react-icons/lib';
 import {
   Nav,
   NavbarContainer,
+  NavWrap,
   NavLogo,
   MobileIcon,
   NavLinks,
@@ -15,12 +15,8 @@ import {
   NavIcon,
   NavBtn,
   NavBtnLink,
-  // Form,
-  // FormInput,
-  // FormButton,
   NavLinkDown,
 } from './NavbarElements';
-// import Image from '../../../server/public/images/LogoIcon.ico';
 
 const Navbar = ({ toggle }) => {
   const [scrollNav, setScrollNav] = useState(false);
@@ -47,10 +43,11 @@ const Navbar = ({ toggle }) => {
 
   return (
     <>
-      <IconContext.Provider value={{ color: '#fff' }}>
-        <Nav scrollNav={scrollNav}>
+    <IconContext.Provider value={{ color: '#fff' }}>
+      <Nav scrollNav={scrollNav}>
+        <NavWrap>
           <NavbarContainer>
-            <NavLogo to="/" onClick={toggleHome} >
+            <NavLogo to="/" onClick={toggleHome}>
               <GrLocation />
               Proximity
             </NavLogo>
@@ -59,16 +56,7 @@ const Navbar = ({ toggle }) => {
             </MobileIcon>
             <NavMenu>
               <NavItem>
-                <NavLinks
-                  to="/"
-                  id="home"
-                  // smooth={true}
-                  // duration={500}
-                  // spy={true}
-                  // exact="true"
-                  // offset={-80}
-                  onClick={toggleHome}
-                >
+                <NavLinks to="/" id="home" onClick={toggleHome}>
                   Home
                 </NavLinks>
               </NavItem>
@@ -76,42 +64,20 @@ const Navbar = ({ toggle }) => {
                 <NavLinkDown
                   to="about-us"
                   id="about-us"
-                  // smooth={true}
-                  // duration={500}
-                  // spy={true}
-                  // exact="true"
-                  // offset={-80}
-                  // onClick={toggleFooter}
+                  onClick={toggleFooter}
                 >
                   About Us
                 </NavLinkDown>
               </NavItem>
               <NavItem>
-                <NavLinks
-                  to="/profile"
-                  id="profile"
-                  // spy={true} exact="true"
-                >
+                <NavLinks to="/profile" id="profile">
                   My Account
-
                 </NavLinks>
-              </NavItem>
                 <NavIcon>
-                    <FaRegUserCircle />
+                  <FaRegUserCircle />
                 </NavIcon>
+              </NavItem>
             </NavMenu>
-            {/* <NavItem>
-              <Form className="search-form" action="#">
-                <FormInput
-                  className="search-bar"
-                  type="text"
-                  placeholder="Search"
-                />
-                <FormButton className="search-button" type="submit">
-                  <BsSearch />
-                </FormButton>
-              </Form>
-            </NavItem> */}
             <NavItem>
               <NavBtn>
                 <NavBtnLink to="/signin" id="signin">
@@ -125,8 +91,9 @@ const Navbar = ({ toggle }) => {
               </NavBtn>
             </NavItem>
           </NavbarContainer>
-        </Nav>
-      </IconContext.Provider>
+        </NavWrap>
+      </Nav>
+    </IconContext.Provider>
     </>
   );
 };

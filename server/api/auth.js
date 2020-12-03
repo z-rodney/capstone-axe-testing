@@ -31,10 +31,10 @@ authRouter.post('/login', async (req, res) => {
         const comparisonResult = await bcrypt.compare(password, foundUser.password);
         if (!comparisonResult) {
           //if passwords don't match, send that error
-          res.status(401).send({pwError: 'Incorrect password.', unError: null});
+          res.status(401).send({ message: 'Incorrect password.' });
         } else {
           // clear password
-          foundUser.password = "";
+          foundUser.password = '';
           // create a new session for the user
           const createdSession = await createSession(username);
 
