@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import mapboxgl from 'mapbox-gl'
+//import mapboxgl from 'mapbox-gl'
 import { Card } from '../styledComponents/'
 import { MAPBOXPK, mapBoxStyleURL } from '../../../constants'
 import { generateJSONFeatures } from '../../utils'
