@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { USER_SIGNUP_FAIL, USER_SIGNUP_REQUEST, USER_SIGNUP_SUCCESS } from './actionConstants';
+import { checkLogin } from './loginStatus';
 
 export const _signUpRequest = () => ({
   type: USER_SIGNUP_REQUEST
@@ -17,7 +18,7 @@ export const _signUpFailure = error => ({
     : error.message
 })
 
-export const signUp = (username, password) => {
+export const signUp = (username, password, history) => {
   return async (dispatch) => {
     dispatch(_signUpRequest());
     try {
@@ -25,7 +26,9 @@ export const signUp = (username, password) => {
         username,
         password,
       });
+      dispatch(checkLogin());
       dispatch(_signUpSuccess());
+      history.push('/my-risk');
     } catch (error) {
       dispatch(_signUpFailure(error));
     }

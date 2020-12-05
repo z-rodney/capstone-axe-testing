@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GrLocation } from 'react-icons/gr';
 import { signUp } from '../../redux/userSignUp';
+import { useHistory } from 'react-router-dom';
 import MessageBox from '../MessageBox';
 import {
   SignUpContainer,
@@ -17,35 +18,23 @@ import {
   FormButton,
 } from './SignUpElements';
 
-const SignUp = (props) => {
+const SignUp = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  // const userSignUp = useSelector((state) => state.userSignUp);
-  // const { userInfo, error } = userSignUp;
-
-  // const redirect = props.location.search
-  //   ? props.location.search.split('=')[1]
-  //   : '/';
-
-  // console.log(props.location.search);
-
   const dispatch = useDispatch();
+  const history = useHistory();
+  const loginStatus = useSelector(state => state.signUp);
+
   const submitHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert('Password and confirm password do not match');
     } else {
-      dispatch(signUp(username, password));
+      dispatch(signUp(username, password, history));
     }
   };
-
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     props.history.push(redirect);
-  //   }
-  // }, [props.history, redirect, userInfo]);
 
   return (
     <>
@@ -58,7 +47,6 @@ const SignUp = (props) => {
           <FormContent>
             <Form className="form" onSubmit={submitHandler}>
               <FormH1>Sign Up to a New Account</FormH1>
-              {/* {error && <MessageBox variant="danger">{error}</MessageBox>} */}
               <FormLabel htmlFor="email">Username (Email)</FormLabel>
               <FormInput
                 type="email"
@@ -83,11 +71,12 @@ const SignUp = (props) => {
                 required
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
+              { loginStatus.error ? <MessageBox variant="danger">{loginStatus.error}</MessageBox> : <div /> }
               <FormButton className="primary" type="submit">
                 Sign Up
               </FormButton>
               <FormText>Already have an account? </FormText>
-              <FormLinkP to="/signin">Log-In here</FormLinkP>
+              <FormLinkP to="/signin">Login here</FormLinkP>
             </Form>
           </FormContent>
         </FormWrap>

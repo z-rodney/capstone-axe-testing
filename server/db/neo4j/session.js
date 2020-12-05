@@ -32,9 +32,7 @@ function createSession(username) {
   const session = driver.session({ database: process.env.NEO4J_DATABASE });
 
   return session.writeTransaction((tx) =>
-      tx.run('MATCH (user:User { username: $username }) \
-              CREATE (user)-[rel:HAS_SESSION]->(session:Session { sessionId: apoc.create.uuid() }) \
-              RETURN session',
+      tx.run('MATCH (user:User { username: $username }) CREATE (user)-[rel:HAS_SESSION]->(session:Session { sessionId: apoc.create.uuid() }) RETURN session',
             { username: username }))
       .then(result => {
           if (_.isEmpty(result.records)) return null;
@@ -53,8 +51,7 @@ function createSession(username) {
 function destroySession(sessionId) {
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
     return session.writeTransaction((tx) => {
-        tx.run('MATCH (session:Session { sessionId: $sessionId }) \
-                DETACH DELETE session',
+        tx.run('MATCH (session:Session { sessionId: $sessionId }) DETACH DELETE session',
             { sessionId: sessionId })
         .then(() => {
             console.log('Record deleted');

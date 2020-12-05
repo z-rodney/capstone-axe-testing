@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT } from './actionConstants';
+import { checkLogin } from './loginStatus';
 
 export const _loginRequest = () => ({
   type: USER_LOGIN_REQUEST
@@ -21,7 +22,7 @@ export const _logout = () => ({
   type: USER_LOGOUT
 })
 
-export const login = (username, password) => {
+export const login = (username, password, history) => {
   return async (dispatch) => {
     dispatch(_loginRequest());
     try {
@@ -30,6 +31,8 @@ export const login = (username, password) => {
         password,
       });
       dispatch(_loginSuccess());
+      dispatch(checkLogin());
+      history.push('/profile');
     } catch (error) {
       dispatch(_loginFailure(error));
     }
@@ -40,17 +43,18 @@ export const logout = (sessionId) => {
   return async (dispatch) => {
     await axios.delete(`/api/auth/logout/${sessionId}`);
     dispatch(_logout());
+    dispatch(checkLogin());
   }
 };
 
 export default function userLoginReducer(state = {}, action) {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
-      return { loading: true };
+      return { ...state, loading: true };
     case USER_LOGIN_SUCCESS:
-      return { loading: false };
+      return { ...state, loading: false };
     case USER_LOGIN_FAIL:
-      return { loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload };
     case USER_LOGOUT:
       return {};
     default:

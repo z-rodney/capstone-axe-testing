@@ -20,7 +20,7 @@ userRouter.post('/', async (req, res) => {
     // validate email address before createUser
     if (!username.match(mailFormat)) {
       res.status(400).send({
-        unError: 'Not a valid email address.'
+        message: 'Not a valid email address.'
       });
     } else {
       const newUser = await createUser(username, hashedPW);
@@ -40,12 +40,11 @@ userRouter.post('/', async (req, res) => {
     //this checks the type of error coming from sequelize
     if (e.code === 'Neo.ClientError.Schema.ConstraintValidationFailed') {
       res.status(400).send({
-        unError: 'This username is already taken.'
+        message: 'This username is already taken.'
       })
     } else {
       res.status(500).send({
-        unError: null,
-        pwError: 'Something went horribly wrong.'
+        message: 'Something went horribly wrong.'
       })
     }
   }

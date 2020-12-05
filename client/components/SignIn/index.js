@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/userLogin';
 import { GrLocation } from 'react-icons/gr';
+import { useHistory } from 'react-router-dom';
 import MessageBox from '../MessageBox';
 import {
   SignInContainer,
@@ -17,27 +18,18 @@ import {
   FormButton,
 } from './SignInElements';
 
-const SignIn = (props) => {
+const SignIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  // const userSignIn = useSelector((state) => state.userSignIn);
-  // const { userInfo, error } = userSignIn;
-
-  const redirect = props.location.search
-    ? props.location.search.split('=')[1]
-    : '/';
-
   const dispatch = useDispatch();
+  const history = useHistory();
+  const loginStatus = useSelector(state => state.login);
+
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(login(username, password));
+    dispatch(login(username, password, history));
   };
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     props.history.push(redirect);
-  //   }
-  // }, [props.history, redirect, userInfo]);
 
   return (
     <>
@@ -50,7 +42,6 @@ const SignIn = (props) => {
           <FormContent>
             <Form className="form" onSubmit={submitHandler}>
               <FormH1>Log In To Your Account</FormH1>
-              {/* {error && <MessageBox variant="danger">{error}</MessageBox>} */}
               <FormLabel htmlFor="email">Username (Email)</FormLabel>
               <FormInput
                 type="email"
@@ -67,6 +58,7 @@ const SignIn = (props) => {
                 required
                 onChange={(e) => setPassword(e.target.value)}
               />
+              { loginStatus.error ? <MessageBox variant="danger">{loginStatus.error}</MessageBox> : <div /> }
               <FormButton className="primary" type="submit">
                 Log In
               </FormButton>

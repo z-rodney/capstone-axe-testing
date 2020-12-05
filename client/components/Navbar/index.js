@@ -4,6 +4,7 @@ import { FaBars, FaRegUserCircle } from 'react-icons/fa';
 import { GrLocation } from 'react-icons/gr';
 import { animateScroll as scroll } from 'react-scroll';
 import { IconContext } from 'react-icons/lib';
+import { useHistory } from 'react-router-dom';
 import {
   Nav,
   NavbarContainer,
@@ -22,7 +23,7 @@ import { checkLogin } from '../../redux/loginStatus';
 import { logout } from '../../redux/userLogin';
 import { getCookieValue } from '../../../server/utils';
 
-const Navbar = ({ toggle }) => {
+const Navbar = (props) => {
   const [scrollNav, setScrollNav] = useState(false);
 
   const changeNav = () => {
@@ -34,6 +35,7 @@ const Navbar = ({ toggle }) => {
   };
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(checkLogin());
@@ -53,6 +55,7 @@ const Navbar = ({ toggle }) => {
   const logoutSubmit = () => {
     const sessionId = getCookieValue('sessionId');
     dispatch(logout(sessionId));
+    history.push('/');
   }
 
   return (
@@ -66,7 +69,7 @@ const Navbar = ({ toggle }) => {
                 <GrLocation />
                 Proximity
               </NavLogo>
-              <MobileIcon onClick={toggle}>
+              <MobileIcon onClick={props.toggle}>
                 <FaBars />
               </MobileIcon>
               <NavMenu>

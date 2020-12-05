@@ -9,13 +9,13 @@ import AllFriends from './AllFriends'
 import FriendProfile from './FriendProfile'
 import UserProfile from './UserProfile'
 import RiskForm from './RiskForm'
-import NavBar from './NavBar';
+import Navbar from './Navbar';
 import PrivateRoute from './PrivateRoute';
 
 function App() {
   return (
     <Router>
-      <NavBar />
+      <Navbar />
       <Switch>
         <Route path="/signIn" component={SignIn} exact />
         <Route path="/signup" component={SignUp} exact />

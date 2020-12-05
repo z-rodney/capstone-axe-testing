@@ -46,7 +46,7 @@ authRouter.post('/login', async (req, res) => {
         }
       } else {
         //if a user isn't found, send such an error
-        res.status(404).send({unError: 'User not found.'})
+        res.status(404).send({ message: 'User not found.' })
       }
     } catch (e) {
       console.error(e.message)
