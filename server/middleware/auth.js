@@ -1,4 +1,4 @@
-const { getSession } = require('../db/neo4j/session');
+const { getUserBySession } = require('../db/neo4j/session');
 
 const auth = async (req, res, next) => {
   if (req.cookies) {
@@ -8,7 +8,7 @@ const auth = async (req, res, next) => {
       req.user = null;
     } else {
       // get user with given sessionId
-      const session = await getSession(sessionId);
+      const session = await getUserBySession(sessionId);
       if (!session) {
         console.log('Invalid sessionId.');
         res.clearCookie('sessionId');

@@ -11,7 +11,7 @@ const A_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 // POST /api/user
 // Creates new user in db
 userRouter.post('/', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, name } = req.body;
   const hashedPW = await bcrypt.hash(password, 10);
 
   const mailFormat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -23,7 +23,7 @@ userRouter.post('/', async (req, res) => {
         message: 'Not a valid email address.'
       });
     } else {
-      const newUser = await createUser(username, hashedPW);
+      const newUser = await createUser(username, hashedPW, name);
       if (newUser) {
         const newSession = await createSession(username);
         res.cookie('sessionId', newSession.sessionId, {

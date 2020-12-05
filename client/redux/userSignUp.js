@@ -18,13 +18,14 @@ export const _signUpFailure = error => ({
     : error.message
 })
 
-export const signUp = (username, password, history) => {
+export const signUp = (username, password, name, history) => {
   return async (dispatch) => {
     dispatch(_signUpRequest());
     try {
       await axios.post('/api/user/', {
         username,
         password,
+        name
       });
       dispatch(checkLogin());
       dispatch(_signUpSuccess());
