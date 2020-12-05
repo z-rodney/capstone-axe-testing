@@ -8,9 +8,6 @@ if (process.env.NODE_ENV !== 'production') {
 const seed = async (db) => {
     console.log('in seed')
 
-    let today = new Date()
-    today = today.toString();
-
     const hashedPW = await bcrypt.hash('test', 10);
 
     try {
