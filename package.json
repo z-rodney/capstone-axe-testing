@@ -37,7 +37,6 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "lodash": "^4.17.20",
-    "mapbox-gl": "^1.13.0",
     "morgan": "^1.10.0",
     "neo4j-driver": "^4.2.1",
     "react": "^17.0.1",
