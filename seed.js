@@ -26,7 +26,7 @@ const seed = async (db) => {
 
         // create 4 new users
         await session.run(
-            `UNWIND $props AS map CREATE (u:User) SET u = map`,
+            `UNWIND $props AS map CREATE (u:User {userId: apoc.create.uuid(), name: map.name, username: map.username, password: map.password})`,
             {'props': [{
                     'username': 'zoe@zoe.com',
                     'name': 'Zoe',

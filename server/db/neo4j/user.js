@@ -7,7 +7,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // INPUT: username OUTPUT: user node
-function getUser(username) {
+function getUserByUsername(username) {
 
     // Uses default neo4j database in neo4j desktop, which developers must run
     // Otherwise, create db in seed file or heroku config for db(?)
@@ -16,9 +16,8 @@ function getUser(username) {
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
 
     return session.readTransaction((tx) =>
-            tx.run("MATCH (user:User {username: $username}) \
-                    RETURN user", { username })
-        )
+            tx.run(`MATCH (user:User {username: $username})
+                    RETURN user`, { username }))
         .then(result => {
             if (_.isEmpty(result.records)) return null;
             const record = result.records[0];
@@ -37,9 +36,8 @@ function getUser(username) {
 function createUser(username, password, name) {
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
     return session.writeTransaction((tx) =>
-        tx.run("CREATE (user:User {username: $username, password: $password, name: $name, userId: apoc.create.uuid()}) RETURN user",
-        {username, password, name})
-        )
+        tx.run(`CREATE (user:User {username: $username, password: $password, name: $name, userId: apoc.create.uuid()}) RETURN user`,
+        {username, password, name}))
         .then(result => {
             if (_.isEmpty(result.records)) return null;
             const record = result.records[0];
@@ -55,17 +53,17 @@ function createUser(username, password, name) {
         });
 }
 
-// INPUT: username & new data OUTPUT: updated user node
-function updateUser(username, data) {
+// INPUT: userId & new data OUTPUT: updated user node
+function updateUser(userId, data) {
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
 
     return session.writeTransaction((tx) =>
-        tx.run("UNWIND $props AS map \
-                MATCH (user:User { username: $username }) \
-                SET user += map",
+        tx.run(`UNWIND $props AS map
+                MATCH (user:User { userId: $userId })
+                SET user += map`,
             {
                 "props": [ data ],
-                "username": username
+                "userId": userId
             })
         )
         .then(result => {
@@ -84,7 +82,7 @@ function updateUser(username, data) {
 }
 
 module.exports = {
-    getUser,
+    getUserByUsername,
     createUser,
     updateUser
 }

@@ -49,12 +49,13 @@ function TestResults() {
   const [loaded, setLoaded] = useState(false)
   const [showForm, setShowForm] = useState(false)
   const dispatch = useDispatch()
+  const userId = useSelector(state => state.loginStatus.userId)
   const testResults = useSelector(state => state.testResults)
 
 
   useEffect(() => {
     if (!loaded) {
-      dispatch(getTestResults())
+      dispatch(getTestResults(userId))
       setLoaded(true)
     }
   }, [testResults.length])
