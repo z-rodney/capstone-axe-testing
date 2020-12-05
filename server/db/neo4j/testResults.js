@@ -33,7 +33,7 @@ async function postResults(username, testResult, date) {
   try {
     const result = await session.writeTransaction(tx =>
       tx.run(`MATCH (user:User {username:$username})
-      CREATE (user)-[rel:TESTED]->(testRes:TestResult {covidTest:$testResult, testDate:$date})
+      CREATE (user)-[rel:TESTED]->(testRes:TestResult {covidTest:$testResult, testDate:date($date)})
       RETURN rel, testRes`, { username, testResult, date }))
     if (_.isEmpty(result.records)) {
       throw new Error('Could not add results')

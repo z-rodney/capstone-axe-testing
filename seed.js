@@ -215,10 +215,10 @@ const seed = async (db) => {
         MATCH (rehab:User {username:'rehab'})
         MATCH (ranffi:User {username:'ranffi'})
         MATCH (zaina:User {username:'zaina'})
-        CREATE (zoe)-[rel1:TESTED]->(testRes1:TestResult {covidTest:'Negative', testDate:'11-23-2020'})
-        CREATE (zaina)-[rel2:TESTED]->(testRes2:TestResult {covidTest:'Positive', testDate:'09-09-2020'})
-        CREATE (rehab)-[rel3:TESTED]->(testRes3:TestResult {covidTest:'Negative', testDate:'10-14-2020'})
-        CREATE (ranffi)-[rel4:TESTED]->(testRes4:TestResult {covidTest:'Negative', testDate:'12-01-2020'})
+        CREATE (zoe)-[rel1:TESTED]->(testRes1:TestResult {covidTest:'Negative', testDate:date('2020-11-23')})
+        CREATE (zaina)-[rel2:TESTED]->(testRes2:TestResult {covidTest:'Positive', testDate:date('2020-09-09')})
+        CREATE (rehab)-[rel3:TESTED]->(testRes3:TestResult {covidTest:'Negative', testDate:date('2020-10-14')})
+        CREATE (ranffi)-[rel4:TESTED]->(testRes4:TestResult {covidTest:'Negative', testDate:date('2020-12-01')})
         `)
 
         console.log('seed complete!');

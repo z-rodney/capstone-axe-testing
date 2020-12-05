@@ -35,7 +35,7 @@ function TestResultForm({setShowForm}) {
           </div>
           <div>
             <FormQuestion className="question">Test Date:</FormQuestion>
-            <input name="testDate" id="testDate" ref={register} required />
+            <input name="testDate" type="date" id="testDate" ref={register} required pattern="\d{4}-\d{2}-\d{2}" placeholder="YYYY-MM-DD" />
             {errors.result && 'Please enter a date'}
           </div>
           <Submit type="submit" id="submit-result" value="Submit" />
