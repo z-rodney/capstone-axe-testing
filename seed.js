@@ -21,30 +21,29 @@ const seed = async (db) => {
         // drop existing db records (similar to force: true in sequelize)
         await session.run('MATCH (n) DETACH DELETE n');
 
-
         // add unique constraint for username
         await session.run('CREATE CONSTRAINT unique_username IF NOT EXISTS ON (user:User) ASSERT user.username IS UNIQUE');
 
         // create 4 new users
         await session.run(
-            `UNWIND $props AS map
-            CREATE (u:User)
-            SET u = map`,
-            {
-                'props': [{
-                    'username': 'zoe',
+            `UNWIND $props AS map CREATE (u:User) SET u = map`,
+            {'props': [{
+                    'username': 'zoe@zoe.com',
+                    'name': 'Zoe',
                     'password': hashedPW,
                 }, {
-                    'username': 'zaina',
+                    'username': 'zaina@zaina.com',
+                    'name': 'Zaina',
                     'password': hashedPW,
                 }, {
-                    'username': 'rehab',
+                    'username': 'rehab@rehab.com',
+                    'name': 'Rehab',
                     'password': hashedPW,
                 }, {
-                    'username': 'ranffi',
+                    'username': 'ranffi@ranffi.com',
+                    'name': 'Ranffi',
                     'password': hashedPW,
-                }]
-            }
+                }]}
         );
 
         // create preferences
@@ -108,10 +107,10 @@ const seed = async (db) => {
                 CREATE (ranffi)-[rel3:PREFERS]->(p3)
                 CREATE (rehab)-[rel4:PREFERS]->(p4)`,
                 {
-                    zoe: 'zoe',
-                    zaina: 'zaina',
-                    ranffi: 'ranffi',
-                    rehab: 'rehab'
+                    zoe: 'zoe@zoe.com',
+                    zaina: 'zaina@zaina.com',
+                    ranffi: 'ranffi@ranffi.com',
+                    rehab: 'rehab@rehab.com'
                 }
             );
 
@@ -123,9 +122,9 @@ const seed = async (db) => {
             CREATE (zoe)-[rel:FOLLOWS]->(zaina)
             CREATE (ranffi)-[r:FOLLOWS]->(zaina)`,
             {
-                zoe: 'zoe',
-                zaina: 'zaina',
-                ranffi: 'ranffi'
+                zoe: 'zoe@zoe.com',
+                zaina: 'zaina@zaina.com',
+                ranffi: 'ranffi@ranffi.com',
             }
         );
 
@@ -144,10 +143,10 @@ const seed = async (db) => {
             SET rel3.contactDate = $contactDate2
             SET rel4.contactDate = $contactDate2`,
             {
-                rehab: 'rehab',
-                ranffi: 'ranffi',
-                zoe: 'zoe',
-                zaina: 'zaina',
+                zoe: 'zoe@zoe.com',
+                zaina: 'zaina@zaina.com',
+                ranffi: 'ranffi@ranffi.com',
+                rehab: 'rehab@rehab.com',
                 contactDate1: '2020-11-01',
                 contactDate2: '2020-11-23'
             }
@@ -197,10 +196,10 @@ const seed = async (db) => {
             SET r4.VistedDate = $VistedDate2
             SET r5.VistedDate = $VistedDate2`,
             {
-                rehab: 'rehab',
-                ranffi: 'ranffi',
-                zoe: 'zoe',
-                zaina: 'zaina',
+                zoe: 'zoe@zoe.com',
+                zaina: 'zaina@zaina.com',
+                ranffi: 'ranffi@ranffi.com',
+                rehab: 'rehab@rehab.com',
                 location1: '40.751188',
                 location2: '40.807128',
                 VistedDate1: '2020-11-01',
