@@ -47,6 +47,14 @@ const SignUp = () => {
           <FormContent>
             <Form className="form" onSubmit={submitHandler}>
               <FormH1>Sign Up to a New Account</FormH1>
+              <FormLabel htmlFor="name">Name</FormLabel>
+              <FormInput
+                type="name"
+                id="name"
+                placeholder="Enter Name"
+                required
+                onChange={(e) => setUsername(e.target.value)}
+              />
               <FormLabel htmlFor="email">Username (Email)</FormLabel>
               <FormInput
                 type="email"

@@ -34,12 +34,11 @@ function getUser(username) {
 }
 
 // INPUT: user properties OUTPUT: newly created user node
-function createUser(username, password) {
+function createUser(username, password, name) {
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
     return session.writeTransaction((tx) =>
-        tx.run("CREATE (user:User {username: $username, password: $password, userId: apoc.create.uuid()}) RETURN user",
-                {username, password}
-            )
+        tx.run("CREATE (user:User {username: $username, password: $password, name: $name, userId: apoc.create.uuid()}) RETURN user",
+        {username, password, name})
         )
         .then(result => {
             if (_.isEmpty(result.records)) return null;
