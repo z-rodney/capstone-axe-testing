@@ -23,11 +23,11 @@ function TestResultForm({setShowForm}) {
             <FormQuestion className="question">Test Result:</FormQuestion>
             <OuterWrapper>
               <RowContainer>
-                <input name="result" type="radio" id="result-pos" value="Positive" required ref={ register } />
+                <input name="covidTest" type="radio" id="result-pos" value="Positive" required ref={ register } />
                 <label htmlFor="result-pos">Positive</label>
               </RowContainer>
               <RowContainer>
-                <input name="result" type="radio" id="result-neg" value="Negative" ref={ register } />
+                <input name="covidTest" type="radio" id="result-neg" value="Negative" ref={ register } />
                 <label htmlFor="result-neg">Negative</label>
               </RowContainer>
               {errors.result && 'Please indicate a test result'}
@@ -35,7 +35,7 @@ function TestResultForm({setShowForm}) {
           </div>
           <div>
             <FormQuestion className="question">Test Date:</FormQuestion>
-            <input name="date" id="date" ref={register} required />
+            <input name="testDate" id="testDate" ref={register} required />
             {errors.result && 'Please enter a date'}
           </div>
           <Submit type="submit" id="submit-result" value="Submit" />
@@ -66,7 +66,7 @@ function TestResults() {
       <ul className="no-bullet">
         {testResults.map((test, id) => {
           return (
-            <li key={id}>{test.result}: {test.date}</li>
+            <li key={id}>{test.covidTest}: {test.testDate}</li>
           )
         })}
       </ul>

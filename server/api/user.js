@@ -179,8 +179,8 @@ userRouter.post('/results', async (req, res, next) => {
     //hardcoded test
     const username = 'zaina'
     //const { username } = req.user
-    const { result, date } = req.body
-    const newResult = await postResults(username, result, date)
+    const { covidTest, testDate } = req.body
+    const newResult = await postResults(username, covidTest, testDate)
     res.status(201).send(newResult)
   } catch (err) {
     next(err)
