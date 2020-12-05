@@ -21,6 +21,7 @@ import {
 const SignUp = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const SignUp = () => {
     if (password !== confirmPassword) {
       alert('Password and confirm password do not match');
     } else {
-      dispatch(signUp(username, password, history));
+      dispatch(signUp(username, password, name, history));
     }
   };
 
@@ -53,7 +54,7 @@ const SignUp = () => {
                 id="name"
                 placeholder="Enter Name"
                 required
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
               />
               <FormLabel htmlFor="email">Username (Email)</FormLabel>
               <FormInput
