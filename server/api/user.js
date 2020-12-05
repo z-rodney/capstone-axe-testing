@@ -63,7 +63,7 @@ userRouter.put('/', async (req, res, next) => {
   }
 })
 
-// GET /api/getFriends
+// GET /api/user/getFriends
 // retrieves a user's friends from db
 userRouter.get('/getFriends', async(req, res, next) => {
   try {
@@ -75,7 +75,7 @@ userRouter.get('/getFriends', async(req, res, next) => {
   }
 })
 
-// GET /api/getContacts
+// GET /api/user/getContacts
 // retrieves a user's Contacts from db
 userRouter.get('/getContacts', async(req, res, next) => {
   try {
@@ -87,7 +87,7 @@ userRouter.get('/getContacts', async(req, res, next) => {
   }
 })
 
-// GET /api/getLocations
+// GET /api/user/getLocations
 // retrieves a user's Locations from db
 userRouter.get('/getLocations', async(req, res, next) => {
   try {
@@ -99,7 +99,7 @@ userRouter.get('/getLocations', async(req, res, next) => {
   }
 })
 
-// GET /api/getPreferences
+// GET /api/user/getPreferences
 // retrieves a user's Preferences from db
 userRouter.get('/getPreferences', async(req, res, next) => {
   try {
@@ -111,7 +111,7 @@ userRouter.get('/getPreferences', async(req, res, next) => {
   }
 })
 
-// POST /api/addLocation
+// POST /api/user/addLocation
 // adds a location to a user in db
 userRouter.post('/addLocation', async(req, res, next) => {
   try {
@@ -123,7 +123,7 @@ userRouter.post('/addLocation', async(req, res, next) => {
   }
 })
 
-// POST /api/addContact
+// POST /api/user/addContact
 // adds a Contact to a user in db
 userRouter.post('/addContact', async(req, res, next) => {
   try {
@@ -135,7 +135,7 @@ userRouter.post('/addContact', async(req, res, next) => {
   }
 })
 
-// POST /api/addFriend
+// POST /api/user/addFriend
 // adds a friend to a user in db
 userRouter.post('/addFriend', async(req, res, next) => {
   try {
@@ -147,17 +147,19 @@ userRouter.post('/addFriend', async(req, res, next) => {
   }
 })
 
-// POST /api/addPreferences
-// adds preferences to a user in db
+// POST /api/user/addPreferences
+// adds preferences node, then connects it to a user in db
 userRouter.post('/addPreferences', async(req, res, next) => {
   try {
-  const insert = await addPreferences(req.body)
-    res.status(201).send(insert)
+    const userId = req.user.userId;
+    const data = req.body;
+    data.userId = userId;
+    const preferences = await addPreferences(data);
+    res.status(201).send(preferences);
   }
   catch (err) {
-    next(err)
+    next(err);
   }
 })
-
 
 module.exports = userRouter;

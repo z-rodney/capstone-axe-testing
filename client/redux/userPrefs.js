@@ -6,16 +6,18 @@ export const _addPreferences = preferences => ({
   preferences
 })
 
-export const addPreferences = (data) => {
+export const addPreferences = (data, history) => {
   return async (dispatch) => {
-    dispatch(_addPreferences(preferences));
+    const preferences = await axios.post('/api/user/addPreferences', data);
+    dispatch(_addPreferences(preferences.data));
+    history.push('/profile');
   }
 }
 
 export default function userPrefsReducer(state = {}, action) {
   switch (action.type) {
     case ADD_PREFERENCES:
-      return { ...state, preferences: action.preferences };
+      return { ...action.preferences };
     default:
       return state;
   }

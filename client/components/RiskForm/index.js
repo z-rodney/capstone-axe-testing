@@ -2,15 +2,21 @@
 import axios from 'axios';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { CenteredContainer, Card } from '../styledComponents';
 import { FormCard, RadioContainer } from './StyleElements';
+import { addPreferences } from '../../redux/userPrefs';
 
-export default function RiskForm(props) {
+export default function RiskForm() {
+
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = async (data) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const onSubmit = (data) => {
     data.householdSize *= 1;
-    await axios.put('/api/user', data);
-    props.history.push('/profile');
+    dispatch(addPreferences(data, history));
   }
 
   return (

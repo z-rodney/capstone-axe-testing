@@ -3,7 +3,7 @@ import locationsReducer from './userLocations'
 import userLoginReducer from './userLogin'
 import userSignUpReducer from './userSignUp'
 import loginStatusReducer from './loginStatus'
-import userPrefsReducer from './userProfile'
+import userPrefsReducer from './userPrefs'
 
 const reducer = combineReducers({
   locations: locationsReducer,
