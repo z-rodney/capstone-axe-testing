@@ -3,12 +3,14 @@ import locationsReducer from './userLocations'
 import userLoginReducer from './userLogin'
 import userSignUpReducer from './userSignUp'
 import loginStatusReducer from './loginStatus'
+import userPrefsReducer from './userProfile'
 
 const reducer = combineReducers({
   locations: locationsReducer,
   login: userLoginReducer,
   signUp: userSignUpReducer,
-  loginStatus: loginStatusReducer
+  loginStatus: loginStatusReducer,
+  userPrefs: userPrefsReducer
 })
 
 export default reducer
