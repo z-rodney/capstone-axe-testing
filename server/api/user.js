@@ -11,7 +11,7 @@ const A_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 // POST /api/user
 // Creates new user in db
 userRouter.post('/', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, name } = req.body;
   const hashedPW = await bcrypt.hash(password, 10);
 
   const mailFormat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -20,10 +20,10 @@ userRouter.post('/', async (req, res) => {
     // validate email address before createUser
     if (!username.match(mailFormat)) {
       res.status(400).send({
-        unError: 'Not a valid email address.'
+        message: 'Not a valid email address.'
       });
     } else {
-      const newUser = await createUser(username, hashedPW);
+      const newUser = await createUser(username, hashedPW, name);
       if (newUser) {
         const newSession = await createSession(username);
         res.cookie('sessionId', newSession.sessionId, {
@@ -40,12 +40,11 @@ userRouter.post('/', async (req, res) => {
     //this checks the type of error coming from sequelize
     if (e.code === 'Neo.ClientError.Schema.ConstraintValidationFailed') {
       res.status(400).send({
-        unError: 'This username is already taken.'
+        message: 'This username is already taken.'
       })
     } else {
       res.status(500).send({
-        unError: null,
-        pwError: 'Something went horribly wrong.'
+        message: 'Something went horribly wrong.'
       })
     }
   }
