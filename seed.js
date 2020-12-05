@@ -32,6 +32,7 @@ const seed = async (db) => {
             {
                 "props": [{
                     "username": "zoe@zoe.com",
+                    "name": 'Zoe',
                     "password": hashedPW,
                     "householdSize": 2,
                     "covidPosContact": false,
@@ -39,11 +40,13 @@ const seed = async (db) => {
                     "testDate": "2020-11-23"
                 }, {
                     "username": "zaina@zaina.com",
+                    "name": 'Zaina',
                     "password": hashedPW,
                     "householdSize": 4,
                     "covidPosContact": false
                 }, {
                     "username": "rehab@rehab.com",
+                    "name": "Rehab",
                     "password": hashedPW,
                     "householdSize": 3,
                     "covidPosContact": false,
@@ -51,6 +54,7 @@ const seed = async (db) => {
                     "testDate": "2020-11-02"
                 }, {
                     "username": "ranffi@ranffi.com",
+                    "name": 'Ranffi',
                     "password": hashedPW,
                     "householdSize": 2,
                     "covidPosContact": false,
