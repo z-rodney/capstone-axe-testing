@@ -1,4 +1,5 @@
 node_modules
-server/public/*.js
+server/public/*.js*
 server/public/*.txt
-server/public/bundle.js.map
+.DS_Store
+.env*

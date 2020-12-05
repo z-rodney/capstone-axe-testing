@@ -23,7 +23,3 @@ npm run start-dev
 ## Features
 
 ### To-Do
-
-### Planning Resources
-
-

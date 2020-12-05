@@ -32,12 +32,22 @@ export const NavbarContainer = styled.div`
   z-index: 1;
 `;
 
+export const NavWrap = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  @media screen and (max-width: 400px) {
+    height: 80%;
+  }
+`;
+
 export const NavLogo = styled(LinkRouter)`
   color: #fff;
   display: flex;
-  justify-self: flex-start;
+  justify-content: flex-start;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   font-style: oblique;
   font-weight: bold;
   text-decoration: none;
@@ -97,14 +107,12 @@ export const NavItem = styled.li`
 
 export const NavIcon = styled.div`
   color: #fff;
-  height: 100px;
-  width: 80px;
+  width: 60px;
   display: flex;
   align-items: center;
-  align-self: left;
   margin: 0;
   padding: 0;
-  `;
+`;
 
 export const NavLinks = styled(LinkRouter)`
   color: #fff;
@@ -113,6 +121,7 @@ export const NavLinks = styled(LinkRouter)`
   height: 100%;
   padding: 0 1rem;
   text-decoration: none;
+  font-size: 18px;
   cursor: pointer;
   ${'' /* width: 100%; */}
 
@@ -123,7 +132,7 @@ export const NavLinks = styled(LinkRouter)`
 
   &:hover {
     transition: all 0.2s ease-in-out;
-    color: #EC4E20;
+    color: #ec4e20;
   }
 `;
 
@@ -137,12 +146,12 @@ export const NavLinkDown = styled(LinkScroll)`
   cursor: pointer;
   ${'' /* width: 100%; */}
 
-  &.active {
+  &:active {
     border-bottom: 3px solid #01bf71;
   }
   &:hover {
     transition: all 0.2s ease-in-out;
-    color: #EC4E20;
+    color: #ec4e20;
   }
 `;
 
@@ -160,7 +169,7 @@ export const NavBtn = styled.nav`
 
 export const NavBtnLink = styled(LinkRouter)`
   border-radius: 50px;
-  background: #EC4E20;
+  background: #ec4e20;
   white-space: nowrap;
   padding: 10px 20px;
   margin-bottom: 20px;
