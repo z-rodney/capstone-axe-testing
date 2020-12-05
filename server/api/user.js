@@ -160,7 +160,7 @@ userRouter.post('/:userId/addPreferences', async(req, res, next) => {
   }
 })
 //POST /api/user/:userId/results
-userRouter.get('/userId:/results', async (req, res, next) => {
+userRouter.get('/:userId/results', async (req, res, next) => {
   if (req.user) {
     try {
       const { userId } = req.user

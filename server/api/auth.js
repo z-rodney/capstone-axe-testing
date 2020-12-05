@@ -10,7 +10,8 @@ authRouter.get('/whoami', (req, res, next) => {
   if (req.user) {
     const user = {
       username: req.user.username,
-      userId: req.user.userId
+      userId: req.user.userId,
+      name: req.user.name
     }
     res.send(user);
   } else {

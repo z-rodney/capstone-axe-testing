@@ -11,10 +11,10 @@ const _addTestResults = (result) => ({
   result
 })
 
-export const getTestResults = (id) => {
+export const getTestResults = (userId) => {
   return async (dispatch) => {
     try {
-      const allResults = await axios.get(`/api/user/${id}/results`)
+      const allResults = await axios.get(`/api/user/${userId}/results`)
       dispatch(_getTestResults(allResults.data))
     } catch (err) {
       console.log(err)

@@ -5,7 +5,6 @@ const _ = require('lodash');
 //date
 function TestResult(_node) {
     _.extend(this, _node.properties);
-    console.log(_node.properties)
     if (_node.properties.testDate.year) {
         this.testDate = new Date(this.testDate.year.low, this.testDate.month.low - 1, this.testDate.day.low).toDateString()
     }

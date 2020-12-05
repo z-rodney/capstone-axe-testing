@@ -47,7 +47,7 @@ const SignUp = () => {
           </Icon>
           <FormContent>
             <Form className="form" onSubmit={submitHandler}>
-              <FormH1>Sign Up to a New Account</FormH1>
+              <FormH1>Sign Up For a New Account</FormH1>
               <FormLabel htmlFor="name">Name</FormLabel>
               <FormInput
                 type="name"

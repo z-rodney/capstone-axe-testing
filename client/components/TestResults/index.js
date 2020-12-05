@@ -6,11 +6,12 @@ import { ResultsCard } from '../FriendProfile/StyleElements'
 import { TestCard, FormQuestion, Submit, OuterWrapper  } from './StyleElements'
 import { RowContainer, ColumnContainer } from '../styledComponents'
 
-function TestResultForm({setShowForm}) {
+function TestResultForm({ setShowForm }) {
+  const userId = useSelector(state => state.loginStatus.userId)
   const dispatch = useDispatch()
   const { register, handleSubmit, errors } = useForm()
   const onSubmit = (data, ev) => {
-    dispatch(addTestResults(data))
+    dispatch(addTestResults(data, userId))
     ev.target.reset()
     setShowForm(false)
   }
@@ -54,22 +55,21 @@ function TestResults() {
 
 
   useEffect(() => {
-    if (!loaded) {
+    if (userId) {
       dispatch(getTestResults(userId))
-      setLoaded(true)
     }
-  }, [testResults.length])
+  }, [userId, testResults.length])
 
   return (
     <ResultsCard>
       <h2>Test Results <span className="plus-button" onClick={() => { setShowForm(!showForm) }}>+</span></h2>
       {showForm && <TestResultForm setShowForm={setShowForm}/>}
       <ul className="no-bullet">
-        {testResults.map((test, id) => {
+        {testResults.length ? testResults.map((test, id) => {
           return (
             <li key={id}>{test.covidTest}: {test.testDate}</li>
           )
-        })}
+        }) : <li><p>No tests results available.</p></li>}
       </ul>
     </ResultsCard>
   )

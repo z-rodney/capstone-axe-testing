@@ -210,10 +210,10 @@ const seed = async (db) => {
 
         //create tests
         await session.run(`
-        MATCH (zoe:User{username: 'zoe'})
-        MATCH (rehab:User {username:'rehab'})
-        MATCH (ranffi:User {username:'ranffi'})
-        MATCH (zaina:User {username:'zaina'})
+        MATCH (zoe:User{username: 'zoe@zoe.com'})
+        MATCH (rehab:User {username:'rehab@rehab.com'})
+        MATCH (ranffi:User {username:'ranffi@ranffi.com'})
+        MATCH (zaina:User {username:'zaina@zaina.com'})
         CREATE (zoe)-[rel1:TESTED]->(testRes1:TestResult {covidTest:'Negative', testDate:date('2020-11-23')})
         CREATE (zaina)-[rel2:TESTED]->(testRes2:TestResult {covidTest:'Positive', testDate:date('2020-09-09')})
         CREATE (rehab)-[rel3:TESTED]->(testRes3:TestResult {covidTest:'Negative', testDate:date('2020-10-14')})
