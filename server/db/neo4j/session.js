@@ -7,7 +7,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // INPUT: cookie's sessionId OUTPUT: user node
-function getSession(sessionId) {
+function getUserBySession(sessionId) {
   // create a session to run cypher statements in
   const session = driver.session({ database: process.env.NEO4J_DATABASE });
 
@@ -66,7 +66,7 @@ function destroySession(sessionId) {
 }
 
 module.exports = {
-  getSession,
+  getUserBySession,
   createSession,
   destroySession
 }
