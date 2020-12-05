@@ -30,6 +30,7 @@
   "homepage": "https://github.com/Capstone-Heroes/capstone-heroes#readme",
   "dependencies": {
     "@mapbox/mapbox-gl-geocoder": "^4.7.0",
+    "@sendgrid/mail": "^7.4.0",
     "apoc": "^2.1.6",
     "axios": "^0.21.0",
     "bcrypt": "^5.0.0",

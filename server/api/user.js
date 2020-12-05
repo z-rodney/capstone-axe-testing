@@ -5,7 +5,9 @@ const { createUser, updateUser } = require('../db/neo4j/user');
 const { createSession } = require('../db/neo4j/session');
 const { postResults, getResults } = require('../db/neo4j/testResults')
 const {getContacts, getFriends, getLocations, getPreferences,
-  addFriend, addLocation, addContact, addPreferences} = require('../db/neo4j')
+  addFriend, addLocation, addContact, addPreferences } = require('../db/neo4j')
+const alertFriends = require('../sendgrid/alertFriends')
+const alertContacts = require('../sendgrid/alertContacts')
 
 const A_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 
@@ -181,6 +183,10 @@ userRouter.post('/results', async (req, res, next) => {
     //const { username } = req.user
     const { result, date } = req.body
     const newResult = await postResults(username, result, date)
+    if (newResult.result === 'Positive') {
+      alertFriends(username, newResult.date)
+      alertContacts(newResult.date)
+    }
     res.status(201).send(newResult)
   } catch (err) {
     next(err)
