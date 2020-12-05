@@ -164,7 +164,7 @@ userRouter.post('/addPreferences', async(req, res, next) => {
 userRouter.get('/results', async (req, res, next) => {
   try {
     //temp hardcoding
-    const username = 'zaina'
+    const username = 'zaina@zaina.com'
     //const { username }= req.user
     const allResults = await getResults(username)
     res.send(allResults)
@@ -177,7 +177,7 @@ userRouter.get('/results', async (req, res, next) => {
 userRouter.post('/results', async (req, res, next) => {
   try {
     //hardcoded test
-    const username = 'zaina'
+    const username = 'zaina@zaina.com'
     //const { username } = req.user
     const { covidTest, testDate } = req.body
     const newResult = await postResults(username, covidTest, testDate)
