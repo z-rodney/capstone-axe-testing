@@ -17,11 +17,12 @@ async function getUser(username) {
         });
         if (_.isEmpty(result.records)) return null;
         const record = result.records[0];
-        session.close();
         return new User(record.get('user'));
     } catch (err) {
-        session.close();
+        console.log(err);
         throw err;
+    } finally {
+        session.close();
     }
 }
 
@@ -38,11 +39,12 @@ async function createUser(username, password, name) {
         const record = result.records[0];
         const newUser = new User(record.get('user'));
         newUser.password = '';
-        session.close();
         return newUser;
     } catch (err) {
-        session.close();
+        console.log(err);
         throw err;
+    } finally {
+        session.close();
     }
 }
 
@@ -62,11 +64,12 @@ async function updateUser(username, data) {
         const record = result.records[0];
         const newUser = new User(record.get('user'));
         newUser.password = '';
-        session.close();
         return newUser;
     } catch (err) {
-        session.close();
+        console.log(err);
         throw err;
+    } finally {
+        session.close();
     }
 }
 

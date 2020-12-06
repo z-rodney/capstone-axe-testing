@@ -17,11 +17,12 @@ async function getUserBySession(sessionId) {
       });
       if (_.isEmpty(result.records)) return null;
       const record = result.records[0];
-      session.close();
       return new User(record.get('user'));
   } catch (err) {
-      session.close();
+      console.log(err);
       throw err;
+  } finally {
+      session.close();
   }
 }
 
@@ -36,11 +37,12 @@ async function createSession(username) {
         });
         if (_.isEmpty(result.records)) return null;
         const record = result.records[0];
-        session.close();
         return new Session(record.get('session'));
     } catch (err) {
-        session.close();
+        console.log(err);
         throw err;
+    } finally {
+        session.close();
     }
 }
 
@@ -53,10 +55,11 @@ async function destroySession(sessionId) {
             return tx.run('MATCH (session:Session { sessionId: $sessionId }) DETACH DELETE session', { sessionId: sessionId })
         });
         console.log('Record deleted');
-        session.close();
     } catch (err) {
-        session.close();
+        console.log(err);
         throw err;
+    } finally {
+        session.close();
     }
 }
 
