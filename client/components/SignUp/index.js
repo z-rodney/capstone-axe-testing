@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { GrLocation } from 'react-icons/gr';
 import { signUp } from '../../redux/userSignUp';
 import { useHistory } from 'react-router-dom';
 import MessageBox from '../MessageBox';
 import {
   SignUpContainer,
   FormWrap,
-  Icon,
   FormContent,
   Form,
   FormH1,
@@ -41,13 +39,9 @@ const SignUp = () => {
     <>
       <SignUpContainer>
         <FormWrap>
-          <Icon to="/">
-            <GrLocation />
-            Proximity
-          </Icon>
           <FormContent>
             <Form className="form" onSubmit={submitHandler}>
-              <FormH1>Sign Up to a New Account</FormH1>
+              <FormH1>Sign Up For a New Account</FormH1>
               <FormLabel htmlFor="name">Name</FormLabel>
               <FormInput
                 type="name"

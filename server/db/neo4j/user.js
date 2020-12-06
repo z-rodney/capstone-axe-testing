@@ -7,10 +7,12 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // INPUT: username OUTPUT: user node
-async function getUser(username) {
+async function getUserByUsername(username) {
+    // Uses default neo4j database in neo4j desktop, which developers must run
+    // Otherwise, create db in seed file or heroku config for db(?)
+
     // create a session to run cypher statements in
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
-
     try {
         const result = await session.readTransaction((tx) => {
             return tx.run('MATCH (user:User {username: $username}) RETURN user', { username });
@@ -29,11 +31,10 @@ async function getUser(username) {
 // INPUT: user properties OUTPUT: newly created user node
 async function createUser(username, password, name) {
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
-
     try {
         const result = await session.writeTransaction((tx) => {
             return tx.run('CREATE (user:User {username: $username, password: $password, name: $name, userId: apoc.create.uuid()}) RETURN user',
-                    {username, password, name});
+            {username, password, name});
         });
         if (_.isEmpty(result.records)) return null;
         const record = result.records[0];
@@ -44,14 +45,13 @@ async function createUser(username, password, name) {
         console.log(err);
         throw err;
     } finally {
-        session.close();
+        await session.close();
     }
 }
 
 // INPUT: username & new data OUTPUT: updated user node
 async function updateUser(username, data) {
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
-
     try {
         const result = await session.writeTransaction((tx) => {
             return tx.run('UNWIND $props AS map MATCH (user:User { username: $username }) SET user += map',
@@ -69,12 +69,12 @@ async function updateUser(username, data) {
         console.log(err);
         throw err;
     } finally {
-        session.close();
+       await session.close();
     }
 }
 
 module.exports = {
-    getUser,
+    getUserByUsername,
     createUser,
     updateUser
 }

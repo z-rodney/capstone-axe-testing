@@ -22,7 +22,7 @@ async function getUserBySession(sessionId) {
       console.log(err);
       throw err;
   } finally {
-      session.close();
+      await session.close();
   }
 }
 
@@ -42,7 +42,7 @@ async function createSession(username) {
         console.log(err);
         throw err;
     } finally {
-        session.close();
+       await session.close();
     }
 }
 
@@ -59,7 +59,7 @@ async function destroySession(sessionId) {
         console.log(err);
         throw err;
     } finally {
-        session.close();
+        await session.close();
     }
 }
 
