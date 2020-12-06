@@ -151,9 +151,25 @@ userRouter.post('/addFriend', async(req, res, next) => {
 // adds preferences node, then connects it to a user in db
 userRouter.post('/addPreferences', async(req, res, next) => {
   try {
-    const userId = req.user.userId;
-    const data = req.body;
-    data.userId = userId;
+    const {
+      householdSize,
+      indoorDining,
+      outdoorDining,
+      essentialWorker,
+      immunocompromised,
+      mask,
+      pubTrans
+    } = req.body;
+    const data = {
+      userId: req.user.userId,
+      householdSize,
+      indoorDining,
+      outdoorDining,
+      essentialWorker,
+      immunocompromised,
+      mask,
+      pubTrans
+    }
     const preferences = await addPreferences(data);
     res.status(201).send(preferences);
   }
