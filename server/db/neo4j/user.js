@@ -49,15 +49,15 @@ async function createUser(username, password, name) {
     }
 }
 
-// INPUT: username & new data OUTPUT: updated user node
-async function updateUser(username, data) {
+// INPUT: userId & new data OUTPUT: updated user node
+async function updateUser(userId, data) {
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
     try {
         const result = await session.writeTransaction((tx) => {
-            return tx.run('UNWIND $props AS map MATCH (user:User { username: $username }) SET user += map',
+            return tx.run('UNWIND $props AS map MATCH (user:User { userId: $userId }) SET user += map',
             {
                 props: [ data ],
-                username
+                userId
             });
         });
         if (_.isEmpty(result.records)) return null;
