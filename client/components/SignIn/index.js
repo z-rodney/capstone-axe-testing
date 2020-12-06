@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/userLogin';
-import { GrLocation } from 'react-icons/gr';
 import { useHistory } from 'react-router-dom';
 import MessageBox from '../MessageBox';
 import {
   SignInContainer,
   FormWrap,
-  Icon,
   FormContent,
   Form,
   FormH1,
@@ -35,10 +33,6 @@ const SignIn = () => {
     <>
       <SignInContainer>
         <FormWrap>
-          <Icon to="/">
-            <GrLocation />
-            Proximity
-          </Icon>
           <FormContent>
             <Form className="form" onSubmit={submitHandler}>
               <FormH1>Log In To Your Account</FormH1>

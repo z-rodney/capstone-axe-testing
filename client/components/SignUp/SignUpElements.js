@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
 export const SignUpContainer = styled.div`
   min-height: 692px;
-  position: fixed;
+  position: static;
   bottom: 0;
   left: 0;
   right: 0;
   top: 0;
   z-index: 0;
-  overflow: hidden;
+  overflow: auto;
   background: linear-gradient(
     108deg,
     rgba(67, 170, 139, 1) 0%,
@@ -61,8 +61,8 @@ export const Form = styled.form`
   z-index: 1;
   display: grid;
   background: #b2b09b;
-  margin: 0 auto;
-  padding: 80px 32px;
+  margin: 20px auto;
+  padding: 30px 32px;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
   @media screen and (max-width: 400px) {
