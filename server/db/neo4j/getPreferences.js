@@ -1,7 +1,7 @@
 const driver = require('../db');
 const Preferences = require('../models/Preferences');
 
-const getPreferences = async({username}) => {
+const getPreferences = async(username) => {
     let session = driver.session();
 
     try {

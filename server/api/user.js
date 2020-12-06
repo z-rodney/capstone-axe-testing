@@ -67,7 +67,8 @@ userRouter.put('/', async (req, res, next) => {
 // retrieves a user's friends from db
 userRouter.get('/getFriends', async(req, res, next) => {
   try {
-    const result = await getFriends(req.body)
+    const {username} = req.user
+    const result = await getFriends(username)
     res.status(200).send(result)
   }
   catch (err) {
@@ -91,7 +92,7 @@ userRouter.get('/getContacts', async(req, res, next) => {
 // retrieves a user's Locations from db
 userRouter.get('/getLocations', async(req, res, next) => {
   try {
-  const result = await getLocations(req.body)
+  const result = await getLocations('zaina@zaina.com')
     res.status(200).send(result)
   }
   catch (err) {
@@ -103,7 +104,8 @@ userRouter.get('/getLocations', async(req, res, next) => {
 // retrieves a user's Preferences from db
 userRouter.get('/getPreferences', async(req, res, next) => {
   try {
-    const result = await getPreferences(req.body)
+    const {username} = req.user
+    const result = await getPreferences(username)
     res.status(200).send(result)
   }
   catch (err) {

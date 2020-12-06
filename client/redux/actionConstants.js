@@ -11,3 +11,5 @@ export const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL';
 export const USER_LOGOUT = 'USER_LOGOUT';
 
 export const CHECK_LOGIN = 'CHECK_LOGIN';
+
+export const GET_USER_PREFERENCES = 'GET_USER_PREFERENCES';

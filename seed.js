@@ -19,7 +19,7 @@ const seed = async (db) => {
 
 
         // add unique constraint for username
-        await session.run("CREATE CONSTRAINT unique_username IF NOT EXISTS ON (user:User) ASSERT user.username IS UNIQUE");
+        await session.run('CREATE CONSTRAINT unique_username IF NOT EXISTS ON (user:User) ASSERT user.username IS UNIQUE');
 
         // create 4 new users
         await session.run(
@@ -27,36 +27,40 @@ const seed = async (db) => {
             CREATE (u:User) \
             SET u = map',
             {
-                "props": [{
-                    "username": "zoe@zoe.com",
-                    "name": 'Zoe',
-                    "password": hashedPW,
-                    "householdSize": 2,
-                    "covidPosContact": false,
-                    "covidTest": "negative",
-                    "testDate": "2020-11-23"
+                props: [{
+                    userId: '123',
+                    username: 'zoe@zoe.com',
+                    name: 'Zoe',
+                    password: hashedPW,
+                    householdSize: 2,
+                    covidPosContact: false,
+                    covidTest: 'negative',
+                    testDate: '2020-11-23'
                 }, {
-                    "username": "zaina@zaina.com",
-                    "name": 'Zaina',
-                    "password": hashedPW,
-                    "householdSize": 4,
-                    "covidPosContact": false
+                    userId: '456',
+                    username: 'zaina@zaina.com',
+                    name: 'Zaina',
+                    password: hashedPW,
+                    householdSize: 4,
+                    covidPosContact: false
                 }, {
-                    "username": "rehab@rehab.com",
-                    "name": "Rehab",
-                    "password": hashedPW,
-                    "householdSize": 3,
-                    "covidPosContact": false,
-                    "covidTest": "negative",
-                    "testDate": "2020-11-02"
+                    userId: '789',
+                    username: 'rehab@rehab.com',
+                    name: 'Rehab',
+                    password: hashedPW,
+                    householdSize: 3,
+                    covidPosContact: false,
+                    covidTest: 'negative',
+                    testDate: '2020-11-02'
                 }, {
-                    "username": "ranffi@ranffi.com",
-                    "name": 'Ranffi',
-                    "password": hashedPW,
-                    "householdSize": 2,
-                    "covidPosContact": false,
-                    "covidTest": "negative",
-                    'testDate': '2020-11-01'
+                    userId: '101112',
+                    username: 'ranffi@ranffi.com',
+                    name: 'Ranffi',
+                    password: hashedPW,
+                    householdSize: 2,
+                    covidPosContact: false,
+                    covidTest: 'negative',
+                    testDate: '2020-11-01'
                 }]
             }
         );
@@ -67,38 +71,38 @@ const seed = async (db) => {
             CREATE (p: Preferences) \
             SET p = map',
             {
-                "props": [{
-                    "mask": true,
-                    "indoorDining": false,
-                    "outdoorDining": true,
-                    "pubTrans": true,
-                    "householdSize": 3,
-                    "immunocompromised": false,
-                    "essentialWorker": false
+                props: [{
+                    mask: true,
+                    indoorDining: false,
+                    outdoorDining: true,
+                    pubTrans: true,
+                    householdSize: 3,
+                    immunocompromised: false,
+                    essentialWorker: false
                 }, {
-                    "mask": true,
-                    "indoorDining": true,
-                    "outdoorDining": false,
-                    "pubTrans": false,
-                    "householdSize": 2,
-                    "immunocompromised": false,
-                    "essentialWorker": false
+                    mask: true,
+                    indoorDining: true,
+                    outdoorDining: false,
+                    pubTrans: false,
+                    householdSize: 2,
+                    immunocompromised: false,
+                    essentialWorker: false
                 }, {
-                    "mask": true,
-                    "indoorDining": false,
-                    "outdoorDining": true,
-                    "pubTrans": false,
-                    "householdSize": 5,
-                    "immunocompromised": false,
-                    "essentialWorker": true
+                    mask: true,
+                    indoorDining: false,
+                    outdoorDining: true,
+                    pubTrans: false,
+                    householdSize: 5,
+                    immunocompromised: false,
+                    essentialWorker: true
                 }, {
-                    "mask": true,
-                    "indoorDining": false,
-                    "outdoorDining": true,
-                    "pubTrans": false,
-                    "householdSize": 6,
-                    "immunocompromised": false,
-                    "essentialWorker": false
+                    mask: true,
+                    indoorDining: false,
+                    outdoorDining: true,
+                    pubTrans: false,
+                    householdSize: 6,
+                    immunocompromised: false,
+                    essentialWorker: false
                 }]
             }
         );
@@ -169,21 +173,23 @@ const seed = async (db) => {
             CREATE (l:Location) \
             SET l = map',
             {
-                "props": [{
-                    "latitude": "40.721640",
-                    "longitude": "-74.003780",
+                props: [{
+                    title: 'Bronx finest',
+                    coordinates: [-73.92555771551504, 40.87191365945296],
+                    placeName: 'Innwood Hill Park, Washington Heights, New York',
                 }, {
-                    "latitude": "40.771558",
-                    "longitude": "-73.969837",
+                    title: 'Gin Mills',
+                    coordinates: [-73.92555773351504, 40.87195565945296],
+                    placeName: 'Bar Bar Bar',
                 }, {
-                    "latitude": "40.807128",
-                    "longitude": "-73.964116",
+                    latitude: '40.807128',
+                    longitude: '-73.964116',
                 },  {
-                    "latitude": "40.751188",
-                    "longitude": "-73.993060",
+                    latitude: '40.751188',
+                    longitude: '-73.993060',
                 },  {
-                    "latitude": "40.766156",
-                    "longitude": "-73.987882",
+                    latitude: '40.766156',
+                    longitude: '-73.987882',
                 }],
             }
         )
@@ -194,8 +200,8 @@ const seed = async (db) => {
             MATCH (ranffi:User {username:$ranffi}) \
             MATCH (zaina:User {username:$zaina}) \
             MATCH (zoe:User {username:$zoe}) \
-            MATCH (first:Location {latitude:$location1}) \
-            MATCH (second:Location {latitude:$location2}) \
+            MATCH (first:Location {title:$location1}) \
+            MATCH (second:Location {title:$location2}) \
             CREATE (rehab)-[r1:VISITED]->(first) \
             CREATE (ranffi)-[r2:VISITED]->(first) \
             CREATE (zaina)-[r3:VISITED]->(first) \
@@ -211,8 +217,8 @@ const seed = async (db) => {
                 zaina: 'zaina@zaina.com',
                 ranffi: 'ranffi@ranffi.com',
                 rehab: 'rehab@rehab.com',
-                location1: '40.751188',
-                location2: '40.807128',
+                location1: 'Bronx finest',
+                location2: 'Gin Mills',
                 VistedDate1: '2020-11-01',
                 VistedDate2: '2020-11-23',
                 VistedDate3: '2020-10-04',

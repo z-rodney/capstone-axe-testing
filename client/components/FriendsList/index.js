@@ -1,27 +1,35 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { RowContainer } from '../styledComponents'
 import { FriendCard } from './StyleElements'
+import axios from 'axios'
 
-const friends = [
-  {name: 'Ann'},
-  {name: 'David'},
-  {name: 'Susie'}
-]
 
 const FriendList = ({friendsList = friends, all}) => {
+  const [friends, setFriends] = useState([])
+
+
+useEffect(() => {
+  const getFriends = async() => {
+  const p = await axios.get('/api/user/getFriends')
+  setFriends(p.data)
+}
+getFriends()
+
+}, [])
+console.log(friends)
   return (
       <FriendCard>
       <Link to="/friends">View All Friends</Link>
-        {friendsList.map(friend => {
+        {friends.map(friend => {
           return (
             <RowContainer>
-              <img className={ all ? "all-friends" : "profile-pic"} src="https://cdn.onlinewebfonts.com/svg/img_415067.png"/>
+              <img className={ all ? 'all-friends' : 'profile-pic'} src="https://cdn.onlinewebfonts.com/svg/img_415067.png" />
               <Link to="/friends/1"><p className="spaced">{friend.name}</p></Link>
             </RowContainer>
           )})
         }
-    </FriendCard>
+      </FriendCard>
   )
 }
 
