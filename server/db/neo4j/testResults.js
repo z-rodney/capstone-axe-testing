@@ -22,7 +22,7 @@ async function getResults(userId) {
     })
     return testResults
   } catch (err) {
-    throw err
+    console.log(err)
   } finally {
     await session.close()
   }
@@ -40,7 +40,7 @@ async function postResults(userId, testResult, date) {
     }
     return new TestResult(result.records[0].get('testRes'))
   } catch (err) {
-    throw err
+    console.log(err)
   } finally {
     await session.close()
   }

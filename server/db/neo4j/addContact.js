@@ -1,27 +1,24 @@
 const driver = require('../db');
 
-const addContact = async({username, contacted, date}) => {
+const addContact = async({userId, contacted, date}) => {
     let session = driver.session()
-
     try {
         const user = await session.run(
-           'MATCH (me:User {username: $username }) \
-            MATCH (friend:User {username: $contacted}) \
-            CREATE (me)-[r:CONTACTED]->(friend) \
-            CREATE (friend)-[r2:CONTACTED]->(me) \
-            SET r.contactDate = $date \
-            SET r2.contactDate = $date \
-            RETURN me, friend',
-            {
-            username: username,
-            contacted: contacted,
-            date: date
-            }
+           `MATCH (me:User {userId: $userId })
+            MATCH (friend:User {userId: $contacted})
+            CREATE (me)-[r:CONTACTED]->(friend)
+            CREATE (friend)-[r2:CONTACTED]->(me)
+            SET r.contactDate = $date
+            SET r2.contactDate = $date
+            RETURN me, friend`,
+            { userId, contacted, date }
         )
        return user
     }
     catch (err) {
         console.log(err)
+    } finally {
+        await session.close()
     }
 
 }

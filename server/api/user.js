@@ -170,7 +170,7 @@ userRouter.get('/:userId/results', async (req, res, next) => {
       next(err)
     }
   } else {
-    res.status(404)
+    res.status(404).send({message: 'Unauthorized: User is not signed in.'})
   }
 })
 
@@ -186,7 +186,7 @@ userRouter.post('/:userId/results', async (req, res, next) => {
       next(err)
     }
   } else {
-    res.status(404)
+    res.status(404).send({message: 'Unauthorized: User is not signed in.'})
   }
 })
 
