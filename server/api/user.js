@@ -3,9 +3,18 @@ const userRouter = express.Router();
 const bcrypt = require('bcrypt');
 const { createUser, updateUser } = require('../db/neo4j/user');
 const { createSession } = require('../db/neo4j/session');
-const { postResults, getResults } = require('../db/neo4j/testResults')
-const {getContacts, getFriends, getLocations, getPreferences,
-  addFriend, addLocation, addContact, addPreferences} = require('../db/neo4j')
+const { postResults, getResults } = require('../db/neo4j/testResults');
+const {
+  getContacts,
+  getFriends,
+  getLocations,
+  getPreferences,
+  addFriend,
+  addLocation,
+  addContact,
+  addPreferences,
+  searchUsers
+} = require('../db/neo4j');
 
 const A_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 
@@ -139,12 +148,17 @@ userRouter.post('/:userId/addContact', async(req, res, next) => {
 // POST /api/user/:userId/addFriend
 // adds a friend to a user in db
 userRouter.post('/:userId/addFriend', async(req, res, next) => {
-  try {
-  const insert = await addFriend(req.body)
-    res.status(201).send(insert)
-  }
-  catch (err) {
-    next(err)
+  if (req.user) {
+    try {
+      const { friendId } = req.body;
+      const newFriend = await addFriend(req.params.userId, friendId);
+      res.status(201).send(newFriend);
+    }
+    catch (err) {
+      next(err);
+    }
+  } else {
+      res.status(404).send({ message: 'Unauthorized: User is not signed in.'});
   }
 })
 
@@ -159,7 +173,8 @@ userRouter.post('/:userId/addPreferences', async(req, res, next) => {
     next(err)
   }
 })
-//POST /api/user/:userId/results
+
+// POST /api/user/:userId/results
 userRouter.get('/:userId/results', async (req, res, next) => {
   if (req.user) {
     try {
@@ -187,6 +202,22 @@ userRouter.post('/:userId/results', async (req, res, next) => {
     }
   } else {
     res.status(404).send({message: 'Unauthorized: User is not signed in.'})
+  }
+})
+
+//POST /api/user/search
+userRouter.post('/search', async (req, res, next) => {
+  if (req.user) {
+    try {
+      const { userId } = req.user;
+      const { searchTerm } = req.body;
+      const searchResults = await searchUsers(searchTerm, userId);
+      res.status(201).send(searchResults);
+    } catch (err) {
+      next(err);
+    }
+  } else {
+    res.status(404).send({ message: 'Unauthorized: User is not signed in.'});
   }
 })
 

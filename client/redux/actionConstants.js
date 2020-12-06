@@ -13,3 +13,7 @@ export const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL';
 export const USER_LOGOUT = 'USER_LOGOUT';
 
 export const CHECK_LOGIN = 'CHECK_LOGIN';
+
+export const GET_SEARCH_RESULTS = 'GET_SEARCH_RESULTS';
+
+export const ADD_FRIEND = 'ADD_FRIEND';

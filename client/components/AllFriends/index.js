@@ -14,7 +14,7 @@ const AllFriends = () => {
         </div>
         <div>
         <h2>All Friends</h2>
-          <FriendList all={true}/>
+          <FriendList all={true} />
         </div>
       </ColumnContainer>
     </ThreeQuartContainer>

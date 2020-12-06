@@ -11,16 +11,17 @@ const friends = [
 
 const FriendList = ({friendsList = friends, all}) => {
   return (
-      <FriendCard>
-      <Link to="/friends">View All Friends</Link>
-        {friendsList.map(friend => {
-          return (
-            <RowContainer>
-              <img className={ all ? "all-friends" : "profile-pic"} src="https://cdn.onlinewebfonts.com/svg/img_415067.png"/>
-              <Link to="/friends/1"><p className="spaced">{friend.name}</p></Link>
-            </RowContainer>
-          )})
-        }
+    <FriendCard>
+      {/* <Link to="/friends">View All Friends</Link> */}
+      <Link to="/friends/follow">Add Friends</Link>
+      {friendsList.map(friend => {
+        return (
+          <RowContainer>
+            <img className={ all ? "all-friends" : "profile-pic"} src="https://cdn.onlinewebfonts.com/svg/img_415067.png"/>
+            <Link to="/friends/1"><p className="spaced">{friend.name}</p></Link>
+          </RowContainer>
+        )})
+      }
     </FriendCard>
   )
 }
