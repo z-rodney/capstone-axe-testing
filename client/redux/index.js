@@ -6,6 +6,7 @@ import userSignUpReducer from './userSignUp'
 import loginStatusReducer from './loginStatus'
 import searchFriendsReducer from './searchFriends'
 import friendsReducer from './friends'
+import userPrefsReducer from './userPrefs'
 
 const reducer = combineReducers({
   locations: locationsReducer,
@@ -14,7 +15,8 @@ const reducer = combineReducers({
   signUp: userSignUpReducer,
   loginStatus: loginStatusReducer,
   searchResults: searchFriendsReducer,
-  friends: friendsReducer
+  friends: friendsReducer,
+  userPrefs: userPrefsReducer
 })
 
 export default reducer

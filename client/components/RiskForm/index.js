@@ -1,12 +1,22 @@
-// redirect to this route upon account creation, path "/my-risk"
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { CenteredContainer, Card } from '../styledComponents';
 import { FormCard, RadioContainer } from './StyleElements';
+import { addPreferences } from '../../redux/userPrefs';
 
 export default function RiskForm() {
+
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = data => console.log(data);
+  const userId = useSelector(state => state.loginStatus.userId)
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const onSubmit = (data) => {
+    data.householdSize *= 1;
+    dispatch(addPreferences(userId, data, history));
+  }
 
   return (
     <CenteredContainer>
@@ -118,7 +128,6 @@ export default function RiskForm() {
               </RadioContainer>
             </RadioContainer>
           </FormCard>
-
           <FormCard>
             <input type="submit" id="submit-btn" value="Submit" />
           </FormCard>
