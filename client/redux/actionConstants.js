@@ -15,3 +15,4 @@ export const USER_LOGOUT = 'USER_LOGOUT';
 export const CHECK_LOGIN = 'CHECK_LOGIN';
 
 export const ADD_PREFERENCES = 'ADD_PREFERENCES';
+export const GET_PREFERENCES = 'GET_PREFERENCES';

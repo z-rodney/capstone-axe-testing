@@ -47,7 +47,6 @@ function TestResultForm({ setShowForm }) {
 }
 
 function TestResults() {
-  const [loaded, setLoaded] = useState(false)
   const [showForm, setShowForm] = useState(false)
   const dispatch = useDispatch()
   const userId = useSelector(state => state.loginStatus.userId)

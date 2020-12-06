@@ -104,11 +104,11 @@ userRouter.get('/getLocations', async(req, res, next) => {
 // retrieves a user's Preferences from db
 userRouter.get('/:userId/getPreferences', async(req, res, next) => {
   try {
-    const result = await getPreferences(req.body)
-    res.status(200).send(result)
+    const result = await getPreferences(req.params.userId);
+    res.status(200).send(result);
   }
   catch (err) {
-    next(err)
+    next(err);
   }
 })
 
