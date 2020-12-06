@@ -34,7 +34,7 @@ const Navbar = (props) => {
     }
   };
   const userInfo = useSelector((state) => state.loginStatus);
-  const {userId} = userInfo
+  const {userId} = userInfo;
 
   const dispatch = useDispatch();
   const history = useHistory();

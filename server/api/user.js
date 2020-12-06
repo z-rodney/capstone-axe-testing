@@ -104,11 +104,11 @@ userRouter.get('/getLocations', async(req, res, next) => {
 // retrieves a user's Preferences from db
 userRouter.get('/:userId/getPreferences', async(req, res, next) => {
   try {
-    const result = await getPreferences(req.body)
-    res.status(200).send(result)
+    const result = await getPreferences(req.params.userId);
+    res.status(200).send(result);
   }
   catch (err) {
-    next(err)
+    next(err);
   }
 })
 
@@ -152,11 +152,30 @@ userRouter.post('/:userId/addFriend', async(req, res, next) => {
 // adds preferences to a user in db
 userRouter.post('/:userId/addPreferences', async(req, res, next) => {
   try {
-  const insert = await addPreferences(req.body)
-    res.status(201).send(insert)
+    const {
+      householdSize,
+      indoorDining,
+      outdoorDining,
+      essentialWorker,
+      immunocompromised,
+      mask,
+      pubTrans
+    } = req.body;
+    const data = {
+      userId: req.user.userId,
+      householdSize,
+      indoorDining,
+      outdoorDining,
+      essentialWorker,
+      immunocompromised,
+      mask,
+      pubTrans
+    }
+    const preferences = await addPreferences(data);
+    res.status(201).send(preferences);
   }
   catch (err) {
-    next(err)
+    next(err);
   }
 })
 //POST /api/user/:userId/results
@@ -189,6 +208,5 @@ userRouter.post('/:userId/results', async (req, res, next) => {
     res.status(404).send({message: 'Unauthorized: User is not signed in.'})
   }
 })
-
 
 module.exports = userRouter;
