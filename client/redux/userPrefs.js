@@ -8,8 +8,7 @@ export const _addPreferences = preferences => ({
 
 export const addPreferences = (userId, data, history) => {
   return async (dispatch) => {
-    // const preferences = await axios.post(`/api/user/${userId}/addPreferences`, data);
-    const preferences = await axios.post('/api/user/addPreferences', data);
+    const preferences = await axios.post(`/api/user/${userId}/addPreferences`, data);
     dispatch(_addPreferences(preferences.data));
     history.push('/profile');
   }

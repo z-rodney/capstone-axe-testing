@@ -9,13 +9,13 @@ import { addPreferences } from '../../redux/userPrefs';
 export default function RiskForm() {
 
   const { register, handleSubmit, errors } = useForm();
-  const userInfo = useSelector((state) => state.loginStatus);
+  const userId = useSelector(state => state.loginStatus.userId)
   const dispatch = useDispatch();
   const history = useHistory();
 
   const onSubmit = (data) => {
     data.householdSize *= 1;
-    dispatch(addPreferences(userInfo.userId, data, history));
+    dispatch(addPreferences(userId, data, history));
   }
 
   return (

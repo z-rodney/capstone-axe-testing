@@ -63,7 +63,7 @@ function TestResults() {
   return (
     <ResultsCard>
       <h2>Test Results <span className="plus-button" onClick={() => { setShowForm(!showForm) }}>+</span></h2>
-      {showForm && <TestResultForm setShowForm={setShowForm}/>}
+      {showForm && <TestResultForm setShowForm={setShowForm} />}
       <ul className="no-bullet">
         {testResults.length ? testResults.map((test, id) => {
           return (
