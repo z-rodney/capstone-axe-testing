@@ -1,5 +1,5 @@
 const driver = require('../db');
-const Preferences = require('../models/Preferences')
+const Preferences = require('../models/Preferences');
 
 const getPreferences = async({userId}) => {
     let session = driver.session()
@@ -12,7 +12,9 @@ const getPreferences = async({userId}) => {
     }
     catch (err) {
         console.log(err)
+    } finally {
+        await session.close()
     }
 }
 
-module.exports = getPreferences
+module.exports = getPreferences;
