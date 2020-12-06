@@ -34,6 +34,8 @@ const addPreferences = async({ userId, householdSize, indoorDining, outdoorDinin
         return new Preferences(record.get('p'));
     } catch (err) {
         console.log(err);
+    } finally {
+        session.close();
     }
 }
 

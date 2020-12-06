@@ -45,11 +45,11 @@ export default function RiskForm() {
             <label className="question">Are you comfortable dining indoors at restaurants, bars, and/or cafes?</label>
             <RadioContainer>
               <RadioContainer>
-                <input name="indoorDining" type="radio" id="inlineRadio1" value="yes" ref={ register } />
+                <input name="indoorDining" type="radio" id="inlineRadio1" value={true} ref={ register } />
                 <label htmlFor="inlineRadio1">Yes</label>
               </RadioContainer>
               <RadioContainer>
-                <input name="indoorDining" type="radio" id="inlineRadio1" value="no" ref={ register } />
+                <input name="indoorDining" type="radio" id="inlineRadio1" value={false} ref={ register } />
                 <label htmlFor="inlineRadio1">No</label>
               </RadioContainer>
             </RadioContainer>
@@ -59,11 +59,11 @@ export default function RiskForm() {
             <label className="question">Are you comfortable dining outdoors at restaurants, bars, and/or cafes?</label>
             <RadioContainer>
               <RadioContainer>
-                <input name="outdoorDining" type="radio" id="inlineRadio2" value="yes" ref={ register } />
+                <input name="outdoorDining" type="radio" id="inlineRadio2" value={true} ref={ register } />
                 <label htmlFor="inlineRadio2">Yes</label>
               </RadioContainer>
               <RadioContainer>
-              <input name="outdoorDining" type="radio" id="inlineRadio2" value="no" ref={ register } />
+              <input name="outdoorDining" type="radio" id="inlineRadio2" value={false} ref={ register } />
               <label htmlFor="inlineRadio2">No</label>
               </RadioContainer>
             </RadioContainer>
@@ -73,11 +73,11 @@ export default function RiskForm() {
             <label className="question">Are you an essential worker?</label>
             <RadioContainer>
               <RadioContainer>
-                <input name="essentialWorker" type="radio" id="inlineRadio3" value="yes" ref={ register } />
+                <input name="essentialWorker" type="radio" id="inlineRadio3" value={true} ref={ register } />
                 <label htmlFor="inlineRadio3">Yes</label>
               </RadioContainer>
               <RadioContainer>
-                <input name="essentialWorker" type="radio" id="inlineRadio3" value="no" ref={ register } />
+                <input name="essentialWorker" type="radio" id="inlineRadio3" value={false} ref={ register } />
                 <label htmlFor="inlineRadio3">No</label>
               </RadioContainer>
             </RadioContainer>
@@ -87,11 +87,11 @@ export default function RiskForm() {
             <label className="question">Are you in a high-risk group or immunocompromised?</label>
             <RadioContainer>
               <RadioContainer>
-                <input name="immunocompromised" type="radio" id="inlineRadio4" value="yes" ref={ register } />
+                <input name="immunocompromised" type="radio" id="inlineRadio4" value={true} ref={ register } />
                 <label htmlFor="inlineRadio4">Yes</label>
               </RadioContainer>
               <RadioContainer>
-                <input name="immunocompromised" type="radio" id="inlineRadio4" value="no" ref={ register } />
+                <input name="immunocompromised" type="radio" id="inlineRadio4" value={false} ref={ register } />
                 <label htmlFor="inlineRadio4">No</label>
               </RadioContainer>
             </RadioContainer>
@@ -119,11 +119,11 @@ export default function RiskForm() {
             <label className="question">Do you take public transportation?</label>
             <RadioContainer>
               <RadioContainer>
-                <input name="pubTrans" type="radio" id="inlineRadio6" value="yes" ref={ register } />
+                <input name="pubTrans" type="radio" id="inlineRadio6" value={true} ref={ register } />
                 <label htmlFor="inlineRadio6">Yes</label>
               </RadioContainer>
               <RadioContainer>
-                <input name="pubTrans" type="radio" id="inlineRadio6" value="no" ref={ register } />
+                <input name="pubTrans" type="radio" id="inlineRadio6" value={false} ref={ register } />
                 <label htmlFor="inlineRadio6">No</label>
               </RadioContainer>
             </RadioContainer>

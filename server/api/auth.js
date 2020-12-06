@@ -1,16 +1,21 @@
 const express = require('express');
 const authRouter = express.Router();
 const bcrypt = require('bcrypt');
-const { getUser } = require('../db/neo4j/user');
+const { getUserByUsername } = require('../db/neo4j/user');
 const { createSession, destroySession } = require('../db/neo4j/session');
 const A_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 
 // GET /api/auth/whoami
 authRouter.get('/whoami', (req, res, next) => {
   if (req.user) {
-    res.send(req.user.username);
+    const user = {
+      username: req.user.username,
+      userId: req.user.userId,
+      name: req.user.name
+    }
+    res.send(user);
   } else {
-    res.send('Not logged in.');
+    res.status(404).send({username: null, userId: null});
   }
 })
 
@@ -24,8 +29,7 @@ authRouter.post('/login', async (req, res) => {
     });
   } else {
     try {
-      const foundUser = await getUser(username);
-
+      const foundUser = await getUserByUsername(username);
       if (foundUser) {
         //if a user is found, check PW
         const comparisonResult = await bcrypt.compare(password, foundUser.password);
