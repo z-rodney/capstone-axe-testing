@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 //import mapboxgl from 'mapbox-gl'
 import { Card } from '../styledComponents/'
 import { MAPBOXPK, mapBoxStyleURL } from '../../../constants'
 import { generateJSONFeatures } from '../../utils'
-import Axios from 'axios'
 
 window.mapboxgl.accessToken = MAPBOXPK
 
@@ -21,13 +20,11 @@ const sourceData = {
 }
 
 function Locations() {
-  // const locations = useSelector(state => state.locations)
-  const [locations, setLocations] = useState([])
-  console.log(locations)
+  const locations = useSelector(state => state.locations)
   const mapContainerRef = useRef(null)
   //helper function that takes array of coordinates and turns it into
   //specifically formatted JSON for geographic information
-  // const geoJSONSource = generateJSONFeatures(locations)
+  const geoJSONSource = generateJSONFeatures(locations)
 
   useEffect(() => {
     const map = new window.mapboxgl.Map({
@@ -36,13 +33,7 @@ function Locations() {
     center: [-73.94, 40.73],
     zoom: 10
     });
-    const getLocations = async() => {
-      const userLocations = await Axios.get('api/user/getLocations')
-      setLocations(userLocations.data)
-    }
-    getLocations()
-    console.log(locations)
-    const geoJSONSource = generateJSONFeatures(locations)
+
     map.on('load', () => {
       //source with visited locations to render
       map.addSource('visited-locations-data', geoJSONSource)
@@ -51,8 +42,7 @@ function Locations() {
     })
 
     return () => map.remove()
-
-  }, [])
+  })
 
   return (
     <Card>

@@ -11,13 +11,12 @@ const FriendList = ({friendsList = friends, all}) => {
 
 useEffect(() => {
   const getFriends = async() => {
-  const p = await axios.get('/api/user/getFriends')
+  const p = await axios.get('/api/user/063b50cc-4dd1-411b-b4fd-de80a4f9328d/getFriends/')
   setFriends(p.data)
 }
 getFriends()
 
 }, [])
-console.log(friends)
   return (
       <FriendCard>
       <Link to="/friends">View All Friends</Link>

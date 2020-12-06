@@ -15,7 +15,7 @@ const [preferences, setPreferences] = useState({})
 
 useEffect(() => {
   const getP = async() => {
-  const p = await axios.get('/api/user/getPreferences')
+  const p = await axios.get('/api/user/063b50cc-4dd1-411b-b4fd-de80a4f9328d/getPreferences')
   setPreferences(p.data)
 }
 getP()
@@ -25,15 +25,13 @@ getP()
   //  setPreferences(userPreferences)
 }, [])
 
-
-console.log(preferences)
 return (
   <RiskCard>
   <h2>Risk Profile</h2>
   <ul>
     {Object.entries(preferences).map(([key, value]) => {
       return (
-        <li className={`pref-${value}`}>{key}</li>
+        <li key = {key} className={`pref-${value}`}>{typeof value === 'number' ? `${key} (${value})` : key}</li>
       )
     })}
   </ul>

@@ -10,7 +10,7 @@ export const addLocation = (location) => {
   //add in async
   return (dispatch) => {
     try {
-      //await axios.post('api/users/SOME API URL HERE', {location})
+      //const newLocation = await axios.post('api/users/SOME API URL HERE', {location})
       dispatch(_addLocation(location))
     }
     catch (err) {

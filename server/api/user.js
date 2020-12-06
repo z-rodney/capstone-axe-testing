@@ -3,6 +3,7 @@ const userRouter = express.Router();
 const bcrypt = require('bcrypt');
 const { createUser, updateUser } = require('../db/neo4j/user');
 const { createSession } = require('../db/neo4j/session');
+const { postResults, getResults } = require('../db/neo4j/testResults')
 const {getContacts, getFriends, getLocations, getPreferences,
   addFriend, addLocation, addContact, addPreferences} = require('../db/neo4j')
 
@@ -50,12 +51,12 @@ userRouter.post('/', async (req, res) => {
   }
 })
 
-// PUT /api/user
+// PUT /api/user/:userId
 // use for adding NEW properties to the user node
-userRouter.put('/', async (req, res, next) => {
+userRouter.put('/:userId', async (req, res, next) => {
   try {
-    const { username } = req.user;
-    const updatedUser = await updateUser(username, req.body);
+    const { userId } = req.user;
+    const updatedUser = await updateUser(userId, req.body);
     res.status(200).send(updatedUser);
   }
   catch (err) {
@@ -63,12 +64,12 @@ userRouter.put('/', async (req, res, next) => {
   }
 })
 
-// GET /api/getFriends
+// GET /api/user/:userId/getFriends
 // retrieves a user's friends from db
-userRouter.get('/getFriends', async(req, res, next) => {
+userRouter.get('/:userId/getFriends', async(req, res, next) => {
   try {
     const {username} = req.user
-    const result = await getFriends(username)
+    const result = await getFriends('063b50cc-4dd1-411b-b4fd-de80a4f9328d')
     res.status(200).send(result)
   }
   catch (err) {
@@ -76,9 +77,9 @@ userRouter.get('/getFriends', async(req, res, next) => {
   }
 })
 
-// GET /api/getContacts
+// GET /api/user/:userId/getContacts
 // retrieves a user's Contacts from db
-userRouter.get('/getContacts', async(req, res, next) => {
+userRouter.get('/:userId/getContacts', async(req, res, next) => {
   try {
     const result = await getContacts(req.body)
     res.status(200).send(result)
@@ -88,11 +89,11 @@ userRouter.get('/getContacts', async(req, res, next) => {
   }
 })
 
-// GET /api/getLocations
+// GET /api/user/:userId/getLocations
 // retrieves a user's Locations from db
 userRouter.get('/getLocations', async(req, res, next) => {
   try {
-  const result = await getLocations('zaina@zaina.com')
+  const result = await getLocations('063b50cc-4dd1-411b-b4fd-de80a4f9328d')
     res.status(200).send(result)
   }
   catch (err) {
@@ -100,12 +101,12 @@ userRouter.get('/getLocations', async(req, res, next) => {
   }
 })
 
-// GET /api/getPreferences
+// GET /api/user/:userId/getPreferences
 // retrieves a user's Preferences from db
-userRouter.get('/getPreferences', async(req, res, next) => {
+userRouter.get('/:userId/getPreferences', async(req, res, next) => {
   try {
     const {username} = req.user
-    const result = await getPreferences(username)
+    const result = await getPreferences('063b50cc-4dd1-411b-b4fd-de80a4f9328d')
     res.status(200).send(result)
   }
   catch (err) {
@@ -113,9 +114,9 @@ userRouter.get('/getPreferences', async(req, res, next) => {
   }
 })
 
-// POST /api/addLocation
+// POST /api/user/:userId/addLocation
 // adds a location to a user in db
-userRouter.post('/addLocation', async(req, res, next) => {
+userRouter.post('/:userId/addLocation', async(req, res, next) => {
   try {
     const insert = await addLocation(req.body)
     res.status(201).send(insert)
@@ -125,9 +126,9 @@ userRouter.post('/addLocation', async(req, res, next) => {
   }
 })
 
-// POST /api/addContact
+// POST /api/user/:userId/addContact
 // adds a Contact to a user in db
-userRouter.post('/addContact', async(req, res, next) => {
+userRouter.post('/:userId/addContact', async(req, res, next) => {
   try {
     const insert = await addContact(req.body)
     res.status(201).send(insert)
@@ -137,9 +138,9 @@ userRouter.post('/addContact', async(req, res, next) => {
   }
 })
 
-// POST /api/addFriend
+// POST /api/user/:userId/addFriend
 // adds a friend to a user in db
-userRouter.post('/addFriend', async(req, res, next) => {
+userRouter.post('/:userId/addFriend', async(req, res, next) => {
   try {
   const insert = await addFriend(req.body)
     res.status(201).send(insert)
@@ -149,15 +150,45 @@ userRouter.post('/addFriend', async(req, res, next) => {
   }
 })
 
-// POST /api/addPreferences
+// POST /api/user/:userId/addPreferences
 // adds preferences to a user in db
-userRouter.post('/addPreferences', async(req, res, next) => {
+userRouter.post('/:userId/addPreferences', async(req, res, next) => {
   try {
   const insert = await addPreferences(req.body)
     res.status(201).send(insert)
   }
   catch (err) {
     next(err)
+  }
+})
+//POST /api/user/:userId/results
+userRouter.get('/:userId/results', async (req, res, next) => {
+  if (req.user) {
+    try {
+      const { userId } = req.user
+      const allResults = await getResults(userId)
+      res.send(allResults)
+    } catch (err) {
+      next(err)
+    }
+  } else {
+    res.status(404).send({message: 'Unauthorized: User is not signed in.'})
+  }
+})
+
+//POST /api/user/:userId/results
+userRouter.post('/:userId/results', async (req, res, next) => {
+  if (req.user) {
+    try {
+      const { userId } = req.user
+      const { covidTest, testDate } = req.body
+      const newResult = await postResults(userId, covidTest, testDate)
+      res.status(201).send(newResult)
+    } catch (err) {
+      next(err)
+    }
+  } else {
+    res.status(404).send({message: 'Unauthorized: User is not signed in.'})
   }
 })
 
