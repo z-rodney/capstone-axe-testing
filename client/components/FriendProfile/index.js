@@ -1,20 +1,29 @@
-import React from 'react'
+import React from 'react';
 //at some point will be able to remove card from imports
-import { ColumnContainer, RowContainer, Card, SidebarRight } from '../styledComponents/index'
-import { ResultsCard } from './StyleElements'
-import FriendList from '../FriendsList'
-import RiskProfile from '../RiskProfile'
+import {
+  ColumnContainer,
+  RowContainer,
+  Card,
+  SidebarRight,
+} from '../styledComponents/index';
+import { ResultsCard } from './StyleElements';
+import FriendList from '../FriendsList';
+import RiskProfile from '../RiskProfile';
+import Calendar from '../Calendar';
 
 const friend = {
   name: 'Stanley',
-  location: 'Brooklyn, NY'
-}
+  location: 'Brooklyn, NY',
+};
 
 const FriendProfile = () => {
   return (
     <ColumnContainer>
       <RowContainer>
-        <img className="profile-pic-big" src="https://cdn.onlinewebfonts.com/svg/img_415067.png"/>
+        <img
+          className="profile-pic-big"
+          src="https://cdn.onlinewebfonts.com/svg/img_415067.png"
+        />
         <div className="profile-heading spaced">
           <h3>{friend.name}</h3>
           <p>{friend.location}</p>
@@ -24,10 +33,11 @@ const FriendProfile = () => {
         <ColumnContainer>
           {/* TO-DO: get react calendar component and insert here */}
           <div>
-          <h2>November 2020</h2>
-           <Card>
-            <p>Calendar to go here</p>
-           </Card>
+            <h2>November 2020</h2>
+            <Card>
+              <p>Calendar to go here</p>
+              <Calendar />
+            </Card>
           </div>
           <div>
             <RiskProfile />
@@ -47,7 +57,7 @@ const FriendProfile = () => {
         </SidebarRight>
       </RowContainer>
     </ColumnContainer>
-  )
-}
+  );
+};
 
-export default FriendProfile
+export default FriendProfile;
