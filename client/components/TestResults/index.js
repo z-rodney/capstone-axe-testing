@@ -47,7 +47,6 @@ function TestResultForm({ setShowForm }) {
 }
 
 function TestResults() {
-  const [loaded, setLoaded] = useState(false)
   const [showForm, setShowForm] = useState(false)
   const dispatch = useDispatch()
   const userId = useSelector(state => state.loginStatus.userId)
@@ -63,7 +62,7 @@ function TestResults() {
   return (
     <ResultsCard>
       <h2>Test Results <span className="plus-button" onClick={() => { setShowForm(!showForm) }}>+</span></h2>
-      {showForm && <TestResultForm setShowForm={setShowForm}/>}
+      {showForm && <TestResultForm setShowForm={setShowForm} />}
       <ul className="no-bullet">
         {testResults.length ? testResults.map((test, id) => {
           return (

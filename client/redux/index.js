@@ -4,7 +4,7 @@ import testResultsReducer from './testResults'
 import userLoginReducer from './userLogin'
 import userSignUpReducer from './userSignUp'
 import loginStatusReducer from './loginStatus'
-import getUserPreferencesReducer from './userRiskProfile'
+import userPrefsReducer from './userPrefs'
 
 const reducer = combineReducers({
   locations: locationsReducer,
@@ -12,7 +12,7 @@ const reducer = combineReducers({
   login: userLoginReducer,
   signUp: userSignUpReducer,
   loginStatus: loginStatusReducer,
-  userPreferences: getUserPreferencesReducer,
+  userPrefs: userPrefsReducer
 })
 
 export default reducer

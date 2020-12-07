@@ -68,8 +68,8 @@ userRouter.put('/:userId', async (req, res, next) => {
 // retrieves a user's friends from db
 userRouter.get('/:userId/getFriends', async(req, res, next) => {
   try {
-    const {username} = req.user
-    const result = await getFriends('063b50cc-4dd1-411b-b4fd-de80a4f9328d')
+    const {userId} = req.user
+    const result = await getFriends(userId)
     res.status(200).send(result)
   }
   catch (err) {
@@ -93,7 +93,8 @@ userRouter.get('/:userId/getContacts', async(req, res, next) => {
 // retrieves a user's Locations from db
 userRouter.get('/getLocations', async(req, res, next) => {
   try {
-  const result = await getLocations('063b50cc-4dd1-411b-b4fd-de80a4f9328d')
+    const {userId} = req.user
+  const result = await getLocations(userId)
     res.status(200).send(result)
   }
   catch (err) {
@@ -105,12 +106,11 @@ userRouter.get('/getLocations', async(req, res, next) => {
 // retrieves a user's Preferences from db
 userRouter.get('/:userId/getPreferences', async(req, res, next) => {
   try {
-    const {username} = req.user
-    const result = await getPreferences('063b50cc-4dd1-411b-b4fd-de80a4f9328d')
-    res.status(200).send(result)
+    const result = await getPreferences(req.params.userId);
+    res.status(200).send(result);
   }
   catch (err) {
-    next(err)
+    next(err);
   }
 })
 
@@ -154,11 +154,30 @@ userRouter.post('/:userId/addFriend', async(req, res, next) => {
 // adds preferences to a user in db
 userRouter.post('/:userId/addPreferences', async(req, res, next) => {
   try {
-  const insert = await addPreferences(req.body)
-    res.status(201).send(insert)
+    const {
+      householdSize,
+      indoorDining,
+      outdoorDining,
+      essentialWorker,
+      immunocompromised,
+      mask,
+      pubTrans
+    } = req.body;
+    const data = {
+      userId: req.user.userId,
+      householdSize,
+      indoorDining,
+      outdoorDining,
+      essentialWorker,
+      immunocompromised,
+      mask,
+      pubTrans
+    }
+    const preferences = await addPreferences(data);
+    res.status(201).send(preferences);
   }
   catch (err) {
-    next(err)
+    next(err);
   }
 })
 //POST /api/user/:userId/results
@@ -191,6 +210,5 @@ userRouter.post('/:userId/results', async (req, res, next) => {
     res.status(404).send({message: 'Unauthorized: User is not signed in.'})
   }
 })
-
 
 module.exports = userRouter;

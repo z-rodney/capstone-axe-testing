@@ -9,7 +9,7 @@ import {
   HeroBtnWrapper,
 } from './HeroElements';
 // import Image from '../../../server/public/images/contract-tracing';
-import { Button } from '../ButtonElement';
+import { Button } from '../styledComponents/ButtonElement';
 
 const HeroSection = () => {
   return (
@@ -20,7 +20,7 @@ const HeroSection = () => {
       <HeroContent>
         <HeroH1>Welcome to Proximity App</HeroH1>
         <HeroP>
-          Sign up for a new account today and start protecting yourself, your family, friends, and play active role in protecting your community and fighting infectious diseases
+          Sign up to start protecting yourself, your family, and your friends, and play an active role in protecting your community from infectious diseases.
         </HeroP>
         <HeroBtnWrapper>
           <Button to="/signup" primary="true" dark="true" id="signup">
