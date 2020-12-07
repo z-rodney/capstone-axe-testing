@@ -1,11 +1,21 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { DetailCard, Title } from './StyleElements'
+import {getLocations} from '../../redux/userLocations'
 
 function EventDetails() {
   const locations = useSelector(state => state.locations)
+  const userId = useSelector(state => state.loginStatus.userId)
   const [expand, setExpand] = useState(false)
   const [selected, setSelected] = useState({})
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(getLocations(userId))
+    }
+  }, [userId])
+
 
  const showDetails = (location) => {
    setExpand(true)
@@ -17,17 +27,18 @@ function EventDetails() {
       <h3>Events</h3>
       {/*Temp list of events until calendar is set up */}
       <ul>
-        {locations.map((location, id) => {
-          return (<li key={id} onClick={() => { showDetails(location) }}>{location.title}</li>)
+        {locations.map((current, id) => {
+          return (<li key={id} onClick={() => { showDetails(current) }}>{current.location.title}</li>)
         })}
       </ul>
 
       <h3>Event Details</h3>
       {expand &&
         <DetailCard>
-          <Title>{selected.title}</Title>
-          <p>{selected.placeName}</p>
-          <p>Visited: {selected.date}</p>
+          <Title>{selected.location.title}</Title>
+          <p>{selected.location.placeName}</p>
+          
+          <p>Visited: {selected.dateVisited.VisitedDate}</p>
         </DetailCard>
       }
     </div>

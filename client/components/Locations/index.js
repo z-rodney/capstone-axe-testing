@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 //import mapboxgl from 'mapbox-gl'
 import { Card } from '../styledComponents/'
 import { MAPBOXPK, mapBoxStyleURL } from '../../../constants'
 import { generateJSONFeatures } from '../../utils'
+import {getLocations} from '../../redux/userLocations'
 
 window.mapboxgl.accessToken = MAPBOXPK
 
@@ -21,6 +22,14 @@ const sourceData = {
 
 function Locations() {
   const locations = useSelector(state => state.locations)
+  const userId = useSelector(state => state.loginStatus.userId)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(getLocations(userId))
+    }
+  }, [userId])
   const mapContainerRef = useRef(null)
   //helper function that takes array of coordinates and turns it into
   //specifically formatted JSON for geographic information

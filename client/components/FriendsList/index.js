@@ -1,28 +1,26 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { RowContainer } from '../styledComponents'
 import { FriendCard } from './StyleElements'
-import axios from 'axios'
+import { getFriends } from '../../redux/friends';
 
 
 const FriendList = ({all}) => {
   const userId = useSelector(state => state.loginStatus.userId)
-  const [friends, setFriends] = useState([])
-
+  const userFriends = useSelector(state => state.userFriends)
+  const dispatch = useDispatch()
 
 useEffect(() => {
-  const getFriends = async() => {
-  const p = await axios.get(`/api/user/${userId}/getFriends/`)
-  setFriends(p.data)
-}
-getFriends()
-}, [])
-console.log(friends)
+  if (userId) {
+    dispatch(getFriends(userId))
+  }
+}, [userId])
+
   return (
       <FriendCard>
       <Link to="/friends">View All Friends</Link>
-        {friends.map(friend => {
+        {userFriends.map(friend => {
           return (
             <RowContainer key = {friend.userId}>
               <img className={ all ? 'all-friends' : 'profile-pic'} src="https://cdn.onlinewebfonts.com/svg/img_415067.png" />

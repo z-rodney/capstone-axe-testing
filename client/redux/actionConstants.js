@@ -1,4 +1,5 @@
 export const ADD_LOCATION = 'ADD_LOCATION'
+export const GET_LOCATIONS = 'GET_LOCATIONS'
 
 export const ADD_TEST_RESULTS = 'ADD_TEST_RESULTS'
 export const GET_TEST_RESULTS = 'GET_TEST_RESULTS'
@@ -16,3 +17,5 @@ export const CHECK_LOGIN = 'CHECK_LOGIN';
 
 export const ADD_PREFERENCES = 'ADD_PREFERENCES';
 export const GET_PREFERENCES = 'GET_PREFERENCES';
+
+export const GET_FRIENDS = 'GET_FRIENDS';

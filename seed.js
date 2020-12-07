@@ -115,13 +115,25 @@ const seed = async (db) => {
         await session.run(
             `MATCH (zoe:User {username:$zoe})
             MATCH (zaina:User {username:$zaina})
+            MATCH (rehab:User {username:$rehab})
             MATCH (ranffi:User {username:$ranffi})
-            CREATE (zoe)-[rel:FOLLOWS]->(zaina)
-            CREATE (ranffi)-[r:FOLLOWS]->(zaina)`,
+            CREATE (zoe)-[:FOLLOWS]->(zaina) 
+            CREATE (ranffi)-[:FOLLOWS]->(zaina) 
+            CREATE (rehab)-[:FOLLOWS]->(zaina) 
+            CREATE (zaina)-[:FOLLOWS]->(zoe)  
+            CREATE (rehab)-[:FOLLOWS]->(zoe)
+            CREATE (ranffi)-[:FOLLOWS]->(zoe)
+            CREATE (zoe)-[:FOLLOWS]->(rehab)
+            CREATE (zaina)-[:FOLLOWS]->(rehab)
+            CREATE (ranffi)-[:FOLLOWS]->(rehab)
+            CREATE (zoe)-[:FOLLOWS]->(ranffi)
+            CREATE (zaina)-[:FOLLOWS]->(ranffi)
+            CREATE (rehab)-[:FOLLOWS]->(ranffi)`,
             {
                 zoe: 'zoe@zoe.com',
                 zaina: 'zaina@zaina.com',
                 ranffi: 'ranffi@ranffi.com',
+                rehab: 'rehab@rehab.com'
             }
         );
 
@@ -156,22 +168,27 @@ const seed = async (db) => {
             SET l = map`,
             {
                 props: [{
-                    title: 'Bronx finest',
+                    title: 'Central Park Hang',
+                    coordinates: [-73.96666700000003, 40.785167],
+                    placeName: 'Central Park, New York',
+                  },
+{
+                    title: 'It\'s the Brooklyn Way',
+                    coordinates: [-73.96900904305689, 40.6627416764545],
+                    placeName: 'Prospect Park, Brooklyn, New York',
+                  },
+                  {
+                    title: 'Bx the Best',
                     coordinates: [-73.92555771551504, 40.87191365945296],
                     placeName: 'Innwood Hill Park, Washington Heights, New York',
-                }, {
-                    title: 'Gin Mills',
-                    coordinates: [-73.92555773351504, 40.87195565945296],
-                    placeName: 'Bar Bar Bar',
-                }, {
-                    latitude: '40.807128',
-                    longitude: '-73.964116',
                 },  {
-                    latitude: '40.751188',
-                    longitude: '-73.993060',
+                    title: 'Madison Square Garden',
+                    coordinates: [-73.9934, 40.7505],
+                    placeName: '4 Pennsylvania Plaza, New York, NY'
                 },  {
-                    latitude: '40.766156',
-                    longitude: '-73.987882',
+                    title: 'Rockefeller Center',
+                    coordinates: [-73.9787, 40.7587],
+                    placeName: '45 Rockefeller Plaza, New York, NY'
                 }],
             }
         )
@@ -184,26 +201,53 @@ const seed = async (db) => {
             MATCH (zoe:User {username:$zoe}) \
             MATCH (first:Location {title:$location1}) \
             MATCH (second:Location {title:$location2}) \
+            MATCH (third:Location {title:$location3}) \
+            MATCH (fourth:Location {title:$location4}) \
             CREATE (rehab)-[r1:VISITED]->(first) \
             CREATE (ranffi)-[r2:VISITED]->(first) \
             CREATE (zaina)-[r3:VISITED]->(first) \
-            CREATE (zaina)-[r4:VISITED]->(second) \
-            CREATE (zoe)-[r5:VISITED]->(second) \
-            SET r1.VistedDate = $VistedDate1 \
-            SET r2.VistedDate = $VistedDate1 \
-            SET r3.VistedDate = $VistedDate3 \
-            SET r4.VistedDate = $VistedDate2 \
-            SET r5.VistedDate = $VistedDate2',
+            CREATE (zoe)-[r4:VISITED]->(first) \
+            CREATE (rehab)-[r5:VISITED]->(second) \
+            CREATE (ranffi)-[r6:VISITED]->(second) \
+            CREATE (zaina)-[r7:VISITED]->(second) \
+            CREATE (zoe)-[r8:VISITED]->(second) \
+            CREATE (rehab)-[r9:VISITED]->(third) \
+            CREATE (ranffi)-[r10:VISITED]->(third) \
+            CREATE (zaina)-[r11:VISITED]->(third) \
+            CREATE (zoe)-[r12:VISITED]->(third) \
+            CREATE (rehab)-[r13:VISITED]->(fourth) \
+            CREATE (ranffi)-[r14:VISITED]->(fourth) \
+            CREATE (zaina)-[r15:VISITED]->(fourth) \
+            CREATE (zoe)-[r16:VISITED]->(fourth) \
+            SET r1.VisitedDate = $VisitedDate1 \
+            SET r2.VisitedDate = $VisitedDate1 \
+            SET r3.VisitedDate = $VisitedDate1 \
+            SET r4.VisitedDate = $VisitedDate1 \
+            SET r5.VisitedDate = $VisitedDate2 \
+            SET r6.VisitedDate = $VisitedDate2 \
+            SET r7.VisitedDate = $VisitedDate2 \
+            SET r8.VisitedDate = $VisitedDate2 \
+            SET r9.VisitedDate = $VisitedDate3 \
+            SET r10.VisitedDate = $VisitedDate3 \
+            SET r11.VisitedDate = $VisitedDate3 \
+            SET r12.VisitedDate = $VisitedDate3 \
+            SET r13.VisitedDate = $VisitedDate4 \
+            SET r14.VisitedDate = $VisitedDate4 \
+            SET r15.VisitedDate = $VisitedDate4 \
+            SET r16.VisitedDate = $VisitedDate4',
             {
                 zoe: 'zoe@zoe.com',
                 zaina: 'zaina@zaina.com',
                 ranffi: 'ranffi@ranffi.com',
                 rehab: 'rehab@rehab.com',
-                location1: 'Bronx finest',
-                location2: 'Gin Mills',
-                VistedDate1: '2020-11-01',
-                VistedDate2: '2020-11-23',
-                VistedDate3: '2020-10-04',
+                location1: 'Central Park Hang',
+                location2: 'Bx the Best',
+                location3: 'Madison Square Garden',
+                location4: 'Rockefeller Center',
+                VisitedDate1: '12/06/2020',
+                VisitedDate2: '12/06/2020',
+                VisitedDate3: '12/06/2020',
+                VisitedDate4: '11/12/2020',
             }
         );
 
