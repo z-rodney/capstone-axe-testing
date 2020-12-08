@@ -8,14 +8,14 @@ const auth = async (req, res, next) => {
       req.user = null;
     } else {
       // get user with given sessionId
-      const session = await getUserBySession(sessionId);
-      if (!session) {
+      const user = await getUserBySession(sessionId);
+      if (!user) {
         console.log('Invalid sessionId.');
         res.clearCookie('sessionId');
         req.user = null;
       } else {
         // You could update the expiry of the cookie here if desired.
-        req.user = session;
+        req.user = user;
       }
     }
   }

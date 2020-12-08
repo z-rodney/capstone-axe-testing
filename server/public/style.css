@@ -1,5 +1,4 @@
 /*  GENERAL STYLING */
-
 body {
   margin: 0;
   font-family: 'Roboto Mono', monospace;
@@ -28,6 +27,17 @@ select {
   width: fit-content;
 }
 
+.plus-button {
+  cursor: pointer;
+  text-align: right;
+  width: 30px;
+  display: inline-block;
+}
+
+.plus-button:hover {
+  color: #43AA8B;
+}
+
 /* RISK TOLERANCE FORM */
 
 .question {
@@ -41,6 +51,7 @@ select {
   font-family: 'Roboto Mono', monospace;
   border-radius: 16px;
   cursor: pointer;
+  border: 1px solid #A83310;
 }
 
 /* NAV BAR */
@@ -85,6 +96,14 @@ nav a, nav a:visited {
   list-style-type: '𐄂 '
 }
 
+.no-bullet {
+  padding-left: 20px;
+}
+
+.no-bullet li {
+  list-style: none;
+}
+
 /* HEADINGS */
 h1 {
   margin-bottom: 0;
@@ -96,6 +115,18 @@ h1 {
 
 .profile-heading p {
   margin-top: 0;
+}
+
+.page-heading {
+  margin-left: 16px;
+}
+
+.page-heading p {
+  margin: 5px 0;
+}
+
+.page-heading h1 {
+  margin-left: 0;
 }
 
 /* MAP */

@@ -1,22 +1,24 @@
 import axios from 'axios';
-import { CHECK_LOGIN } from './actionConstants';
+import { CHECK_LOGIN, USER_LOGOUT } from './actionConstants';
 
-export const _checkLogin = (username) => ({
+export const _checkLogin = (user) => ({
   type: CHECK_LOGIN,
-  username
+  user
 })
 
 export const checkLogin = () => {
   return async (dispatch) => {
-    const username = await axios.get('/api/auth/whoami');
-    dispatch(_checkLogin(username.data));
+    const user = await axios.get('/api/auth/whoami');
+    dispatch(_checkLogin(user.data));
   }
 }
 
 export default function loginStatusReducer(state = {}, action) {
   switch (action.type) {
     case CHECK_LOGIN:
-      return { username: action.username };
+      return { ...action.user };
+    case USER_LOGOUT:
+      return {};
     default:
       return state;
   }

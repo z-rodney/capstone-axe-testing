@@ -33,6 +33,8 @@ const Navbar = (props) => {
       setScrollNav(false);
     }
   };
+  const userInfo = useSelector((state) => state.loginStatus);
+  const {userId} = userInfo;
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -42,7 +44,6 @@ const Navbar = (props) => {
     window.addEventListener('scroll', changeNav);
   }, []);
 
-  const username = useSelector((state) => state.loginStatus.username);
 
   const toggleHome = () => {
     scroll.scrollToTop();
@@ -60,7 +61,6 @@ const Navbar = (props) => {
 
   return (
     <>
-    { username ?
       <IconContext.Provider value={{ color: '#fff' }}>
         <Nav scrollNav={scrollNav}>
           <NavWrap>
@@ -87,7 +87,7 @@ const Navbar = (props) => {
                     About Us
                   </NavLinkDown>
                 </NavItem>
-                { username !== 'Not logged in.' ?
+                { userId &&
                 <NavItem>
                   <NavLinks to="/profile" id="profile">
                     My Account
@@ -98,9 +98,9 @@ const Navbar = (props) => {
                   <NavLinks to="friends" id="friends">
                     Friends
                   </NavLinks>
-                </NavItem> : <div /> }
+                </NavItem>}
               </NavMenu>
-              { username === 'Not logged in.' ?
+              { !userId ?
               <NavItem>
                 <NavBtn>
                   <NavBtnLink to="/signin" id="signin">
@@ -115,7 +115,7 @@ const Navbar = (props) => {
               </NavItem> :
               <NavItem>
                 <NavBtn onClick={logoutSubmit}>
-                  <NavBtnLink to="/signin" id="signin">
+                  <NavBtnLink to="/" id="signout">
                     Log Out
                   </NavBtnLink>
                 </NavBtn>
@@ -123,7 +123,7 @@ const Navbar = (props) => {
             </NavbarContainer>
           </NavWrap>
         </Nav>
-      </IconContext.Provider> : <div>Loading...</div> }
+      </IconContext.Provider>
     </>
   );
 };
