@@ -32,7 +32,7 @@ const addLocation = async({title, date, coordinates, placeName}, userId) => {
             'MATCH (u:User {userId: $userId}) \
          MERGE (l:Location {title: $title, placeName: $placeName, coordinates: $coordinates})\
           CREATE (u)-[v:VISITED]->(l) \
-          SET v.VistedDate = $date \
+          SET v.VisitedDate = $date \
            RETURN l, v',
         {title, date, coordinates, placeName, userId})
         const record = location.records
