@@ -219,22 +219,22 @@ const seed = async (db) => {
             CREATE (ranffi)-[r14:VISITED]->(fourth) \
             CREATE (zaina)-[r15:VISITED]->(fourth) \
             CREATE (zoe)-[r16:VISITED]->(fourth) \
-            SET r1.VisitedDate = $VisitedDate1 \
-            SET r2.VisitedDate = $VisitedDate1 \
-            SET r3.VisitedDate = $VisitedDate1 \
-            SET r4.VisitedDate = $VisitedDate1 \
-            SET r5.VisitedDate = $VisitedDate2 \
-            SET r6.VisitedDate = $VisitedDate2 \
-            SET r7.VisitedDate = $VisitedDate2 \
-            SET r8.VisitedDate = $VisitedDate2 \
-            SET r9.VisitedDate = $VisitedDate3 \
-            SET r10.VisitedDate = $VisitedDate3 \
-            SET r11.VisitedDate = $VisitedDate3 \
-            SET r12.VisitedDate = $VisitedDate3 \
-            SET r13.VisitedDate = $VisitedDate4 \
-            SET r14.VisitedDate = $VisitedDate4 \
-            SET r15.VisitedDate = $VisitedDate4 \
-            SET r16.VisitedDate = $VisitedDate4',
+            SET r1.visitedDate = $visitedDate1 \
+            SET r2.visitedDate = $visitedDate1 \
+            SET r3.visitedDate = $visitedDate1 \
+            SET r4.visitedDate = $visitedDate1 \
+            SET r5.visitedDate = $visitedDate2 \
+            SET r6.visitedDate = $visitedDate2 \
+            SET r7.visitedDate = $visitedDate2 \
+            SET r8.visitedDate = $visitedDate2 \
+            SET r9.visitedDate = $visitedDate3 \
+            SET r10.visitedDate = $visitedDate3 \
+            SET r11.visitedDate = $visitedDate3 \
+            SET r12.visitedDate = $visitedDate3 \
+            SET r13.visitedDate = $visitedDate4 \
+            SET r14.visitedDate = $visitedDate4 \
+            SET r15.visitedDate = $visitedDate4 \
+            SET r16.visitedDate = $visitedDate4',
             {
                 zoe: 'zoe@zoe.com',
                 zaina: 'zaina@zaina.com',
@@ -244,10 +244,10 @@ const seed = async (db) => {
                 location2: 'Bx the Best',
                 location3: 'Madison Square Garden',
                 location4: 'Rockefeller Center',
-                VisitedDate1: '12/06/2020',
-                VisitedDate2: '12/06/2020',
-                VisitedDate3: '12/06/2020',
-                VisitedDate4: '11/12/2020',
+                visitedDate1: '12/06/2020',
+                visitedDate2: '12/06/2020',
+                visitedDate3: '12/06/2020',
+                visitedDate4: '11/12/2020',
             }
         );
 

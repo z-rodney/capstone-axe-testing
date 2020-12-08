@@ -15,7 +15,7 @@ export const generateJSONFeatures = (locations) => {
         },
         properties: {
           title: locData.location.title,
-          date: locData.dateVisited.VisitedDate,
+          date: locData.dateVisited.visitedDate,
           // description: `description for Random Point #${id}`,
         },
     })

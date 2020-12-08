@@ -81,7 +81,8 @@ userRouter.get('/:userId/friends', async(req, res, next) => {
 // retrieves a user's Contacts from db
 userRouter.get('/:userId/contacts', async(req, res, next) => {
   try {
-    const result = await getContacts(req.body)
+    // const {userId} = req.user
+    const result = await getContacts(req.params.userId)
     res.status(200).send(result)
   }
   catch (err) {
@@ -119,7 +120,7 @@ userRouter.get('/:userId/preferences', async(req, res, next) => {
 userRouter.post('/:userId/location', async(req, res, next) => {
   try {
       const {userId} = req.user
-  
+
     const insert = await addLocation(req.body.location, userId)
     res.status(201).send(insert)
   }

@@ -14,6 +14,7 @@ const getFriends = async(userId) => {
         for (let i = 0; i < record.length; i++) {
             const currentFriend = record[i]
             const friend = new User(currentFriend.get('User'))
+            friend.password = ''
             allFriends.push(friend)
         }
         return allFriends

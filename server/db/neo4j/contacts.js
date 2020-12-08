@@ -1,16 +1,30 @@
 const driver = require('../db');
+const User = require('../models/User')
 
 
-const getContacts = async({userId}) => {
+const getContacts = async(userId) => {
     let session = driver.session()
     //this function returns user and date contacted
     //still need to return it in a better way
     try {
-        const user = await session.run('MATCH (n:User)-[r:CONTACTED]->(:User {userId: $userId}) RETURN r, n', {
+        const user = await session.run('MATCH (u:User {userId: $userId}) MATCH (c:User)-[r:CONTACTED]->(u) RETURN c ,r.contactDate', {
             userId
         })
-       return user.records
+        const record = user.records
+        console.log(record)
+        const allContacts = []
+        for (let i = 0; i < record.length; i++) {
+            const resObj = {}
+            const currentContact = record[i]
+            const contact = new User(currentContact.get('c'))
+            contact.password = ''
+            resObj.contact = contact
+            resObj.contactDate = currentContact._fields[1]
+            allContacts.push(resObj)
+        }
+        return allContacts
     }
+
     catch (err) {
         console.log(err)
     } finally {

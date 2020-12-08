@@ -37,8 +37,8 @@ function EventDetails() {
         <DetailCard>
           <Title>{selected.location.title}</Title>
           <p>{selected.location.placeName}</p>
-          
-          <p>Visited: {selected.dateVisited.VisitedDate}</p>
+ 
+          <p>Visited: {selected.dateVisited.visitedDate}</p>
         </DetailCard>
       }
     </div>
