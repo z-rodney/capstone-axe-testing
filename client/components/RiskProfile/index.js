@@ -20,7 +20,7 @@ const RiskProfile = () => {
       { userPrefs ?
         <div className="no-bullet">
           <p>Household Size: { userPrefs.householdSize }</p>
-          <p>Wears a Mask: { userPrefs.mask && userPrefs.mask.toUpperCase() }</p>
+          <p>Wears a Mask: { userPrefs.mask ? 'YES' : 'NO' }</p>
           <p>Essential Worker: { userPrefs.essentialWorker ? 'YES' : 'NO' }</p>
           <p>Immunocompromised: { userPrefs.immunocompromised ? 'YES' : 'NO' }</p>
           <p>Public Transit: { userPrefs.pubTrans ? 'YES' : 'NO' }</p>

@@ -23,7 +23,7 @@ function App() {
         <Route exact path="/friends" component={AllFriends} />
         <Route exact path="/friends/:friendId" component={FriendProfile} />
         <Route exact path="/account" component={AccountSettings} />
-        <PrivateRoute path="/profile" component={UserProfile} />
+        <Route path="/profile" component={UserProfile} />
         <Route exact path="/my-risk" component={RiskForm} />
         <Route path="/" component={Home} exact />
       </Switch>
