@@ -1,6 +1,6 @@
 import React from 'react'
 import { ColumnContainer, ThreeQuartContainer, Card } from '../styledComponents'
-import FriendList from '../FriendsList'
+import AddFriend from '../AddFriend'
 
 const AllFriends = () => {
   return (
@@ -13,8 +13,8 @@ const AllFriends = () => {
           </Card>
         </div>
         <div>
-        <h2>All Friends</h2>
-          <FriendList all={true} />
+        <h2>Add Friends</h2>
+          <AddFriend />
         </div>
       </ColumnContainer>
     </ThreeQuartContainer>

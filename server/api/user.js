@@ -73,20 +73,19 @@ userRouter.put('/:userId', async (req, res, next) => {
   }
 })
 
-// GET /api/user/:userId/getFriends
+// GET /api/user/:userId/friends
 // retrieves a user's friends from db
 userRouter.get('/:userId/friends', async(req, res, next) => {
   try {
-    const {userId} = req.user
-    const result = await getFriends(userId)
-    res.status(200).send(result)
+    const result = await getFriends(req.params.userId);
+    res.status(200).send(result);
   }
   catch (err) {
-    next(err)
+    next(err);
   }
 })
 
-// GET /api/user/:userId/getContacts
+// GET /api/user/:userId/contacts
 // retrieves a user's Contacts from db
 userRouter.get('/:userId/contacts', async(req, res, next) => {
   try {

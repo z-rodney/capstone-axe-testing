@@ -19,7 +19,7 @@ useEffect(() => {
 
   return (
     <FriendCard>
-    <Link to="/friends/follow">Add Friends</Link>
+    <Link to="/friends">Add Friends</Link>
       {userFriends.map(friend => {
         return (
           <RowContainer key = {friend.userId}>

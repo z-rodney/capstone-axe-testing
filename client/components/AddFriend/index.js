@@ -26,7 +26,6 @@ const AddFriend = () => {
   return (
     <Container>
       <div>
-        <h2>Search Users</h2>
         <form id="search-form" onSubmit={ handleSubmit }>
           <input type="text" placeholder="Enter name or email..." onChange={ (ev) => setTerm(ev) } />
           <button type="submit">Search</button>

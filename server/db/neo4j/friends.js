@@ -5,7 +5,7 @@ const getFriends = async (userId) => {
     let session = driver.session();
 
     try {
-        const user = await session.run('MATCH (n:User {userId: $userId})<-[:FOLLOWS]-(User) RETURN User', {
+        const user = await session.run('MATCH (n:User {userId: $userId})-[:FOLLOWS]->(User) RETURN User', {
             userId
         });
         const record = user.records;
