@@ -35,7 +35,7 @@ const addPreferences = async({ userId, householdSize, indoorDining, outdoorDinin
     } catch (err) {
         console.log(err);
     } finally {
-        session.close();
+        await session.close();
     }
 }
 

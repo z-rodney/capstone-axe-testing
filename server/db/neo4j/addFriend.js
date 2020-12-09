@@ -19,7 +19,7 @@ const addFriend = async (userId, friendId) => {
     catch (err) {
         console.log(err);
     } finally {
-        session.close();
+        await session.close();
     }
 }
 
