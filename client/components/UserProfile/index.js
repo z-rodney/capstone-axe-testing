@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { RowContainer, ColumnContainer, Sidebar } from '../styledComponents'
 import RiskProfile from '../RiskProfile'
 import FriendList from '../FriendsList'
@@ -8,9 +9,13 @@ import TestResults from '../TestResults'
 
 
 const UserProfile = () => {
+  const name = useSelector(state => state.loginStatus.name)
   return (
     <div>
-      <h1 className="page-heading">My Profile</h1>
+      <div className="page-heading">
+        <h1>My Profile</h1>
+        <p>Welcome, { name ? name : 'User'}!</p>
+      </div>
       <RowContainer>
         <Sidebar>
           <RiskProfile />

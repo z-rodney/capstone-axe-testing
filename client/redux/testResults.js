@@ -11,10 +11,10 @@ const _addTestResults = (result) => ({
   result
 })
 
-export const getTestResults = () => {
+export const getTestResults = (userId) => {
   return async (dispatch) => {
     try {
-      const allResults = await axios.get('/api/user/results')
+      const allResults = await axios.get(`/api/user/${userId}/results`)
       dispatch(_getTestResults(allResults.data))
     } catch (err) {
       console.log(err)
@@ -22,10 +22,10 @@ export const getTestResults = () => {
   }
 }
 
-export const addTestResults = (results) => {
+export const addTestResults = (results, id) => {
   return async (dispatch) => {
     try {
-      const testResults = await axios.post('/api/user/results', results)
+      const testResults = await axios.post(`/api/user/${id}/results`, results)
       dispatch(_addTestResults(testResults.data))
     } catch (err) {
       console.log(err)
