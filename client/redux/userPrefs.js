@@ -13,7 +13,7 @@ export const _getPreferences = preferences => ({
 
 export const addPreferences = (userId, data, history) => {
   return async (dispatch) => {
-    const preferences = await axios.post(`/api/user/${userId}/addPreferences`, data);
+    const preferences = await axios.post(`/api/user/${userId}/preferences`, data);
     dispatch(_addPreferences(preferences.data));
     history.push('/profile');
   }
@@ -21,7 +21,7 @@ export const addPreferences = (userId, data, history) => {
 
 export const getPreferences = (userId) => {
   return async (dispatch) => {
-    const preferences = await axios.get(`/api/user/${userId}/getPreferences`);
+    const preferences = await axios.get(`/api/user/${userId}/preferences`);
     dispatch(_getPreferences(preferences.data));
   }
 }
