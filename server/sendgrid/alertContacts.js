@@ -7,7 +7,7 @@ const generateMessage = (date) => {
   subject: 'Recent COVID-19 Exposure',
   text: `Someone you contacted on ${date} has tested positive for COVID-19.
   We recommend you get a COVID-19 test as soon as possible.`,
-    html: `<h2>Proximity</h2>
+  html: `<h2>Proximity</h2>
   <p>Someone you contacted on ${date} has tested positive for COVID-19.
   We recommend you get a COVID-19 test as soon as possible.</p>`,
   }

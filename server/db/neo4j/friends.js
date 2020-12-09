@@ -26,6 +26,29 @@ const getFriends = async(userId) => {
     }
 }
 
+const getAllFriendsEmails = async (userId) => {
+    let session = driver.session()
+    try {
+        const user = await session.run('MATCH (user:User {userId: $userId})<-[:FOLLOWS]-(friend) RETURN friend.username', {
+            userId
+        })
+        const record = user.records
+        const allFriends = []
+        for (let i = 0; i < record.length; i++) {
+            const currentFriend = record[i]
+            const friend = new User(currentFriend.get('User'))
+            friend.password = ''
+            allFriends.push(friend)
+        }
+        return allFriends
+    }
+    catch (err) {
+        console.log(err)
+    } finally {
+        await session.close()
+    }
+}
+
 const addFriend = async({userId, friend}) => {
     let session = driver.session()
     try {

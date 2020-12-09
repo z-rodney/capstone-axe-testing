@@ -204,11 +204,11 @@ userRouter.get('/:userId/results', async (req, res, next) => {
 userRouter.post('/:userId/results', async (req, res, next) => {
   if (req.user) {
     try {
-      const { userId } = req.user
+      const { name } = req.user
       const { covidTest, testDate } = req.body
-      const newResult = await postResults(userId, covidTest, testDate)
+      const newResult = await postResults(req.params.userId, covidTest, testDate)
       if (newResult.result === 'Positive') {
-      alertFriends(username, newResult.date)
+      alertFriends(name, newResult.date)
       alertContacts(newResult.date)
     }
       res.status(201).send(newResult)
