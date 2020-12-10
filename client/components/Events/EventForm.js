@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addLocation } from '../../redux/userLocations'
 import { LocationFormStyle, LocationFormInput, LocationButton, Button } from './StyleElements'
 import { useInput } from '../../customHooks/useInput'
+import Axios from 'axios'
 
 function LocationForm({ setShowForm }) {
   const [title, setTitle] = useInput('')
@@ -43,7 +44,7 @@ function LocationForm({ setShowForm }) {
     setCoords(ev.result.geometry.coordinates)
   })
 
-  const handleSubmit = (ev) => {
+  const handleSubmit = async (ev) => {
     ev.preventDefault()
     console.log('submitted', coords)
     let newLocationData = {
@@ -52,6 +53,8 @@ function LocationForm({ setShowForm }) {
       coordinates: coords,
       placeName
     }
+    const response = await Axios.get('https://api.covidtracking.com/v1/states/ca/20200501.json')
+    console.log('scrape:', response);
     dispatch(addLocation(newLocationData, userId))
     setShowForm(false)
   }
