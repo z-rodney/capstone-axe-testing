@@ -4,8 +4,9 @@ import testResultsReducer from './testResults'
 import userLoginReducer from './userLogin'
 import userSignUpReducer from './userSignUp'
 import loginStatusReducer from './loginStatus'
-import userPrefsReducer from './userPrefs'
+import searchFriendsReducer from './searchFriends'
 import friendsReducer from './friends'
+import userPrefsReducer from './userPrefs'
 
 const reducer = combineReducers({
   locations: locationsReducer,
@@ -13,8 +14,9 @@ const reducer = combineReducers({
   login: userLoginReducer,
   signUp: userSignUpReducer,
   loginStatus: loginStatusReducer,
-  userPrefs: userPrefsReducer,
-  userFriends: friendsReducer
+  searchResults: searchFriendsReducer,
+  friends: friendsReducer,
+  userPrefs: userPrefsReducer
 })
 
 export default reducer

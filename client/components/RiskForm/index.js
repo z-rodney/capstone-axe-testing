@@ -101,16 +101,12 @@ export default function RiskForm() {
             <label className="question">How often do you wear a mask in public?</label>
             <RadioContainer>
               <RadioContainer>
-                <input name="mask" type="radio" id="inlineRadio5" value="always" ref={ register } />
-                <label htmlFor="inlineRadio5">Always</label>
+                <input name="mask" type="radio" id="inlineRadio5" value={true} ref={ register } />
+                <label htmlFor="inlineRadio5">Yes</label>
               </RadioContainer>
               <RadioContainer>
-                <input name="mask" type="radio" id="inlineRadio5" value="sometimes" ref={ register } />
-                <label htmlFor="inlineRadio5">Sometimes</label>
-              </RadioContainer>
-              <RadioContainer>
-                <input name="mask" type="radio" id="inlineRadio5" value="never" ref={ register } />
-                <label htmlFor="inlineRadio5">Never</label>
+                <input name="mask" type="radio" id="inlineRadio5" value={false} ref={ register } />
+                <label htmlFor="inlineRadio5">No</label>
               </RadioContainer>
             </RadioContainer>
           </FormCard>

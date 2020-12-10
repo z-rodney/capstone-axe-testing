@@ -8,7 +8,7 @@ import { getFriends } from '../../redux/friends';
 
 const FriendList = ({all}) => {
   const userId = useSelector(state => state.loginStatus.userId)
-  const userFriends = useSelector(state => state.userFriends)
+  const userFriends = useSelector(state => state.friends)
   const dispatch = useDispatch()
 
 useEffect(() => {
@@ -18,17 +18,17 @@ useEffect(() => {
 }, [userId])
 
   return (
-      <FriendCard>
-      <Link to="/friends">View All Friends</Link>
-        {userFriends.map(friend => {
-          return (
-            <RowContainer key = {friend.userId}>
-              <img className={ all ? 'all-friends' : 'profile-pic'} src="https://cdn.onlinewebfonts.com/svg/img_415067.png" />
-              <Link to= {`/friends/${friend.userId}`}><p className="spaced">{friend.name}</p></Link>
-            </RowContainer>
-          )})
-        }
-      </FriendCard>
+    <FriendCard>
+    <Link to="/friends">Add Friends</Link>
+      {userFriends.map(friend => {
+        return (
+          <RowContainer key = {friend.userId}>
+            <img className={ all ? 'all-friends' : 'profile-pic'} src="https://cdn.onlinewebfonts.com/svg/img_415067.png" />
+            <Link to= {`/friends/${friend.userId}`}><p className="spaced">{friend.name}</p></Link>
+          </RowContainer>
+        )})
+      }
+    </FriendCard>
   )
 }
 
