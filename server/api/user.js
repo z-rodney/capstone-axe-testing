@@ -185,7 +185,8 @@ userRouter.post('/:userId/preferences', async(req, res, next) => {
     next(err);
   }
 })
-//POST /api/user/:userId/results
+//GET /api/user/:userId/results
+//gets all test results
 userRouter.get('/:userId/results', async (req, res, next) => {
   if (req.user) {
     try {
@@ -201,15 +202,19 @@ userRouter.get('/:userId/results', async (req, res, next) => {
 })
 
 //POST /api/user/:userId/results
+//Adds a new test result, and sends email alerts if positive
 userRouter.post('/:userId/results', async (req, res, next) => {
   if (req.user) {
     try {
+      const {userId} = req.params
       const { name } = req.user
       const { covidTest, testDate } = req.body
-      const newResult = await postResults(req.params.userId, covidTest, testDate)
-      if (newResult.result === 'Positive') {
-      alertFriends(name, newResult.date)
-      alertContacts(newResult.date)
+      const newResult = await postResults(userId, covidTest, testDate)
+      if (newResult.covidTest === 'Positive') {
+        const friends = await getFriends(userId)
+        alertFriends(name, newResult.testDate, friends)
+        const contacts = await getContacts(userId)
+        alertContacts(newResult.testDate, contacts)
     }
       res.status(201).send(newResult)
     } catch (err) {

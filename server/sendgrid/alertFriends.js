@@ -1,47 +1,31 @@
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-const generateMessage = (name, date) => {
+
+const generateMessage = (name, date, emails) => {
   return {
-  to: 'zainarodney@gmail.com',
+  to: emails,
   from: 'noreply.proximity@gmail.com', // Use the email address or domain you verified above
   subject: 'Your Friend Has Tested Positive for COVID-19',
-  text: `Your friend, ${name} tested positive for COVID-19 on ${date}.
+  text: `Your friend, ${name} tested positive for COVID-19 on ${new Date(date).toDateString()}.
   Please check on your friend. We wish them a speedy recovery.`,
-    html: `
-    <head>
-      <style>
-        #heading, #main {
-          font-family: 'Courier New', monospace
-        }
-        #heading {
-          width: 100%;
-          height: 30%;
-          background: #99D6C4;
-        }
-        #main {
-          height: 70%;
-          width: 100%;
-          background: #F0F9F7;
-        }
-      </style>
-    </head>
-    <body>
-      <div id="heading">
-        <h2>Proximity</h2>
-      </div>
-      <div id="main">
-        <p>Your friend, ${name} tested positive for COVID-19 on ${date}.
-        Please check on your friend. We wish them a speedy recovery.</p>
-      </div>
-    </body>
-  `,
+  html: `
+    <h2>Proximity</h2>
+    <p>Your friend, ${name} tested positive for COVID-19 on ${new Date(date).toDateString()}.
+    Please check on your friend. We wish them a speedy recovery.</p>
+`,
   }
 }
 
-const alertFriends = async (name, date) => {
+const getEmailAddresses = (friends) => {
+  return friends.map(friend => friend.username)
+}
+
+const alertFriends = async (name, date, friends) => {
   try {
-    const msg = generateMessage(name, date)
-    await sgMail.send(msg);
+    const emails = getEmailAddresses(friends)
+    const msg = generateMessage(name, date, emails)
+    //console.log('msg:', msg)
+    await sgMail.sendMultiple(msg);
     console.log('email sent')
   } catch (error) {
     console.error(error);

@@ -1,5 +1,6 @@
 const driver = require('../db');
-const User = require('../models/User')
+//const User = require('../models/User')
+const Contact = require('../models/Contact')
 
 
 const getContacts = async(userId) => {
@@ -14,13 +15,17 @@ const getContacts = async(userId) => {
         console.log(record)
         const allContacts = []
         for (let i = 0; i < record.length; i++) {
-            const resObj = {}
+            const currentContact = record[i]
+            const contactDate = currentContact._fields[1]
+            const contact = new Contact(currentContact.get('c'), contactDate)
+            allContacts.push(contact)
+            /* const resObj = {}
             const currentContact = record[i]
             const contact = new User(currentContact.get('c'))
             contact.password = ''
             resObj.contact = contact
             resObj.contactDate = currentContact._fields[1]
-            allContacts.push(resObj)
+            allContacts.push(resObj) */
         }
         return allContacts
     }
