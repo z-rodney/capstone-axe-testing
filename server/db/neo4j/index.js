@@ -1,6 +1,5 @@
-const searchUsers = require('./searchUsers')
 const {getLocations, addLocation} = require('./location')
-const {getFriends, addFriend} = require('./friends')
+const {getFriends, addFriend, searchUsers} = require('./friends')
 const {getContacts, addContact} = require('./contacts')
 const {getPreferences, addPreferences} = require('./preferences')
 

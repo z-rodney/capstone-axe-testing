@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useInput } from '../../customHooks/useInput';
 import { Container, RowContainer } from '../styledComponents';
-import { searchFriends } from '../../redux/searchFriends';
+import { searchFriends, updateFriends, clearSearch } from '../../redux/searchFriends';
 import { addFriend } from '../../redux/friends';
 
 const AddFriend = () => {
@@ -13,6 +13,10 @@ const AddFriend = () => {
   const { userId } = userInfo;
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(clearSearch());
+  }, [])
+
   const handleSubmit = ev => {
     ev.preventDefault();
     dispatch(searchFriends(searchTerm));
@@ -21,6 +25,7 @@ const AddFriend = () => {
 
   const followFriend = (friendId) => {
     dispatch(addFriend(friendId, userId));
+    dispatch(updateFriends(friendId));
   }
 
   return (

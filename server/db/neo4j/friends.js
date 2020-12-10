@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const driver = require('../db');
 const User = require('../models/User')
 
@@ -31,7 +32,7 @@ const addFriend = async (userId, friendId) => {
         const user = await session.run(
             `MATCH (me:User {userId: $userId })
             MATCH (friend:User {userId: $friendId})
-            CREATE (me)-[r:FOLLOWS]->(friend)
+            MERGE (me)-[r:FOLLOWS]->(friend)
             RETURN friend`,
             { userId, friendId }
         );
@@ -47,7 +48,40 @@ const addFriend = async (userId, friendId) => {
     }
 }
 
+const searchUsers = async (searchTerm, userId) => {
+    const session = driver.session({ database: process.env.NEO4J_DATABASE });
+
+    try {
+      const result = await session.readTransaction(tx =>
+        tx.run(`MATCH (u:User {userId: $userId})
+                MATCH (r:User)
+                WHERE (r.name =~ $searchTerm OR r.username =~ $searchTerm)
+                AND r.userId <> $userId
+                AND NOT (r)<-[:FOLLOWS]-(u)
+                RETURN r`, {
+                  searchTerm: `.*(?i)${searchTerm}.*`,
+                  userId
+                }));
+      if (_.isEmpty(result.records)) {
+        return null;
+      }
+      const { records } = result;
+      const searchResults = [];
+      records.forEach(user => {
+        const newUser = new User(user.get('r'));
+        newUser.password = '';
+        searchResults.push(newUser);
+      })
+      return searchResults;
+    } catch (err) {
+      console.log(err);
+    } finally {
+      await session.close();
+    }
+  }
+
 module.exports = {
     getFriends,
-    addFriend
+    addFriend,
+    searchUsers
 }
