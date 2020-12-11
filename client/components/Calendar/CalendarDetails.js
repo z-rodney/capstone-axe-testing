@@ -75,8 +75,9 @@ export default function CalendarDetails({ value, onChange }) {
                 key={day.dayNum}
                 className="day"
                 onClick={() => {
-                  // add event function should be called here, it will show the form to add an event
-                  if (day < moment(new Date()).startOf('day')) return;
+                  // should display the events that are associated with this date below the calendar
+                  // redux function that gets event for that day. If is an empty array, text should say "No Events"
+                  // if (day < moment(new Date()).startOf('day')) return;
                   onChange(day);
                 }}
               >

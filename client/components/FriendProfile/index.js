@@ -31,11 +31,9 @@ const FriendProfile = () => {
       </RowContainer>
       <RowContainer>
         <ColumnContainer>
-          {/* TO-DO: get react calendar component and insert here */}
           <div>
             <h2>November 2020</h2>
             <Card>
-              <p>Calendar to go here</p>
               <Calendar />
             </Card>
           </div>

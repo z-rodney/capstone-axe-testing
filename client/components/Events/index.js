@@ -9,7 +9,6 @@ function Events() {
     <Card>
       <AddEvent />
       <div>
-        <p>Calendar to go here</p>
         <Calendar />
       </div>
       <EventDetails />
