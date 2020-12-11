@@ -13,8 +13,18 @@ export default function RiskForm() {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const stringToBool = (str) => {
+    return (str === 'true');
+  }
+
   const onSubmit = (data) => {
     data.householdSize *= 1;
+    data.indoorDining = stringToBool(data.indoorDining);
+    data.outdoorDining = stringToBool(data.outdoorDining);
+    data.immunocompromised = stringToBool(data.immunocompromised);
+    data.essentialWorker = stringToBool(data.essentialWorker);
+    data.mask = stringToBool(data.mask);
+    data.pubTrans = stringToBool(data.pubTrans);
     dispatch(addPreferences(userId, data, history));
   }
 

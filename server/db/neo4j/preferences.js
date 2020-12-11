@@ -34,7 +34,7 @@ const addPreferences = async({ userId, householdSize, indoorDining, outdoorDinin
                 mask: $mask, \
                 pubTrans: $pubTrans  \
              }) \
-            CREATE (u)-[:PREFERS]->(p) \
+            MERGE (u)-[:PREFERS]->(p) \
             RETURN p',
             {
                 userId,
