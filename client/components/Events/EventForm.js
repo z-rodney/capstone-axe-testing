@@ -59,7 +59,9 @@ function LocationForm({ setShowForm }) {
   <LocationFormStyle id="location-form" onSubmit={handleSubmit}>
     <div id="geocoder" ref={geocoderContainer} />
       <LocationFormInput id="title" placeholder="Title" onChange={ (ev) => (setTitle(ev)) } />
+      {/* { date visited will now just be the date you clicked on, should pass in as props } */}
       <LocationFormInput id="date-visited" placeholder="Date Visited" onChange={(ev) => { setDate(ev) }} />
+      {/* { add contacts selection here } */}
     <LocationButton type="submit">Submit</LocationButton>
   </LocationFormStyle>
   )
