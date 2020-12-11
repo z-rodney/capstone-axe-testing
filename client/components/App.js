@@ -4,13 +4,13 @@ import Home from './Home';
 import Footer from './Footer';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
-import AccountSettings from './Account'
-import AllFriends from './AllFriends'
-import FriendProfile from './FriendProfile'
-import UserProfile from './UserProfile'
-import RiskForm from './RiskForm'
+import AccountSettings from './Account';
+import AllFriends from './AllFriends';
+import FriendProfile from './FriendProfile';
+import UserProfile from './UserProfile';
+import RiskForm from './RiskForm';
 import Navbar from './Navbar';
-import PrivateRoute from './PrivateRoute';
+// import PrivateRoute from './PrivateRoute';
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
         <Route exact path="/friends" component={AllFriends} />
         <Route exact path="/friends/:friendId" component={FriendProfile} />
         <Route exact path="/account" component={AccountSettings} />
-        <PrivateRoute path="/profile" component={UserProfile} />
+        <Route path="/profile" component={UserProfile} />
         <Route exact path="/my-risk" component={RiskForm} />
         <Route path="/" component={Home} exact />
       </Switch>

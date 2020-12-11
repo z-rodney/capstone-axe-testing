@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import { MAPBOXPK } from '../../../constants'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addLocation } from '../../redux/userLocations'
 import { LocationFormStyle, LocationFormInput, LocationButton, Button } from './StyleElements'
 import { useInput } from '../../customHooks/useInput'
@@ -14,6 +14,7 @@ function LocationForm({ setShowForm }) {
   //container that holds geocoder
   const geocoderContainer = useRef(document.getElementById('geocoder'))
   const dispatch = useDispatch()
+  const userId = useSelector(state => state.loginStatus.userId)
 
   //geocoder lets you search for a location using a string,
   //matches the location using MapBox API and returns the lat / lng
@@ -51,7 +52,7 @@ function LocationForm({ setShowForm }) {
       coordinates: coords,
       placeName
     }
-    dispatch(addLocation(newLocationData))
+    dispatch(addLocation(newLocationData, userId))
     setShowForm(false)
   }
 

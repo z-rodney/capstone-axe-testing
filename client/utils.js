@@ -6,19 +6,17 @@ export const generateJSONFeatures = (locations) => {
       features: []
     }
   }
-
-  locations.forEach((locData, id) => {
+  locations.forEach((locData) => {
     geoJSONData.data.features.push({
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: locData.coordinates,
+          coordinates: locData.location.coordinates,
         },
         properties: {
-          id,
-          title: locData.title,
-          date: locData.date,
-          description: `description for Random Point #${id}`,
+          title: locData.location.title,
+          date: locData.dateVisited.visitedDate,
+          // description: `description for Random Point #${id}`,
         },
     })
   })
