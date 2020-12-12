@@ -1,7 +1,22 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom'
 import { getPreferences } from '../../redux/userPrefs';
 import { RiskCard } from './StyleElements';
+import { IconContext } from 'react-icons'
+import { RiPencilFill } from 'react-icons/ri'
+
+const EditButton = () => {
+  return (
+    <span className="plus-button">
+      <Link to="/my-risk">
+        <IconContext.Provider value={{ color: 'white'}}>
+          <RiPencilFill />
+        </IconContext.Provider>
+      </Link>
+    </span>
+  )
+}
 
 const RiskProfile = () => {
   const dispatch = useDispatch();
@@ -16,7 +31,10 @@ const RiskProfile = () => {
 
   return (
     <RiskCard>
-      <h2>Risks and Preferences</h2>
+      <h2>
+        Risks and Preferences
+        <EditButton />
+      </h2>
       { userPrefs ?
         <div className="no-bullet">
           <p>Household Size: { userPrefs.householdSize }</p>
