@@ -126,18 +126,6 @@ export const NavLinks = styled(LinkRouter)`
     transition: all 0.2s ease-in-out;
     color: ${mainOrange};
   }
-
-  & button {
-
-  }
-
-  & button a {
-
-  }
-
-  & button a:hover {
-
-  }
 `;
 
 export const NavLinkDown = styled(LinkScroll)`
