@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { Link as LinkRouter } from 'react-router-dom';
 import { Link as LinkScroll } from 'react-scroll';
+import { mainDarkGreen, mainOrange } from '../styledComponents/globalStyles'
 
 export const Nav = styled.nav`
-  ${'' /* background: ${({ scrollNav }) => (scrollNav ? '#43AA8B' : 'transparent')}; */}
-  background: #254441;
+  ${'' /* background: ${({ scrollNav }) => (scrollNav ? '${mainLightGreen}' : 'transparent')}; */}
+  background: ${mainDarkGreen};
   height: 80px;
   ${'' /* margin-top: -80px; */}
   margin-top: 0;
@@ -132,7 +133,7 @@ export const NavLinks = styled(LinkRouter)`
 
   &:hover {
     transition: all 0.2s ease-in-out;
-    color: #ec4e20;
+    color: ${mainOrange};
   }
 `;
 
@@ -151,7 +152,7 @@ export const NavLinkDown = styled(LinkScroll)`
   }
   &:hover {
     transition: all 0.2s ease-in-out;
-    color: #ec4e20;
+    color: ${mainOrange};
   }
 `;
 
@@ -169,7 +170,7 @@ export const NavBtn = styled.nav`
 
 export const NavBtnLink = styled(LinkRouter)`
   border-radius: 50px;
-  background: #ec4e20;
+  background: ${mainOrange};
   white-space: nowrap;
   padding: 10px 20px;
   margin-bottom: 20px;

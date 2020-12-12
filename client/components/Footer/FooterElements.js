@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { textColorLight, mainDarkGreen, mainOrange } from '../styledComponents/globalStyles'
 
 export const FooterWrap = styled.footer`
-  background: #254441;
+  background: ${mainDarkGreen};
   padding: 10px;
   display: flex;
   justify-content: center;
@@ -39,7 +40,7 @@ export const FooterLinkItems = styled.div`
   align-items: center;
   width: 250px;
   box-sizing: border-box;
-  color: #fff;
+  color: ${textColorLight};
 
   @media screen and (max-width: 420px) {
     margin: 0;
@@ -61,7 +62,7 @@ export const FooterLinkItems = styled.div`
   }
 
   & a:hover {
-    color: #EC4E20;
+    color: ${mainOrange};
     transition: 0.3s ease-out;
   }
 `;
