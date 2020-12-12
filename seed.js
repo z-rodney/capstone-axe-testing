@@ -164,8 +164,7 @@ const seed = async (db) => {
         // create locations
         await session.run(
             `UNWIND $props AS map
-            CREATE (l:Location)
-            SET l = map`,
+            CREATE (l:Location { locationId: apoc.create.uuid(), title: map.title, coordinates: map.coordinates, placeName: map.placeName })`,
             {
                 props: [{
                     title: 'Central Park Hang',
@@ -244,10 +243,10 @@ const seed = async (db) => {
                 location2: 'Bx the Best',
                 location3: 'Madison Square Garden',
                 location4: 'Rockefeller Center',
-                visitedDate1: '12/06/2020',
-                visitedDate2: '12/06/2020',
-                visitedDate3: '12/06/2020',
-                visitedDate4: '11/12/2020',
+                visitedDate1: '2020-12-06',
+                visitedDate2: '2020-12-06',
+                visitedDate3: '2020-12-06',
+                visitedDate4: '2020-12-02',
             }
         );
 

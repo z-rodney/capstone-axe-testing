@@ -88,7 +88,7 @@ function AddEvent() {
   const [showForm, setShowForm] = useState(false)
   return (
     <div>
-      <Button onClick={() => { setShowForm(!showForm) }}>{showForm ? 'x Cancel' : '+ Add New Location'}</Button>
+      <Button onClick={() => { setShowForm(!showForm) }}>{showForm ? 'x Cancel' : '+ Add Event'}</Button>
       {showForm && <LocationForm setShowForm={setShowForm} />}
     </div>
   )

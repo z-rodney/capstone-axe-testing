@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { DetailCard, Title } from './StyleElements'
 import {getLocations} from '../../redux/userLocations'
+import moment from 'moment'
 
-function EventDetails() {
+function EventDetails({ dateSelected }) {
   const locations = useSelector(state => state.locations)
   const userId = useSelector(state => state.loginStatus.userId)
-  const [expand, setExpand] = useState(false)
-  const [selected, setSelected] = useState({})
   const dispatch = useDispatch()
+
+  dateSelected = new Date(dateSelected)
+  dateSelected = moment(dateSelected).format('YYYY-MM-DD')
+  const daysLocations = locations.filter(loc => loc.dateVisited === dateSelected)
 
   useEffect(() => {
     if (userId) {
@@ -16,31 +20,29 @@ function EventDetails() {
     }
   }, [userId])
 
-
- const showDetails = (location) => {
-   setExpand(true)
-   setSelected(location)
-  }
-
   return (
     <div>
-      <h3>Events</h3>
-      {/*Temp list of events until calendar is set up */}
-      <ul>
-        {locations.map((current, id) => {
-          return (<li key={id} onClick={() => { showDetails(current) }}>{current.location.title}</li>)
-        })}
-      </ul>
-
-      <h3>Event Details</h3>
-      {expand &&
-        <DetailCard>
-          <Title>{selected.location.title}</Title>
-          <p>{selected.location.placeName}</p>
-
-          <p>Visited: {selected.dateVisited}</p>
-        </DetailCard>
-      }
+      { daysLocations.length > 0 ?
+      <div>
+        <h3>Events</h3>
+        <ul>
+          {daysLocations.map((loc) => {
+            return (
+              <DetailCard key={loc.location.title}>
+                <Title>{loc.location.title}</Title>
+                <h4>Location:</h4>
+                <p>{loc.location.placeName}</p>
+                <h4>Contacts:</h4>
+                <ul>{ loc.contacts && loc.contacts.map(c => {
+                  return <Link to={`/friends/${c.userId}`} key={ c.userId }><li>{ c.name }</li></Link>
+                }) }
+                </ul>
+              </DetailCard>
+            )
+          })}
+        </ul>
+      </div>
+      : <div>No Events Found</div> }
     </div>
   )
 }

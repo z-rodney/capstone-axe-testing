@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 import CalendarDetails from './CalendarDetails';
+import EventDetails from '../Events/EventDetails';
 
 function Calendar() {
   const [selectedDate, setSelectedDate] = useState(moment());
   return (
     <div className="calendar">
-      <h2>Calendar</h2>
-      <CalendarDetails value={selectedDate} onChange={setSelectedDate} />
+      <CalendarDetails value={ selectedDate } onChange={ setSelectedDate } />
+      <EventDetails dateSelected={ selectedDate } />
     </div>
   );
 }

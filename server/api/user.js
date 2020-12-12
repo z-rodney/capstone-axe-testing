@@ -74,7 +74,6 @@ userRouter.put('/:userId', async (req, res, next) => {
 })
 
 // GET /api/user/:userId/friends
-// retrieves a user's friends from db
 userRouter.get('/:userId/friends', async(req, res, next) => {
   try {
     const result = await getFriends(req.params.userId);
@@ -86,7 +85,6 @@ userRouter.get('/:userId/friends', async(req, res, next) => {
 })
 
 // GET /api/user/:userId/contacts
-// retrieves a user's Contacts from db
 userRouter.get('/:userId/contacts', async(req, res, next) => {
   try {
     // const {userId} = req.user
@@ -98,8 +96,7 @@ userRouter.get('/:userId/contacts', async(req, res, next) => {
   }
 })
 
-// GET /api/user/:userId/getLocations
-// retrieves a user's Locations from db
+// GET /api/user/:userId/locations
 userRouter.get('/:userId/locations', async(req, res, next) => {
   try {
     const {userId} = req.user
@@ -111,8 +108,7 @@ userRouter.get('/:userId/locations', async(req, res, next) => {
   }
 })
 
-// GET /api/user/:userId/getPreferences
-// retrieves a user's Preferences from db
+// GET /api/user/:userId/preferences
 userRouter.get('/:userId/preferences', async(req, res, next) => {
   try {
     const result = await getPreferences(req.params.userId);
@@ -124,7 +120,6 @@ userRouter.get('/:userId/preferences', async(req, res, next) => {
 })
 
 // POST /api/user/:userId/location
-// adds a location to a user in db
 userRouter.post('/:userId/location', async(req, res, next) => {
   try {
     const { userId } = req.params;
@@ -136,8 +131,7 @@ userRouter.post('/:userId/location', async(req, res, next) => {
   }
 })
 
-// POST /api/user/:userId/addContact
-// adds a Contact to a user in db
+// POST /api/user/:userId/contact
 userRouter.post('/:userId/contact', async(req, res, next) => {
   try {
     const { userId } = req.params;
@@ -156,7 +150,6 @@ userRouter.post('/:userId/contact', async(req, res, next) => {
 })
 
 // POST /api/user/:userId/friend
-// adds a friend to a user in db
 userRouter.post('/:userId/friend', async(req, res, next) => {
   if (req.user) {
     try {
@@ -172,8 +165,7 @@ userRouter.post('/:userId/friend', async(req, res, next) => {
   }
 })
 
-// POST /api/user/:userId/addPreferences
-// adds preferences to a user in db
+// POST /api/user/:userId/preferences
 userRouter.post('/:userId/preferences', async(req, res, next) => {
   try {
     const {
@@ -203,7 +195,7 @@ userRouter.post('/:userId/preferences', async(req, res, next) => {
   }
 })
 
-// POST /api/user/:userId/results
+// GET /api/user/:userId/results
 userRouter.get('/:userId/results', async (req, res, next) => {
   if (req.user) {
     try {

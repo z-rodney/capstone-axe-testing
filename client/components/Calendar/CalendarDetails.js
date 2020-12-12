@@ -12,10 +12,8 @@ export default function CalendarDetails({ value, onChange }) {
 
   function buildCalendar(date) {
     const cal = [];
-
     const startDay = date.clone().startOf('month').startOf('week');
     const endDay = date.clone().endOf('month').endOf('week');
-
     const day = startDay.clone().subtract(1, 'day');
 
     while (day.isBefore(endDay, 'day')) {
@@ -29,12 +27,7 @@ export default function CalendarDetails({ value, onChange }) {
   }
 
   function isSelected(day) {
-    // console.log(` day: ${day}, value: ${value}`); // value should be the day's date, in the state
     return value.isSame(day, 'day');
-  }
-
-  function beforeToday(day) {
-    return moment(day).isBefore(new Date(), 'day');
   }
 
   function isToday(day) {
@@ -42,19 +35,10 @@ export default function CalendarDetails({ value, onChange }) {
   }
 
   function dayStyles(day) {
-    if (beforeToday(day)) return 'before';
     if (isSelected(day, value)) return 'selected';
     if (isToday(day)) return 'today';
     return '';
   }
-
-  // function currMonthName() {
-  //   return value.format('MMMM');
-  // }
-
-  // function currYear() {
-  //   return value.format('YYYY');
-  // }
 
   return (
     <div className="calendar">
@@ -74,12 +58,7 @@ export default function CalendarDetails({ value, onChange }) {
               <div
                 key={day.dayNum}
                 className="day"
-                onClick={() => {
-                  // should display the events that are associated with this date below the calendar
-                  // redux function that gets event for that day. If is an empty array, text should say "No Events"
-                  // if (day < moment(new Date()).startOf('day')) return;
-                  onChange(day);
-                }}
+                onClick={() => { onChange(day) } }
               >
                 <div className={dayStyles(day)}>
                   {day.format('D').toString()}

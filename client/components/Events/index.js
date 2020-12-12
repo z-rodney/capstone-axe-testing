@@ -1,17 +1,13 @@
 import React from 'react';
 import AddEvent from './EventForm';
-import EventDetails from './EventDetails';
 import Calendar from '../Calendar';
 import { Card } from '../styledComponents';
 
 function Events() {
   return (
     <Card>
+      <Calendar />
       <AddEvent />
-      <div>
-        <Calendar />
-      </div>
-      <EventDetails />
     </Card>
   );
 }
