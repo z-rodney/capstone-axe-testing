@@ -11,7 +11,7 @@ const FriendCard = styled(Card)`
   box-shadow: 4px 4px 6px rbga(0,0,0,.25);
 `
 
-const FriendList = ({all}) => {
+const FriendList = () => {
   const userId = useSelector(state => state.loginStatus.userId)
   const userFriends = useSelector(state => state.friends)
   const dispatch = useDispatch()
@@ -28,7 +28,7 @@ useEffect(() => {
       {userFriends.map(friend => {
         return (
           <RowContainer key = {friend.userId}>
-            <img className={ all ? 'all-friends' : 'profile-pic'} src="https://cdn.onlinewebfonts.com/svg/img_415067.png" />
+            <img className="profile-pic" src="https://cdn.onlinewebfonts.com/svg/img_415067.png" />
             <Link to= {`/friends/${friend.userId}`}><p className="spaced">{friend.name}</p></Link>
           </RowContainer>
         )})

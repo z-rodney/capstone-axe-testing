@@ -1,9 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { CenteredContainer, Card } from '../styledComponents';
-import { FormCard, RadioContainer } from './StyleElements';
+import { Card } from '../styledComponents';
+import { FormCard, RadioContainer, CenterWrapper } from './StyleElements';
 import { addPreferences } from '../../redux/userPrefs';
 
 export default function RiskForm() {
@@ -29,7 +29,8 @@ export default function RiskForm() {
   }
 
   return (
-    <CenteredContainer>
+    <CenterWrapper>
+      <Link to="/profile">{`< Cancel`}</Link>
       <Card>
         <h3>Please fill in the following details on your preferences.</h3>
         <form onSubmit={ handleSubmit(onSubmit) }>
@@ -108,7 +109,7 @@ export default function RiskForm() {
           </FormCard>
 
           <FormCard>
-            <label className="question">How often do you wear a mask in public?</label>
+            <label className="question">Do you always wear a mask in public?</label>
             <RadioContainer>
               <RadioContainer>
                 <input name="mask" type="radio" id="inlineRadio5" value={true} ref={ register } />
@@ -139,6 +140,6 @@ export default function RiskForm() {
           </FormCard>
         </form>
       </Card>
-    </CenteredContainer>
+    </CenterWrapper>
   )
 }

@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import { useDispatch, useSelector } from 'react-redux'
 import { addLocation } from '../../redux/userLocations'
-import { LocationFormStyle, LocationFormInput, LocationButton, Button } from './StyleElements'
+import { LocationFormStyle, LocationFormInput, LocationButton } from './StyleElements'
+import { FormButton } from '../styledComponents'
 import { useInput } from '../../customHooks/useInput'
 import axios from 'axios'
 
@@ -73,7 +74,7 @@ function AddEvent() {
   const [showForm, setShowForm] = useState(false)
   return (
     <div>
-      <Button onClick={() => { setShowForm(!showForm) }}>{showForm ? 'x Cancel' : '+ Add New Location'}</Button>
+      <FormButton onClick={() => { setShowForm(!showForm) }}>{showForm ? 'x Cancel' : '+ Add New Location'}</FormButton>
       {showForm && <LocationForm setShowForm={setShowForm} />}
     </div>
   )

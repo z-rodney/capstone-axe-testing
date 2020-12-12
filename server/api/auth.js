@@ -2,7 +2,8 @@ const express = require('express');
 const authRouter = express.Router();
 const bcrypt = require('bcrypt');
 const { getUserByUsername } = require('../db/neo4j/user');
-const { createSession, destroySession } = require('../db/neo4j/session');
+const { createSession, destroySession, getUserBySession } = require('../db/neo4j/session');
+const { response } = require('express');
 const A_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 
 // GET /api/auth/whoami
@@ -16,6 +17,25 @@ authRouter.get('/whoami', (req, res, next) => {
     res.send(user);
   } else {
     res.status(404).send({username: null, userId: null});
+  }
+})
+
+//GET /api/auth/session/:sessionId
+authRouter.get('/session/:sessionId', async (req, res, next) => {
+  try {
+    const sessionId = req.params.sessionId
+    const {userId, username, name } = await getUserBySession(sessionId)
+    if (!userId) {
+      res.staus(404).send(null)
+    }
+    const userInfo = {
+      name,
+      userId,
+      username
+    }
+    res.send(userInfo)
+  } catch (err) {
+    next(err)
   }
 })
 

@@ -16,7 +16,7 @@ import {
   NavBtn,
   NavLinkDown,
 } from './NavbarElements';
-import { checkLogin } from '../../redux/loginStatus';
+import { checkLogin, loginFromSession } from '../../redux/loginStatus';
 import { logout } from '../../redux/userLogin';
 import { getCookieValue } from '../../../server/utils';
 
@@ -33,7 +33,11 @@ const Navbar = (props) => {
   const history = useHistory();
 
   useEffect(() => {
-    dispatch(checkLogin());
+    const sessionId = getCookieValue('sessionId');
+    if (sessionId) {
+      dispatch(loginFromSession(sessionId))
+    }
+    //dispatch(checkLogin());
     window.addEventListener('scroll', changeNav);
   }, []);
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/userLogin';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import MessageBox from '../MessageBox';
 import {
   SignInContainer,
@@ -23,6 +23,7 @@ const SignIn = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const loginStatus = useSelector(state => state.login);
+  const userId = useSelector(state => state.loginStatus.userId)
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -31,6 +32,10 @@ const SignIn = () => {
 
   return (
     <>
+      {/*redirects to profile if user is logged in
+       also prevents signin form from appearing again after
+       logging in from a re-directed private route*/}
+      {userId && <Redirect to="/profile" />}
       <SignInContainer>
         <FormWrap>
           <FormContent>

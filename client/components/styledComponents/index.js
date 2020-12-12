@@ -51,3 +51,19 @@ export const SidebarRight = styled(Sidebar)`
   padding-left: 50px;
   padding-right 10px;
 `
+
+export const FormButton = styled.button`
+  margin: 5px 0;
+  font-size: 1rem;
+  font-family: "Roboto Mono";
+  border: 1px solid #D3D3C5;
+  background: #DCDCD0;
+  box-shadow: none;
+  border-radius: 4px;
+  color: #8A886A;
+  transition: all ease .75s;
+  &:hover {
+    background: #8A886A;
+    color: #DCDCD0;
+  }
+`
