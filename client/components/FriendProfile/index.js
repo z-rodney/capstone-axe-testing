@@ -14,7 +14,7 @@ const FriendProfile = () => {
   return (
     <ColumnContainer>
       <RowContainer>
-        <img className="profile-pic-big" src="https://cdn.onlinewebfonts.com/svg/img_415067.png"/>
+        <img className="profile-pic-big" src="https://cdn.onlinewebfonts.com/svg/img_415067.png" />
         <div className="profile-heading spaced">
           <h3>{friend.name}</h3>
           <p>{friend.location}</p>
