@@ -1,17 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { GrLocation } from 'react-icons/gr';
 import { animateScroll as scroll } from 'react-scroll';
 
 import {
-  FooterLink,
   FooterLinkItems,
-  FooterLinksContainer,
   FooterLinksWrapper,
-  FooterLinkTitle,
   FooterWrap,
   SocialMediaWrap,
-  SocialLogo,
-  WebsiteRights,
 } from './FooterElements';
 
 const toggleHome = () => {
@@ -21,24 +17,22 @@ const toggleHome = () => {
 const Footer = () => {
   return (
     <FooterWrap>
-      <FooterLinksContainer>
         <FooterLinksWrapper>
           <FooterLinkItems id="about-us">
-            <FooterLinkTitle>About Us</FooterLinkTitle>
-            <FooterLink to="/">Who We Are</FooterLink>
-            <FooterLink to="/">How Proximity Works</FooterLink>
+            <h1>About Us</h1>
+            <Link to="/">Who We Are</Link>
+            <Link to="/">How Proximity Works</Link>
           </FooterLinkItems>
         </FooterLinksWrapper>
-      </FooterLinksContainer>
       <SocialMediaWrap>
-        <SocialLogo to="/" onClick={toggleHome}>
+        <Link className="social-logo" to="/" onClick={toggleHome}>
           <GrLocation />
           Proximity
-        </SocialLogo>
-        <WebsiteRights>
+        </Link>
+        <small className="web-rights">
           Designed by <i>Capstone Heroes Team - </i> Copyright &copy;
           {new Date().getFullYear()} Proximity. All rights reserved.
-        </WebsiteRights>
+        </small>
       </SocialMediaWrap>
     </FooterWrap>
   );
