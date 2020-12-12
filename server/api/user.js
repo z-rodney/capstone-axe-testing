@@ -166,6 +166,10 @@ userRouter.post('/:userId/friend', async(req, res, next) => {
 })
 
 // POST /api/user/:userId/preferences
+<<<<<<< HEAD
+=======
+// adds preferences to a user in db
+>>>>>>> origin
 userRouter.post('/:userId/preferences', async(req, res, next) => {
   try {
     const {

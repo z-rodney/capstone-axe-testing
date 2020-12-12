@@ -55,6 +55,7 @@ function LocationForm({ setShowForm }) {
       placeName,
       contacts: selectedContacts
     }
+
     dispatch(addLocation(newLocationData, userId))
     setShowForm(false)
   }
