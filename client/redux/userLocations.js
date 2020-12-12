@@ -27,7 +27,8 @@ export const _addLocation = (location) => ({
 export const addLocation = (location, userId) => {
   return async (dispatch) => {
     try {
-      const newLocation = await axios.post(`/api/user/${userId}/location`, {location})
+      const newLocation = await axios.post(`/api/user/${userId}/location`, { location })
+      await axios.post(`/api/user/${userId}/contact`, { location })
       dispatch(_addLocation(newLocation.data))
     }
     catch (err) {
@@ -39,7 +40,7 @@ export const addLocation = (location, userId) => {
 export default function locationsReducer(state = [], action) {
   switch (action.type) {
     case ADD_LOCATION:
-      return [...state, ...action.location]
+      return [...state, action.location]
       case GET_LOCATIONS:
         return [...action.locations]
     default:

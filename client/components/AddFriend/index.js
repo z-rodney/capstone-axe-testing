@@ -39,10 +39,11 @@ const AddFriend = () => {
         { searchResults ?
             searchResults.length === 0 ? <div>No results.</div> :
             searchResults.map(user => {
+              const friendLink = `/friends/${user.userId}`;
               return (
                 <RowContainer key={ user.userId }>
                   <img className="all-friends" src="https://cdn.onlinewebfonts.com/svg/img_415067.png" />
-                  <Link to="/friends/1"><p className="spaced">{ user.name }</p></Link>
+                  <Link to={ friendLink }><p className="spaced">{ user.name }</p></Link>
                   <button type="button" onClick={ () => followFriend(user.userId) }>Follow</button>
                 </RowContainer>
               )

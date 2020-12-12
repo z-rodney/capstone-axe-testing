@@ -25,7 +25,7 @@ const seed = async (db) => {
         await session.run(
             `UNWIND $props AS map CREATE (u:User {userId: apoc.create.uuid(), name: map.name, username: map.username, password: map.password})`,
             {'props': [{
-                    'username': 'zoe@zoe.com',
+                    'username': 'zoe.greene12@gmail.com',
                     'name': 'Zoe',
                     'password': hashedPW,
                 }, {
@@ -104,7 +104,7 @@ const seed = async (db) => {
                 CREATE (ranffi)-[rel3:PREFERS]->(p3)
                 CREATE (rehab)-[rel4:PREFERS]->(p4)`,
                 {
-                    zoe: 'zoe@zoe.com',
+                    zoe: 'zoe.greene12@gmail.com',
                     zaina: 'zaina@zaina.com',
                     ranffi: 'ranffi@ranffi.com',
                     rehab: 'rehab@rehab.com'
@@ -117,10 +117,10 @@ const seed = async (db) => {
             MATCH (zaina:User {username:$zaina})
             MATCH (rehab:User {username:$rehab})
             MATCH (ranffi:User {username:$ranffi})
-            CREATE (zoe)-[:FOLLOWS]->(zaina) 
-            CREATE (ranffi)-[:FOLLOWS]->(zaina) 
-            CREATE (rehab)-[:FOLLOWS]->(zaina) 
-            CREATE (zaina)-[:FOLLOWS]->(zoe)  
+            CREATE (zoe)-[:FOLLOWS]->(zaina)
+            CREATE (ranffi)-[:FOLLOWS]->(zaina)
+            CREATE (rehab)-[:FOLLOWS]->(zaina)
+            CREATE (zaina)-[:FOLLOWS]->(zoe)
             CREATE (rehab)-[:FOLLOWS]->(zoe)
             CREATE (ranffi)-[:FOLLOWS]->(zoe)
             CREATE (zoe)-[:FOLLOWS]->(rehab)
@@ -130,7 +130,7 @@ const seed = async (db) => {
             CREATE (zaina)-[:FOLLOWS]->(ranffi)
             CREATE (rehab)-[:FOLLOWS]->(ranffi)`,
             {
-                zoe: 'zoe@zoe.com',
+                zoe: 'zoe.greene12@gmail.com',
                 zaina: 'zaina@zaina.com',
                 ranffi: 'ranffi@ranffi.com',
                 rehab: 'rehab@rehab.com'
@@ -152,7 +152,7 @@ const seed = async (db) => {
             SET rel3.contactDate = $contactDate2
             SET rel4.contactDate = $contactDate2`,
             {
-                zoe: 'zoe@zoe.com',
+                zoe: 'zoe.greene12@gmail.com',
                 zaina: 'zaina@zaina.com',
                 ranffi: 'ranffi@ranffi.com',
                 rehab: 'rehab@rehab.com',
@@ -236,7 +236,7 @@ const seed = async (db) => {
             SET r15.visitedDate = $visitedDate4 \
             SET r16.visitedDate = $visitedDate4',
             {
-                zoe: 'zoe@zoe.com',
+                zoe: 'zoe.greene12@gmail.com',
                 zaina: 'zaina@zaina.com',
                 ranffi: 'ranffi@ranffi.com',
                 rehab: 'rehab@rehab.com',
@@ -253,7 +253,7 @@ const seed = async (db) => {
 
         //create tests
         await session.run(`
-        MATCH (zoe:User{username: 'zoe@zoe.com'})
+        MATCH (zoe:User{username: 'zoe.greene12@gmail.com'})
         MATCH (rehab:User {username:'rehab@rehab.com'})
         MATCH (ranffi:User {username:'ranffi@ranffi.com'})
         MATCH (zaina:User {username:'zaina@zaina.com'})

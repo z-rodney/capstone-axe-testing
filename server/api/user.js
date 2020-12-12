@@ -103,7 +103,7 @@ userRouter.get('/:userId/contacts', async(req, res, next) => {
 userRouter.get('/:userId/locations', async(req, res, next) => {
   try {
     const {userId} = req.user
-  const result = await getLocations(userId)
+    const result = await getLocations(userId)
     res.status(200).send(result)
   }
   catch (err) {
@@ -123,17 +123,16 @@ userRouter.get('/:userId/preferences', async(req, res, next) => {
   }
 })
 
-// POST /api/user/:userId/addLocation
+// POST /api/user/:userId/location
 // adds a location to a user in db
 userRouter.post('/:userId/location', async(req, res, next) => {
   try {
-      const {userId} = req.user
-
-    const insert = await addLocation(req.body.location, userId)
-    res.status(201).send(insert)
+    const { userId } = req.params;
+    const insert = await addLocation(req.body.location, userId);
+    res.status(201).send(insert);
   }
   catch (err) {
-    next(err)
+    next(err);
   }
 })
 
@@ -141,8 +140,15 @@ userRouter.post('/:userId/location', async(req, res, next) => {
 // adds a Contact to a user in db
 userRouter.post('/:userId/contact', async(req, res, next) => {
   try {
-    const insert = await addContact(req.body)
-    res.status(201).send(insert)
+    const { userId } = req.params;
+    const { contacts, date } = req.body.location;
+    await addContact(contacts, date, userId);
+    if (contacts.length > 1) {
+      for (let i = 0; i < contacts.length - 1; i++) {
+        await addContact(contacts.slice(i + 1), date, contacts[i]);
+      }
+    }
+    res.sendStatus(201);
   }
   catch (err) {
     next(err)

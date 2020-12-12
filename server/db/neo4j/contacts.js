@@ -33,20 +33,18 @@ const getContacts = async(userId) => {
 
 }
 
-const addContact = async({userId, contacted, date}) => {
+const addContact = async (contacts, date, userId) => {
     let session = driver.session()
     try {
-        const user = await session.run(
-           `MATCH (me:User {userId: $userId })
-            MATCH (friend:User {userId: $contacted})
-            CREATE (me)-[r:CONTACTED]->(friend)
-            CREATE (friend)-[r2:CONTACTED]->(me)
-            SET r.contactDate = $date
-            SET r2.contactDate = $date
-            RETURN me, friend`,
-            { userId, contacted, date }
+        await session.run(
+           `UNWIND $contacts AS contact
+            MATCH (me:User {userId: $userId })
+            MATCH (friend:User {userId: contact})
+            CREATE (me)-[r1:CONTACTED { contactDate: date($date) }]->(friend)
+            CREATE (friend)-[r2:CONTACTED { contactDate: date($date) }]->(me)
+            RETURN r1`,
+            { contacts, date, userId }
         )
-       return user
     }
     catch (err) {
         console.log(err)

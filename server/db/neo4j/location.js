@@ -14,7 +14,7 @@ const getLocations = async(userId) => {
             const currentLocation = record[i]
             const resObj = {}
             resObj.location = new Location(currentLocation.get('l'))
-            resObj.dateVisited = new Location(currentLocation.get('v'))
+            resObj.dateVisited = currentLocation.get('v').properties.visitedDate
             locations.push(resObj)
         }
 
@@ -25,27 +25,26 @@ const getLocations = async(userId) => {
     }
 }
 
-const addLocation = async({title, date, coordinates, placeName}, userId) => {
+const addLocation = async ({ title, date, coordinates, placeName, contacts }, userId) => {
     let session = driver.session()
+
+    // create relationship between location and each user with property of contact date
+
     try {
         const location = await session.run(
-            'MATCH (u:User {userId: $userId}) \
-         MERGE (l:Location {title: $title, placeName: $placeName, coordinates: $coordinates})\
-          CREATE (u)-[v:VISITED]->(l) \
-          SET v.visitedDate = $date \
-           RETURN l, v',
-        {title, date, coordinates, placeName, userId})
-        const record = location.records
-        const locations = []
-        for (let i = 0; i < record.length; i++) {
-            const currentLocation = record[i]
-            const resObj = {}
-            resObj.location = new Location(currentLocation.get('l'))
-            resObj.dateVisited = new Location(currentLocation.get('v'))
-            locations.push(resObj)
-        }
-
-        return locations
+            `UNWIND $contacts AS contact
+            MATCH (c:User {userId: contact})
+            MERGE (l:Location {title: $title, placeName: $placeName, coordinates: $coordinates})
+            CREATE (c)-[v:VISITED]->(l)
+            SET v.visitedDate = $date
+            RETURN l, v`,
+            { title, date, coordinates, placeName, contacts: [...contacts, userId] }
+        )
+        const currentLocation = location.records[0]
+        const resObj = {}
+        resObj.location = new Location(currentLocation.get('l'))
+        resObj.dateVisited = currentLocation.get('v').properties.visitedDate
+        return resObj
     }
     catch (err) {
         console.log(err)

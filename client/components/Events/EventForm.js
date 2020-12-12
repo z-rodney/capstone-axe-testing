@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addLocation } from '../../redux/userLocations'
 import { LocationFormStyle, LocationFormInput, LocationButton, Button } from './StyleElements'
 import { useInput } from '../../customHooks/useInput'
+import { Link } from 'react-router-dom'
 
 function LocationForm({ setShowForm }) {
   const [title, setTitle] = useInput('')
@@ -15,6 +16,7 @@ function LocationForm({ setShowForm }) {
   const geocoderContainer = useRef(document.getElementById('geocoder'))
   const dispatch = useDispatch()
   const userId = useSelector(state => state.loginStatus.userId)
+  const friends = useSelector(state => state.friends)
 
   //geocoder lets you search for a location using a string,
   //matches the location using MapBox API and returns the lat / lng
@@ -45,12 +47,13 @@ function LocationForm({ setShowForm }) {
 
   const handleSubmit = (ev) => {
     ev.preventDefault()
-    console.log('submitted', coords)
+    const selectedContacts = Array.from(document.querySelectorAll('#select-contacts option:checked')).map(el => el.value)
     let newLocationData = {
       title,
       date,
       coordinates: coords,
-      placeName
+      placeName,
+      contacts: selectedContacts
     }
     dispatch(addLocation(newLocationData, userId))
     setShowForm(false)
@@ -60,8 +63,20 @@ function LocationForm({ setShowForm }) {
   <LocationFormStyle id="location-form" onSubmit={handleSubmit}>
     <div id="geocoder" ref={geocoderContainer} />
       <LocationFormInput id="title" placeholder="Title" onChange={ (ev) => (setTitle(ev)) } />
-      <LocationFormInput id="date-visited" placeholder="Date Visited" onChange={(ev) => { setDate(ev) }} />
-      {/* { add contacts selection here - search bar, click on "add to event" button next to results. When you add a user to the event, they will display down below as attached to the event. you can continue adding multiple friends. } */}
+      <LocationFormInput id="date-visited" placeholder="Date Visited" type="date" onChange={(ev) => { setDate(ev) }} />
+      { friends.length === 0 ?
+        <Link to="/friends">Add some friends!</Link> :
+        <div>
+          <p>Hold down the Ctrl (windows) or Command (Mac) button to select multiple contacts:</p>
+          <select id="select-contacts" multiple="multiple">
+            { friends.map(friend => {
+              return (
+                <option value={ friend.userId } key={ friend.id }>{ friend.name }</option>
+              )
+            })}
+          </select>
+        </div>
+      }
     <LocationButton type="submit">Submit</LocationButton>
   </LocationFormStyle>
   )
