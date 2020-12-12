@@ -25,7 +25,7 @@ function App() {
         <Route exact path="/account" component={AccountSettings} />
         <Route path="/profile" component={UserProfile} />
         <Route exact path="/my-risk" component={RiskForm} />
-        <Route path="/" component={Home} exact />
+        <Route path="/" component={Home} />
       </Switch>
       <Footer />
     </Router>

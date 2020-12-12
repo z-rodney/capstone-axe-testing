@@ -1,11 +1,8 @@
 import styled from 'styled-components';
 import { Link as LinkRouter } from 'react-router-dom';
 
-export const FooterContainer = styled.footer`
+export const FooterWrap = styled.footer`
   background: #254441;
-`;
-
-export const FooterWrap = styled.div`
   padding: 20px 20px;
   display: flex;
   justify-content: center;
@@ -57,14 +54,6 @@ export const FooterLinkTitle = styled.h1`
   text-align: center;
 `;
 
-export const FooterLinkP = styled.p`
-  color: #fff;
-  text-align: center;
-  font-size: 14px;
-  margin: 5px;
-  max-width: 600px;
-`;
-
 export const FooterLink = styled(LinkRouter)`
   color: #fff;
   text-decoration: none;
@@ -81,7 +70,6 @@ export const SocialMediaWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  ${'' /* max-width: 1100px; */}
   margin: 40px auto 0 auto;
 
   @media screen and (max-width: 820px) {

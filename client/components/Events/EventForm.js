@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
-import { MAPBOXPK } from '../../../constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { addLocation } from '../../redux/userLocations'
 import { LocationFormStyle, LocationFormInput, LocationButton, Button } from './StyleElements'
@@ -20,7 +19,7 @@ function LocationForm({ setShowForm }) {
   //geocoder lets you search for a location using a string,
   //matches the location using MapBox API and returns the lat / lng
   const geocoder = new MapboxGeocoder({
-    accessToken: MAPBOXPK,
+    accessToken: process.env.MAPBOXPK,
     types: 'address,country,region,place,postcode,locality,neighborhood,district',
     proximity: {
       latitude: 40.73,
@@ -46,7 +45,6 @@ function LocationForm({ setShowForm }) {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault()
-    console.log('submitted', coords)
     let newLocationData = {
       title,
       date,
@@ -60,12 +58,12 @@ function LocationForm({ setShowForm }) {
   }
 
   return (
-  <LocationFormStyle id="location-form" onSubmit={handleSubmit}>
-    <div id="geocoder" ref={geocoderContainer} />
+    <LocationFormStyle id="location-form" onSubmit={handleSubmit}>
+      <div id="geocoder" ref={geocoderContainer} />
       <LocationFormInput id="title" placeholder="Title" onChange={ (ev) => (setTitle(ev)) } />
       <LocationFormInput id="date-visited" placeholder="Date Visited" onChange={(ev) => { setDate(ev) }} />
-    <LocationButton type="submit">Submit</LocationButton>
-  </LocationFormStyle>
+      <LocationButton type="submit">Submit</LocationButton>
+    </LocationFormStyle>
   )
 }
 

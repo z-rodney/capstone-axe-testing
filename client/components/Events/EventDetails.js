@@ -20,6 +20,17 @@ function EventDetails() {
  const showDetails = (location) => {
    setExpand(true)
    setSelected(location)
+ }
+
+  const eventItem = (current, id) => {
+    return (
+      <li
+        key={id}
+        onClick={() => { showDetails(current) }}
+      >
+        {current.location.title}
+      </li>
+    )
   }
 
   return (
@@ -27,19 +38,17 @@ function EventDetails() {
       <h3>Events</h3>
       {/*Temp list of events until calendar is set up */}
       <ul>
-        {locations.map((current, id) => {
-          return (<li key={id} onClick={() => { showDetails(current) }}>{current.location.title}</li>)
-        })}
+        {locations.map(eventItem)}
       </ul>
 
       <h3>Event Details</h3>
-      {expand &&
+      {expand ?
         <DetailCard>
           <Title>{selected.location.title}</Title>
           <p>{selected.location.placeName}</p>
- 
           <p>Visited: {selected.dateVisited.visitedDate}</p>
-        </DetailCard>
+        </DetailCard> :
+        <p>Select an event to see details.</p>
       }
     </div>
   )
