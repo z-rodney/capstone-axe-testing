@@ -53,15 +53,15 @@ export default function CalendarDetails({ value, onChange }) {
           ))}
         </div>
         {calendar.map((week) => (
-          <div key={week.weekNum}>
+          <div key={ week.weekNum }>
             {week.map((day) => (
               <div
-                key={day.dayNum}
+                key={ day.dayNum }
                 className="day"
-                onClick={() => { onChange(day) } }
+                onClick={ () => { onChange(day) } }
               >
-                <div className={dayStyles(day)}>
-                  {day.format('D').toString()}
+                <div className={ dayStyles(day) }>
+                  { day.format('D').toString() }
                 </div>
               </div>
             ))}

@@ -17,19 +17,13 @@ export default function CalendarHeader({ value, onChange }) {
     return value.clone().add(1, 'month');
   }
 
-  // function thisMonth() {
-  //   return value.isSame(new Date(), 'month');
-  // }
-
   return (
     <div className="header">
       <div
         className="previous"
-        // onClick={() => !thisMonth() && onChange(prevMonth())}>
         onClick={() => onChange(prevMonth())}
       >
         {String.fromCharCode(171)}
-        {/* {!thisMonth() ? String.fromCharCode(171) : null} */}
       </div>
       <div className="current">
         {currMonthName()} {currYear()}

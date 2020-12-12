@@ -99,12 +99,12 @@ userRouter.get('/:userId/contacts', async(req, res, next) => {
 // GET /api/user/:userId/locations
 userRouter.get('/:userId/locations', async(req, res, next) => {
   try {
-    const {userId} = req.user
-    const result = await getLocations(userId)
-    res.status(200).send(result)
+    const { userId } = req.user;
+    const result = await getLocations(userId);
+    res.status(200).send(result);
   }
   catch (err) {
-    next(err)
+    next(err);
   }
 })
 
