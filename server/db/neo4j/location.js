@@ -17,7 +17,6 @@ const getLocations = async(userId) => {
             resObj.dateVisited = new Location(currentLocation.get('v'))
             locations.push(resObj)
         }
-
         return locations
     }
     catch (err) {
@@ -29,12 +28,13 @@ const addLocation = async({title, date, coordinates, placeName}, userId) => {
     let session = driver.session()
     try {
         const location = await session.run(
-            'MATCH (u:User {userId: $userId}) \
-         MERGE (l:Location {title: $title, placeName: $placeName, coordinates: $coordinates})\
-          CREATE (u)-[v:VISITED]->(l) \
-          SET v.visitedDate = $date \
-           RETURN l, v',
-        {title, date, coordinates, placeName, userId})
+            `MATCH (u:User {userId: $userId}) \
+            MERGE (l:Location {title: $title, placeName: $placeName, coordinates: $coordinates})\
+            CREATE (u)-[v:VISITED]->(l) \
+            SET v.visitedDate = $date \
+            RETURN l, v`,
+            { title, date, coordinates, placeName, userId }
+        )
         const record = location.records
         const locations = []
         for (let i = 0; i < record.length; i++) {

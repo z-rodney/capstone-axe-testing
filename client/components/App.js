@@ -21,7 +21,8 @@ function App() {
         <PrivateRoute exact path="/profile" component={UserProfile} />
         <PrivateRoute exact path="/friends" component={AllFriends} />
         <PrivateRoute exact path="/friends/:friendId" component={FriendProfile} />
-        <PrivateRoute exact path="/my-risk" component={RiskForm} />
+        <Route exact path="/my-risk" component={RiskForm} />
+        <PrivateRoute exact path="/edit/my-risk" component={RiskForm} edit={true} />
         <Route path="/" component={Home} />
       </Switch>
       <Footer />

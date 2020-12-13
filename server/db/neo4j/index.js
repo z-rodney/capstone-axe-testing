@@ -1,7 +1,7 @@
 const {getLocations, addLocation} = require('./location')
 const {getFriends, addFriend, searchUsers} = require('./friends')
 const {getContacts, addContact} = require('./contacts')
-const {getPreferences, addPreferences} = require('./preferences')
+const {getPreferences, addPreferences, updatePreferences} = require('./preferences')
 
 
 module.exports = {
@@ -13,5 +13,6 @@ module.exports = {
     addLocation,
     addContact,
     addFriend,
+    updatePreferences,
     searchUsers
 }

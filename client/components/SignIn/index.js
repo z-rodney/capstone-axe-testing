@@ -35,7 +35,8 @@ const SignIn = () => {
       {/*redirects to profile if user is logged in
        also prevents signin form from appearing again after
        logging in from a re-directed private route*/}
-      {userId && <Redirect to="/profile" />}
+      {userId && <Redirect to="/profile" />
+      }
       <SignInContainer>
         <FormWrap>
           <FormContent>

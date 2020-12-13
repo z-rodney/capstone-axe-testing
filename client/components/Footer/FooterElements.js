@@ -8,8 +8,8 @@ export const FooterWrap = styled.footer`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  max-width: 1600px;
   margin: 0 auto;
+  width: 100%;
 `;
 
 export const FooterLinksContainer = styled.div`
