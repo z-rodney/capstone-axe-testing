@@ -36,7 +36,6 @@ export default function RiskForm({edit}) {
     data.pubTrans = stringToBool(data.pubTrans);
     if (edit) {
       dispatch(updatePreferences(userId, data, history));
-      console.log(data)
     } else {
       dispatch(addPreferences(userId, data, history));
     }

@@ -151,20 +151,20 @@ export const NavBtn = styled.nav`
   align-items: center;
   justify-content: space-evenly;
   margin: 0 10px;
+  box-sizing: border-box;
 
   & a {
-  border-radius: 50px;
-  background: ${mainOrange};
-  white-space: nowrap;
-  padding: 10px 20px;
-  margin-bottom: 20px;
-  color: #fff;
-  font-size: 18px;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s ease-in-out;
+    border-radius: 50px;
+    background: ${mainOrange};
+    white-space: nowrap;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 18px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
   }
 
   & a:hover {
