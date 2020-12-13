@@ -1,19 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { GrLocation } from 'react-icons/gr';
 import { animateScroll as scroll } from 'react-scroll';
 
 import {
-  FooterContainer,
-  FooterLink,
   FooterLinkItems,
-  FooterLinksContainer,
   FooterLinksWrapper,
-  FooterLinkTitle,
   FooterWrap,
   SocialMediaWrap,
-  SocialLogo,
-  WebsiteRights,
-  FooterLinkP,
 } from './FooterElements';
 
 const toggleHome = () => {
@@ -22,35 +16,25 @@ const toggleHome = () => {
 
 const Footer = () => {
   return (
-    <FooterContainer>
-      <FooterWrap>
-        <FooterLinksContainer>
-          <FooterLinksWrapper>
-            <FooterLinkItems id="about-us">
-              <FooterLinkTitle>About Us</FooterLinkTitle>
-              <FooterLink to="/">Who We Are</FooterLink>
-              <FooterLink to="/">How Proximity Works</FooterLink>
-            </FooterLinkItems>
-            <FooterLinkItems id="contact-us">
-              <FooterLinkTitle>Contact Us</FooterLinkTitle>
-              <FooterLinkP to="/">250 Capstone Ave, New York, NY 10004</FooterLinkP>
-              <FooterLinkP to="/">(707) 707-0770</FooterLinkP>
-              <FooterLinkP to="/">capstone-heroes@fullstackacademy.com</FooterLinkP>
-            </FooterLinkItems>
-          </FooterLinksWrapper>
-        </FooterLinksContainer>
-        <SocialMediaWrap>
-          <SocialLogo to="/" onClick={toggleHome}>
-            <GrLocation />
-            Proximity
-          </SocialLogo>
-          <WebsiteRights>
-            Designed by <i>Capstone Heroes Team - </i> Copyright &copy;
-            {new Date().getFullYear()} Proximity. All rights reserved.
-          </WebsiteRights>
-        </SocialMediaWrap>
-      </FooterWrap>
-    </FooterContainer>
+    <FooterWrap>
+        <FooterLinksWrapper>
+          <FooterLinkItems id="about-us">
+            <h1>About Us</h1>
+            <Link to="/">Who We Are</Link>
+            <Link to="/">How Proximity Works</Link>
+          </FooterLinkItems>
+        </FooterLinksWrapper>
+      <SocialMediaWrap>
+        <Link className="social-logo" to="/" onClick={toggleHome}>
+          <GrLocation />
+          Proximity
+        </Link>
+        <small className="web-rights">
+          Designed by <i>Capstone Heroes Team - </i> Copyright &copy;
+          {new Date().getFullYear()} Proximity. All rights reserved.
+        </small>
+      </SocialMediaWrap>
+    </FooterWrap>
   );
 };
 

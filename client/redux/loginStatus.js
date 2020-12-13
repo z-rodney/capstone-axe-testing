@@ -1,10 +1,18 @@
 import axios from 'axios';
 import { CHECK_LOGIN, USER_LOGOUT } from './actionConstants';
 
+
 export const _checkLogin = (user) => ({
   type: CHECK_LOGIN,
   user
 })
+
+export const loginFromSession = (sessionId) => {
+  return async (dispatch) => {
+    const user = await axios.get(`/api/auth/session/${sessionId}`)
+    dispatch(_checkLogin(user.data))
+  }
+}
 
 export const checkLogin = () => {
   return async (dispatch) => {

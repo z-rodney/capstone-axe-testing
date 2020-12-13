@@ -1,9 +1,9 @@
 import React from 'react'
 //at some point will be able to remove card from imports
-import { ColumnContainer, RowContainer, Card, SidebarRight } from '../styledComponents/index'
-import { ResultsCard } from './StyleElements'
+import { ColumnContainer, RowContainer, Card, SidebarRight, ResultsCard } from '../styledComponents'
 import FriendList from '../FriendsList'
 import RiskProfile from '../RiskProfile'
+
 
 const friend = {
   name: 'Stanley',
@@ -14,7 +14,7 @@ const FriendProfile = () => {
   return (
     <ColumnContainer>
       <RowContainer>
-        <img className="profile-pic-big" src="https://cdn.onlinewebfonts.com/svg/img_415067.png"/>
+        <img className="profile-pic-big" src="https://cdn.onlinewebfonts.com/svg/img_415067.png" />
         <div className="profile-heading spaced">
           <h3>{friend.name}</h3>
           <p>{friend.location}</p>

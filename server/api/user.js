@@ -13,6 +13,7 @@ const {
   addLocation,
   addContact,
   addPreferences,
+  updatePreferences,
   searchUsers
 } = require('../db/neo4j');
 
@@ -123,6 +124,68 @@ userRouter.get('/:userId/preferences', async(req, res, next) => {
   }
 })
 
+// POST /api/user/:userId/preferences
+// adds preferences to a user in db
+userRouter.post('/:userId/preferences', async(req, res, next) => {
+  try {
+    const {
+      householdSize,
+      indoorDining,
+      outdoorDining,
+      essentialWorker,
+      immunocompromised,
+      mask,
+      pubTrans
+    } = req.body;
+    const data = {
+      userId: req.user.userId,
+      householdSize,
+      indoorDining,
+      outdoorDining,
+      essentialWorker,
+      immunocompromised,
+      mask,
+      pubTrans
+    }
+    const preferences = await addPreferences(data);
+    res.status(201).send(preferences);
+  }
+  catch (err) {
+    next(err);
+  }
+})
+
+// PUT /api/user/:userId/preferences
+// updates user preferences
+userRouter.put('/:userId/preferences', async(req, res, next) => {
+  try {
+    const {
+      householdSize,
+      indoorDining,
+      outdoorDining,
+      essentialWorker,
+      immunocompromised,
+      mask,
+      pubTrans
+    } = req.body;
+    const data = {
+      userId: req.user.userId,
+      householdSize,
+      indoorDining,
+      outdoorDining,
+      essentialWorker,
+      immunocompromised,
+      mask,
+      pubTrans
+    }
+    const preferences = await updatePreferences(data);
+    res.status(201).send(preferences);
+  }
+  catch (err) {
+    next(err);
+  }
+})
+
 // POST /api/user/:userId/addLocation
 // adds a location to a user in db
 userRouter.post('/:userId/location', async(req, res, next) => {
@@ -163,37 +226,6 @@ userRouter.post('/:userId/friend', async(req, res, next) => {
     }
   } else {
       res.status(404).send({ message: 'Unauthorized: User is not signed in.'});
-  }
-})
-
-// POST /api/user/:userId/preferences
-// adds preferences to a user in db
-userRouter.post('/:userId/preferences', async(req, res, next) => {
-  try {
-    const {
-      householdSize,
-      indoorDining,
-      outdoorDining,
-      essentialWorker,
-      immunocompromised,
-      mask,
-      pubTrans
-    } = req.body;
-    const data = {
-      userId: req.user.userId,
-      householdSize,
-      indoorDining,
-      outdoorDining,
-      essentialWorker,
-      immunocompromised,
-      mask,
-      pubTrans
-    }
-    const preferences = await addPreferences(data);
-    res.status(201).send(preferences);
-  }
-  catch (err) {
-    next(err);
   }
 })
 
