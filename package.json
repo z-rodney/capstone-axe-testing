@@ -9,7 +9,8 @@
     "build-watch": "webpack -w --config webpack.config.dev.js",
     "start-server": "nodemon server/index.js -e html,js,css --ignore public",
     "start-dev": "npm run build-watch & npm run start-server",
-    "seed": "node seed"
+    "seed": "node seed",
+    "start": "node server/index.js"
   },
   "eslintConfig": {
     "extends": [
