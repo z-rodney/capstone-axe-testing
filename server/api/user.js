@@ -3,11 +3,27 @@ const userRouter = express.Router();
 const bcrypt = require('bcrypt');
 const { createUser, updateUser } = require('../db/neo4j/user');
 const { createSession } = require('../db/neo4j/session');
+<<<<<<< HEAD
 const { postResults, getResults } = require('../db/neo4j/testResults')
 const {getContacts, getFriends, getLocations, getPreferences,
   addFriend, addLocation, addContact, addPreferences } = require('../db/neo4j')
 const alertFriends = require('../sendgrid/alertFriends')
 const alertContacts = require('../sendgrid/alertContacts')
+=======
+const { postResults, getResults } = require('../db/neo4j/testResults');
+const {
+  getContacts,
+  getFriends,
+  getLocations,
+  getPreferences,
+  addFriend,
+  addLocation,
+  addContact,
+  addPreferences,
+  updatePreferences,
+  searchUsers
+} = require('../db/neo4j');
+>>>>>>> dev
 
 const A_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 
@@ -66,21 +82,18 @@ userRouter.put('/:userId', async (req, res, next) => {
   }
 })
 
-// GET /api/user/:userId/getFriends
-// retrieves a user's friends from db
+// GET /api/user/:userId/friends
 userRouter.get('/:userId/friends', async(req, res, next) => {
   try {
-    const {userId} = req.user
-    const result = await getFriends(userId)
-    res.status(200).send(result)
+    const result = await getFriends(req.params.userId);
+    res.status(200).send(result);
   }
   catch (err) {
-    next(err)
+    next(err);
   }
 })
 
-// GET /api/user/:userId/getContacts
-// retrieves a user's Contacts from db
+// GET /api/user/:userId/contacts
 userRouter.get('/:userId/contacts', async(req, res, next) => {
   try {
     // const {userId} = req.user
@@ -92,21 +105,19 @@ userRouter.get('/:userId/contacts', async(req, res, next) => {
   }
 })
 
-// GET /api/user/:userId/getLocations
-// retrieves a user's Locations from db
+// GET /api/user/:userId/locations
 userRouter.get('/:userId/locations', async(req, res, next) => {
   try {
-    const {userId} = req.user
-  const result = await getLocations(userId)
-    res.status(200).send(result)
+    const { userId } = req.user;
+    const result = await getLocations(userId);
+    res.status(200).send(result);
   }
   catch (err) {
-    next(err)
+    next(err);
   }
 })
 
-// GET /api/user/:userId/getPreferences
-// retrieves a user's Preferences from db
+// GET /api/user/:userId/preferences
 userRouter.get('/:userId/preferences', async(req, res, next) => {
   try {
     const result = await getPreferences(req.params.userId);
@@ -117,46 +128,7 @@ userRouter.get('/:userId/preferences', async(req, res, next) => {
   }
 })
 
-// POST /api/user/:userId/addLocation
-// adds a location to a user in db
-userRouter.post('/:userId/location', async(req, res, next) => {
-  try {
-      const {userId} = req.user
-
-    const insert = await addLocation(req.body.location, userId)
-    res.status(201).send(insert)
-  }
-  catch (err) {
-    next(err)
-  }
-})
-
-// POST /api/user/:userId/addContact
-// adds a Contact to a user in db
-userRouter.post('/:userId/contact', async(req, res, next) => {
-  try {
-    const insert = await addContact(req.body)
-    res.status(201).send(insert)
-  }
-  catch (err) {
-    next(err)
-  }
-})
-
-// POST /api/user/:userId/addFriend
-// adds a friend to a user in db
-userRouter.post('/:userId/friend', async(req, res, next) => {
-  try {
-  const insert = await addFriend(req.body)
-    res.status(201).send(insert)
-  }
-  catch (err) {
-    next(err)
-  }
-})
-
-// POST /api/user/:userId/addPreferences
-// adds preferences to a user in db
+// POST /api/user/:userId/preferences
 userRouter.post('/:userId/preferences', async(req, res, next) => {
   try {
     const {
@@ -185,8 +157,119 @@ userRouter.post('/:userId/preferences', async(req, res, next) => {
     next(err);
   }
 })
+
+// PUT /api/user/:userId/preferences
+userRouter.put('/:userId/preferences', async(req, res, next) => {
+  try {
+    const {
+      householdSize,
+      indoorDining,
+      outdoorDining,
+      essentialWorker,
+      immunocompromised,
+      mask,
+      pubTrans
+    } = req.body;
+    const data = {
+      userId: req.user.userId,
+      householdSize,
+      indoorDining,
+      outdoorDining,
+      essentialWorker,
+      immunocompromised,
+      mask,
+      pubTrans
+    }
+    const preferences = await updatePreferences(data);
+    res.status(201).send(preferences);
+  }
+  catch (err) {
+    next(err);
+  }
+})
+
+// POST /api/user/:userId/location
+userRouter.post('/:userId/location', async(req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const insert = await addLocation(req.body.location, userId);
+    res.status(201).send(insert);
+  }
+  catch (err) {
+    next(err);
+  }
+})
+
+// POST /api/user/:userId/contact
+userRouter.post('/:userId/contact', async(req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const { contacts, date } = req.body.location;
+    await addContact(contacts, date, userId);
+    if (contacts.length > 1) {
+      for (let i = 0; i < contacts.length - 1; i++) {
+        await addContact(contacts.slice(i + 1), date, contacts[i]);
+      }
+    }
+    res.sendStatus(201);
+  }
+  catch (err) {
+    next(err)
+  }
+})
+
+// POST /api/user/:userId/friend
+userRouter.post('/:userId/friend', async(req, res, next) => {
+  if (req.user) {
+    try {
+      const { friendId } = req.body;
+      const newFriend = await addFriend(req.params.userId, friendId);
+      res.status(201).send(newFriend);
+    }
+    catch (err) {
+      next(err);
+    }
+  } else {
+      res.status(404).send({ message: 'Unauthorized: User is not signed in.'});
+  }
+})
+
+// POST /api/user/:userId/preferences
+userRouter.post('/:userId/preferences', async(req, res, next) => {
+  try {
+    const {
+      householdSize,
+      indoorDining,
+      outdoorDining,
+      essentialWorker,
+      immunocompromised,
+      mask,
+      pubTrans
+    } = req.body;
+    const data = {
+      userId: req.user.userId,
+      householdSize,
+      indoorDining,
+      outdoorDining,
+      essentialWorker,
+      immunocompromised,
+      mask,
+      pubTrans
+    }
+    const preferences = await addPreferences(data);
+    res.status(201).send(preferences);
+  }
+  catch (err) {
+    next(err);
+  }
+})
+<<<<<<< HEAD
 //GET /api/user/:userId/results
 //gets all test results
+=======
+
+// GET /api/user/:userId/results
+>>>>>>> dev
 userRouter.get('/:userId/results', async (req, res, next) => {
   if (req.user) {
     try {
@@ -224,5 +307,22 @@ userRouter.post('/:userId/results', async (req, res, next) => {
     res.status(404).send({message: 'Unauthorized: User is not signed in.'})
   }
 })
+
+//POST /api/user/search
+userRouter.post('/search', async (req, res, next) => {
+  if (req.user) {
+    try {
+      const { userId } = req.user;
+      const { searchTerm } = req.body;
+      const searchResults = await searchUsers(searchTerm, userId);
+      res.status(201).send(searchResults);
+    } catch (err) {
+      next(err);
+    }
+  } else {
+    res.status(404).send({ message: 'Unauthorized: User is not signed in.'});
+  }
+})
+
 
 module.exports = userRouter;

@@ -44,16 +44,6 @@ select {
   font-weight: bolder;
 }
 
-#submit-btn {
-  background-color: #EC4E20;
-  color: white;
-  padding: 0.5rem;
-  font-family: 'Roboto Mono', monospace;
-  border-radius: 16px;
-  cursor: pointer;
-  border: 1px solid #A83310;
-}
-
 /* NAV BAR */
 
 nav {
@@ -135,4 +125,54 @@ h1 {
   width: 50vw
 }
 
+/* CALENDAR */
+
+.calendar .header {
+  background-color: #43aa8b;
+  text-align: center;
+  min-height: 2rem;
+  line-height: 2rem;
+  color: black;
+  font-weight: 700;
+  display: flex;
+}
+
+.calendar .day {
+  position: relative;
+  width: calc(100% / 7);
+  height: 55px;
+  display: inline-block;
+  background-color: white;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  z-index: 1;
+  text-align: center;
+}
+
+.calendar .day div {
+  width: 65px;
+  height: 55px;
+  position: relative;
+  color: black;
+  z-index: 100;
+  line-height: 55px;
+  border: 1px solid #43aa8b;
+  cursor: pointer;
+}
+
+.calendar .day div.before {
+  color: lightgrey;
+}
+
+.calendar .day div.selected {
+  background-color: #ec4e20;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.calendar .day div.today {
+  background-color: grey;
+}
 

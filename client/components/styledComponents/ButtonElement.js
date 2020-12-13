@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-// import { Link } from 'react-scroll';
 import { Link } from 'react-router-dom';
+import { mainLightGreen, mainOrange } from '../styledComponents/globalStyles'
 
 export const Button = styled(Link)`
   border-radius: 50px;
-  background: ${({ primary }) => (primary ? '#EC4E20' : '#01bf71')};
+  background: ${({ primary }) => (primary ? mainOrange : '#01bf71')};
   white-space: nowrap;
   padding: ${({ big }) => (big ? '10px 48px' : '12px 30px')};
   color: ${({ dark }) => (dark ? '#fff' : '#010606')};
@@ -20,6 +20,6 @@ export const Button = styled(Link)`
 
   &:hover {
     transition: all 0.2s ease-in-out;
-    background: ${({ primary }) => (primary ? '#01bf71' : '#43AA8B')};
+    background: ${({ primary }) => (primary ? '#01bf71' : mainLightGreen)};
   }
 `;

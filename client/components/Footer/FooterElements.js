@@ -1,18 +1,15 @@
 import styled from 'styled-components';
-import { Link as LinkRouter } from 'react-router-dom';
+import { textColorLight, mainDarkGreen, mainOrange } from '../styledComponents/globalStyles'
 
-export const FooterContainer = styled.footer`
-  background: #254441;
-`;
-
-export const FooterWrap = styled.div`
-  padding: 20px 20px;
+export const FooterWrap = styled.footer`
+  background: ${mainDarkGreen};
+  padding: 10px;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  max-width: 1600px;
   margin: 0 auto;
+  width: 100%;
 `;
 
 export const FooterLinksContainer = styled.div`
@@ -26,11 +23,12 @@ export const FooterLinksContainer = styled.div`
 
 export const FooterLinksWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   transition: all 0.2s ease-in-out;
 
   @media screen and (max-width: 820px) {
+    padding-top: 32px;
     flex-direction: column;
   }
 `;
@@ -42,37 +40,29 @@ export const FooterLinkItems = styled.div`
   align-items: center;
   width: 250px;
   box-sizing: border-box;
-  color: #fff;
+  color: ${textColorLight};
 
   @media screen and (max-width: 420px) {
     margin: 0;
     padding: 10px;
     width: 100%;
   }
-`;
 
-export const FooterLinkTitle = styled.h1`
-  font-size: 18px;
-  margin-bottom: 16px;
-  text-align: center;
-`;
+  & h1 {
+    font-size: 18px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
 
-export const FooterLinkP = styled.p`
-  color: #fff;
-  text-align: center;
-  font-size: 14px;
-  margin: 5px;
-  max-width: 600px;
-`;
+  & a {
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    font-size: 14px;
+  }
 
-export const FooterLink = styled(LinkRouter)`
-  color: #fff;
-  text-decoration: none;
-  margin-bottom: 0.5rem;
-  font-size: 14px;
-
-  &:hover {
-    color: #EC4E20;
+  & a:hover {
+    color: ${mainOrange};
     transition: 0.3s ease-out;
   }
 `;
@@ -81,35 +71,34 @@ export const SocialMediaWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  ${'' /* max-width: 1100px; */}
-  margin: 40px auto 0 auto;
+  margin: 20px auto 0 auto;
 
   @media screen and (max-width: 820px) {
     flex-direction: column;
   }
-`;
 
-export const SocialLogo = styled(LinkRouter)`
-  color: #fff;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  margin-bottom: 16px;
-  font-size: 1.5rem;
-  cursor: pointer;
-  font-style: oblique;
-  font-weight: bold;
-`;
+  & .social-logo {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    margin-bottom: 16px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    font-style: oblique;
+    font-weight: bold;
+  }
 
-export const WebsiteRights = styled.small`
-  color: #fff;
-  margin-bottom: 16px;
-  margin-left: 60px;
+  & small {
+    color: #fff;
+    margin-bottom: 16px;
+    margin-left: 60px;
 
-  @media screen and (max-width: 420px) {
-    margin: 0;
-    padding: 10px;
-    width: 100%;
-    font-size: 8px;
+    @media screen and (max-width: 420px) {
+      margin: 0;
+      padding: 10px;
+      width: 100%;
+      font-size: 8px;
+    }
   }
 `;
