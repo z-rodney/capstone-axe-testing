@@ -6,8 +6,8 @@ import { Card } from '../styledComponents';
 function Events() {
   return (
     <Card>
-      <Calendar />
       <AddEvent />
+      <Calendar />
     </Card>
   );
 }

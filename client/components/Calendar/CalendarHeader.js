@@ -1,4 +1,5 @@
 import React from 'react';
+import { Previous, Next } from './StyledElements';
 
 export default function CalendarHeader({ value, onChange }) {
   function currMonthName() {
@@ -19,18 +20,15 @@ export default function CalendarHeader({ value, onChange }) {
 
   return (
     <div className="header">
-      <div
-        className="previous"
-        onClick={() => onChange(prevMonth())}
-      >
+      <Previous onClick={() => onChange(prevMonth())}>
         {String.fromCharCode(171)}
-      </div>
-      <div className="current">
+      </Previous>
+      <div>
         {currMonthName()} {currYear()}
       </div>
-      <div className="next" onClick={() => onChange(nextMonth())}>
+      <Next onClick={() => onChange(nextMonth())}>
         {String.fromCharCode(187)}
-      </div>
+      </Next>
     </div>
   );
 }

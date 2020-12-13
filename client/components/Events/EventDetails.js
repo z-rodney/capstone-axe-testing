@@ -22,9 +22,9 @@ function EventDetails({ dateSelected }) {
 
   return (
     <div>
+      <h3>Events</h3>
       { daysLocations.length > 0 ?
       <div>
-        <h3>Events</h3>
         <ul>
           {daysLocations.map((ev) => {
             return (

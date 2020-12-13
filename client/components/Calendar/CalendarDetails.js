@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import Header from './CalendarHeader';
-import './styles.css';
+import { CalendarStyle, DayNames, CalendarBody, Week } from './StyledElements';
 
 export default function CalendarDetails({ value, onChange }) {
   const [calendar, setCalendar] = useState([]);
@@ -41,23 +41,20 @@ export default function CalendarDetails({ value, onChange }) {
   }
 
   return (
-    <div className="calendar">
+    <CalendarStyle>
       <Header value={value} onChange={onChange} />
-
-      <div className="body">
-        <div className="day-names">
+      <CalendarBody>
+        <DayNames>
           {['s', 'm', 't', 'w', 't', 'f', 's'].map((el) => (
-            <div className="week" key={el.dNum}>
-              {el}
-            </div>
+            <Week key={el.dNum}>{ el }</Week>
           ))}
-        </div>
+        </DayNames>
         {calendar.map((week) => (
           <div key={ week.weekNum }>
             {week.map((day) => (
               <div
-                key={ day.dayNum }
                 className="day"
+                key={ day.dayNum }
                 onClick={ () => { onChange(day) } }
               >
                 <div className={ dayStyles(day) }>
@@ -67,7 +64,7 @@ export default function CalendarDetails({ value, onChange }) {
             ))}
           </div>
         ))}
-      </div>
-    </div>
+      </CalendarBody>
+    </CalendarStyle>
   );
 }

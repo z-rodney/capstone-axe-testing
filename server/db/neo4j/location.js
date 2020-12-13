@@ -16,14 +16,14 @@ const getLocations = async (userId) => {
             const currentLocation = locRecord[i];
             const resObj = {};
             resObj.location = new Location(currentLocation.get('l'));
-            const { title, placeName } = resObj.location;
             resObj.dateVisited = currentLocation.get('v').properties.visitedDate;
+            const { locationId } = resObj.location;
 
             // get all contacts that visited location that are not the user
             const contact = await session.run(
-                `MATCH (c:User)-[v:VISITED]-(l:Location {title: $title, placeName: $placeName})
+                `MATCH (c:User)-[v:VISITED]-(l:Location {locationId: $locationId})
                 WHERE c.userId <> $userId
-                RETURN c`, { title, placeName, userId }
+                RETURN c`, { userId, locationId }
             );
             const conRecord = contact.records;
             const contacts = [];
@@ -49,9 +49,10 @@ const addLocation = async ({ title, date, coordinates, placeName, contacts }, us
 
     try {
         const location = await session.run(
-            `UNWIND $contacts AS contact
-            MATCH (c:User {userId: contact})
+            `UNWIND $contacts AS contactId
+            MATCH (c:User {userId: contactId})
             MERGE (l:Location {title: $title, placeName: $placeName, coordinates: $coordinates})
+            ON CREATE SET l.locationId = apoc.create.uuid()
             CREATE (c)-[v:VISITED]->(l)
             SET v.visitedDate = $date
             RETURN l, v`,
@@ -65,8 +66,8 @@ const addLocation = async ({ title, date, coordinates, placeName, contacts }, us
 
         // get all contacts that visited location that are not the user
         const contact = await session.run(
-            `UNWIND $contacts AS contact
-            MATCH (c:User {userId: contact})
+            `UNWIND $contacts AS contactId
+            MATCH (c:User {userId: contactId})
             RETURN c`, { contacts }
         );
         const conRecord = contact.records;
