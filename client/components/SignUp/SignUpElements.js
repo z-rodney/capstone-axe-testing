@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { mainOrange, secondaryBeige, secondaryLightPurple } from '../styledComponents/globalStyles';
 
 export const SignUpContainer = styled.div`
   min-height: 692px;
@@ -60,7 +61,7 @@ export const Form = styled.form`
   width: 100%;
   z-index: 1;
   display: grid;
-  background: #b2b09b;
+  background: ${secondaryBeige};
   margin: 20px auto;
   padding: 30px 32px;
   border-radius: 4px;
@@ -91,11 +92,11 @@ export const FormInput = styled.input`
   border: none;
   font-size: 15px;
   border-radius: 4px;
-  background-color: #e5eafa;
+  background-color: ${secondaryLightPurple};
 `;
 
 export const FormButton = styled.button`
-  background: #ec4e20;
+  background: ${mainOrange};
   margin-top: 32px;
   padding: 16px 0;
   border: none;
@@ -123,6 +124,6 @@ export const FormLinkP = styled(Link)`
   margin: 5px;
   max-width: 600px;
   &:hover {
-    color: #ec4e20;
+    color: ${mainOrange};
   }
 `;

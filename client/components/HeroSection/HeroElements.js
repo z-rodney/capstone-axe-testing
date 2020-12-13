@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { secondaryBeige } from '../styledComponents/globalStyles';
 
 export const HeroContainer = styled.nav`
-  background: #B2B09B;
+  background: ${secondaryBeige};
   height: 600px;
   padding: 0 10px;
   display: flex;

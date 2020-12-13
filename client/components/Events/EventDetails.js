@@ -2,8 +2,29 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
-import { DetailCard, Title } from './StyleElements';
 import { getLocations } from '../../redux/userLocations';
+import styled from 'styled-components';
+import { mainOrange } from '../styledComponents/globalStyles';
+
+const DetailCard = styled.div`
+  background: #F7F7F7;
+  border-radius: 9px;
+  box-sizing: border-box;
+  padding: 7px;
+  margin: 0 5px;
+
+  & p:not(:first-child) {
+    margin-bottom: 0;
+    margin-top: 5px;
+  }
+`
+
+const Title = styled.p`
+  color: ${mainOrange};
+  margin-bottom: 0;
+  text-align: center;
+  font-weight: 500;
+`
 
 function EventDetails({ dateSelected }) {
   const locations = useSelector(state => state.locations);
@@ -42,7 +63,8 @@ function EventDetails({ dateSelected }) {
           })}
         </ul>
       </div>
-      : <div>No Events Found</div> }
+      : <div>No Events Found</div>
+      }
     </div>
   )
 }

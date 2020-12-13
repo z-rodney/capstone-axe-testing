@@ -21,5 +21,15 @@ npm run start-dev
 ```
 
 ## Features
+Proximity has currently had the following features:
+- Log in and out
+- Add recent social events
+- View a map of recent locations (using Mapbox)
+- Search for and add friends
+- Receive email notifications when a friend logs a positive COVID-19 test result
+- Receive email notifications when someone logs a positive test result within two weeks of being in contact with you
 
 ### To-Do
+Plans to expand Proximity include:
+- Visualize the bubble of people you have recently contacted
+

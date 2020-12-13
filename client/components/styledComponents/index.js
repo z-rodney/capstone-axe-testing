@@ -1,10 +1,19 @@
 import styled from 'styled-components'
+import { mainOrange } from './globalStyles'
 
 export const Card = styled.div`
   box-shadow: 4px 4px 3px #f6f6f3;
   border-radius: 16px;
   border: 1px solid #e4e4dc;
   padding: 10px;
+`
+
+export const ResultsCard = styled(Card)`
+  background: ${mainOrange};
+  margin-top: 28px;
+  color: white;
+  box-shadow: 4px 4px 6px rbga(0,0,0,.25);
+  border: none;
 `
 
 export const Container = styled.div`
@@ -41,4 +50,20 @@ export const Sidebar = styled(ColumnContainer)`
 export const SidebarRight = styled(Sidebar)`
   padding-left: 50px;
   padding-right 10px;
+`
+
+export const FormButton = styled.button`
+  margin: 5px 0;
+  font-size: 1rem;
+  font-family: "Roboto Mono";
+  border: 1px solid #D3D3C5;
+  background: #DCDCD0;
+  box-shadow: none;
+  border-radius: 4px;
+  color: #8A886A;
+  transition: all ease .75s;
+  &:hover {
+    background: #8A886A;
+    color: #DCDCD0;
+  }
 `

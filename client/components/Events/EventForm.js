@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import { MAPBOXPK } from '../../../constants';
 import { addLocation } from '../../redux/userLocations';
-import { LocationFormStyle, LocationFormInput, LocationButton, Button } from './StyleElements';
+import { LocationFormStyle, LocationFormInput, LocationButton } from './StyleElements';
 import { useInput } from '../../customHooks/useInput';
+import { FormButton } from '../styledComponents'
 
 function LocationForm({ setShowForm }) {
   const [title, setTitle] = useInput('');
@@ -22,7 +22,7 @@ function LocationForm({ setShowForm }) {
   //geocoder lets you search for a location using a string,
   //matches the location using MapBox API and returns the lat / lng
   const geocoder = new MapboxGeocoder({
-    accessToken: MAPBOXPK,
+    accessToken: process.env.MAPBOXPK,
     types: 'address,country,region,place,postcode,locality,neighborhood,district',
     proximity: {
       latitude: 40.73,
@@ -100,7 +100,7 @@ function AddEvent() {
   const [showForm, setShowForm] = useState(false);
   return (
     <div>
-      <Button onClick={() => setShowForm(!showForm) }>{showForm ? 'x Cancel' : '+ Add Event'}</Button>
+      <FormButton onClick={() => setShowForm(!showForm) }>{showForm ? 'x Cancel' : '+ Add Event'}</FormButton>
       {showForm && <LocationForm setShowForm={ setShowForm } />}
     </div>
   );

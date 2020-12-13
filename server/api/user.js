@@ -13,6 +13,7 @@ const {
   addLocation,
   addContact,
   addPreferences,
+  updatePreferences,
   searchUsers
 } = require('../db/neo4j');
 
@@ -113,6 +114,66 @@ userRouter.get('/:userId/preferences', async(req, res, next) => {
   try {
     const result = await getPreferences(req.params.userId);
     res.status(200).send(result);
+  }
+  catch (err) {
+    next(err);
+  }
+})
+
+// POST /api/user/:userId/preferences
+userRouter.post('/:userId/preferences', async(req, res, next) => {
+  try {
+    const {
+      householdSize,
+      indoorDining,
+      outdoorDining,
+      essentialWorker,
+      immunocompromised,
+      mask,
+      pubTrans
+    } = req.body;
+    const data = {
+      userId: req.user.userId,
+      householdSize,
+      indoorDining,
+      outdoorDining,
+      essentialWorker,
+      immunocompromised,
+      mask,
+      pubTrans
+    }
+    const preferences = await addPreferences(data);
+    res.status(201).send(preferences);
+  }
+  catch (err) {
+    next(err);
+  }
+})
+
+// PUT /api/user/:userId/preferences
+userRouter.put('/:userId/preferences', async(req, res, next) => {
+  try {
+    const {
+      householdSize,
+      indoorDining,
+      outdoorDining,
+      essentialWorker,
+      immunocompromised,
+      mask,
+      pubTrans
+    } = req.body;
+    const data = {
+      userId: req.user.userId,
+      householdSize,
+      indoorDining,
+      outdoorDining,
+      essentialWorker,
+      immunocompromised,
+      mask,
+      pubTrans
+    }
+    const preferences = await updatePreferences(data);
+    res.status(201).send(preferences);
   }
   catch (err) {
     next(err);
