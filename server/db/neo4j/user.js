@@ -56,7 +56,11 @@ async function createUser(username, password, name) {
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
     try {
         const result = await session.writeTransaction((tx) => {
-            return tx.run('CREATE (user:User {username: $username, password: $password, name: $name, userId: apoc.create.uuid()}) RETURN user',
+            return tx.run(`CREATE (user:User {username: $username,
+                password: $password,
+                name: $name, userId:
+                apoc.create.uuid()})
+                RETURN user`,
             {username, password, name});
         });
         if (_.isEmpty(result.records)) return null;

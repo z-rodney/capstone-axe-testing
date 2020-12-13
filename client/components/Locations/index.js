@@ -1,12 +1,11 @@
 import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-//import mapboxgl from 'mapbox-gl'
 import { Card } from '../styledComponents/'
-import { MAPBOXPK, mapBoxStyleURL } from '../../../constants'
+import { mapBoxStyleURL } from '../../../constants'
 import { generateJSONFeatures } from '../../utils'
 import {getLocations} from '../../redux/userLocations'
 
-window.mapboxgl.accessToken = MAPBOXPK
+window.mapboxgl.accessToken = process.env.MAPBOXPK
 
 //object formatted for mapbox Map
 const sourceData = {

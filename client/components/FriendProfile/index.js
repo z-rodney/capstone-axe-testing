@@ -28,7 +28,7 @@ const FriendProfile = () => {
         <div className="profile-heading spaced">
           <h3>{friend.name}</h3>
           <p>{friend.username}</p>
-          <p><button><Link to= {`/profile`}>Back to Profile</Link></button></p>
+          <p><button><Link to= "/profile">Back to Profile</Link></button></p>
         </div>
       </RowContainer>
       <RowContainer>

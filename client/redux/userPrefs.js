@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_PREFERENCES, GET_PREFERENCES } from './actionConstants';
+import { ADD_PREFERENCES, GET_PREFERENCES, UPDATE_PREFERENCES } from './actionConstants';
 
 export const _addPreferences = preferences => ({
   type: ADD_PREFERENCES,
@@ -8,6 +8,11 @@ export const _addPreferences = preferences => ({
 
 export const _getPreferences = preferences => ({
   type: GET_PREFERENCES,
+  preferences
+})
+
+const _updatePreferences = preferences => ({
+  type: UPDATE_PREFERENCES,
   preferences
 })
 
@@ -26,11 +31,21 @@ export const getPreferences = (userId) => {
   }
 }
 
+export const updatePreferences = (userId, data, history) => {
+  return async (dispatch) => {
+    const preferences = await axios.put(`/api/user/${userId}/preferences`, data);
+    dispatch(_updatePreferences(preferences.data));
+    history.push('/profile');
+  }
+}
+
 export default function userPrefsReducer(state = {}, action) {
   switch (action.type) {
     case ADD_PREFERENCES:
       return { ...action.preferences };
     case GET_PREFERENCES:
+      return { ...action.preferences };
+    case UPDATE_PREFERENCES:
       return { ...action.preferences };
     default:
       return state;

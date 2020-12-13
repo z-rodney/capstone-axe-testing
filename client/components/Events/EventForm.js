@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
-import { MAPBOXPK } from '../../../constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { addLocation } from '../../redux/userLocations'
-import { LocationFormStyle, LocationFormInput, LocationButton, Button } from './StyleElements'
+import { LocationFormStyle, LocationFormInput, LocationButton } from './StyleElements'
+import { FormButton } from '../styledComponents'
 import { useInput } from '../../customHooks/useInput'
-import Axios from 'axios'
 
 function LocationForm({ setShowForm }) {
   const [title, setTitle] = useInput('')
@@ -20,7 +19,7 @@ function LocationForm({ setShowForm }) {
   //geocoder lets you search for a location using a string,
   //matches the location using MapBox API and returns the lat / lng
   const geocoder = new MapboxGeocoder({
-    accessToken: MAPBOXPK,
+    accessToken: process.env.MAPBOXPK,
     types: 'address,country,region,place,postcode,locality,neighborhood,district',
     proximity: {
       latitude: 40.73,
@@ -44,28 +43,25 @@ function LocationForm({ setShowForm }) {
     setCoords(ev.result.geometry.coordinates)
   })
 
-  const handleSubmit = async (ev) => {
+  const handleSubmit = (ev) => {
     ev.preventDefault()
-    console.log('submitted', coords)
     let newLocationData = {
       title,
       date,
       coordinates: coords,
       placeName
     }
-    const response = await Axios.get('https://api.covidtracking.com/v1/states/ca/20200501.json')
-    console.log('scrape:', response);
     dispatch(addLocation(newLocationData, userId))
     setShowForm(false)
   }
 
   return (
-  <LocationFormStyle id="location-form" onSubmit={handleSubmit}>
-    <div id="geocoder" ref={geocoderContainer} />
+    <LocationFormStyle id="location-form" onSubmit={handleSubmit}>
+      <div id="geocoder" ref={geocoderContainer} />
       <LocationFormInput id="title" placeholder="Title" onChange={ (ev) => (setTitle(ev)) } />
       <LocationFormInput id="date-visited" placeholder="Date Visited" onChange={(ev) => { setDate(ev) }} />
-    <LocationButton type="submit">Submit</LocationButton>
-  </LocationFormStyle>
+      <LocationButton type="submit">Submit</LocationButton>
+    </LocationFormStyle>
   )
 }
 
@@ -75,7 +71,7 @@ function AddEvent() {
   const [showForm, setShowForm] = useState(false)
   return (
     <div>
-      <Button onClick={() => { setShowForm(!showForm) }}>{showForm ? 'x Cancel' : '+ Add New Location'}</Button>
+      <FormButton onClick={() => { setShowForm(!showForm) }}>{showForm ? 'x Cancel' : '+ Add New Location'}</FormButton>
       {showForm && <LocationForm setShowForm={setShowForm} />}
     </div>
   )
