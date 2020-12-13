@@ -47,21 +47,27 @@ function TestResultForm({ setShowForm }) {
 }
 
 function TestResults() {
+  const url = window.location.pathname;
+  const id = url.substring(url.lastIndexOf('/') + 1);
   const [showForm, setShowForm] = useState(false)
   const dispatch = useDispatch()
   const userId = useSelector(state => state.loginStatus.userId)
   const testResults = useSelector(state => state.testResults)
 
-
   useEffect(() => {
-    if (userId) {
-      dispatch(getTestResults(userId))
+    if (id === 'profile') {
+      dispatch(getTestResults(userId));
     }
-  }, [userId, testResults.length])
+    else {
+      dispatch(getTestResults(id))
+    }
+  }, [userId, id, testResults.length])
 
   return (
     <ResultsCard>
-      <h2>Test Results <span className="plus-button" onClick={() => { setShowForm(!showForm) }}>+</span></h2>
+      <h2>Test Results
+  {id === 'profile' ? <span className="plus-button" onClick={() => { setShowForm(!showForm) }}>+</span> : null}
+      </h2>
       {showForm && <TestResultForm setShowForm={setShowForm} />}
       <ul className="no-bullet">
         {testResults.length ? testResults.map((test, id) => {

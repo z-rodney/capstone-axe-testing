@@ -4,15 +4,20 @@ import { getPreferences } from '../../redux/userPrefs';
 import { RiskCard } from './StyleElements';
 
 const RiskProfile = () => {
+  var url = window.location.pathname;
+var id = url.substring(url.lastIndexOf('/') + 1);
   const dispatch = useDispatch();
   const userId = useSelector(state => state.loginStatus.userId);
   const userPrefs = useSelector(state => state.userPrefs);
 
   useEffect(() => {
-    if (userId) {
+    if (id === 'profile') {
       dispatch(getPreferences(userId));
     }
-  }, [userId])
+    else {
+      dispatch(getPreferences(id))
+    }
+  }, [userId, id])
 
   return (
     <RiskCard>

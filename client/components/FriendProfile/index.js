@@ -1,23 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 //at some point will be able to remove card from imports
 import { ColumnContainer, RowContainer, Card, SidebarRight } from '../styledComponents/index'
-import { ResultsCard } from './StyleElements'
+import {Link} from 'react-router-dom'
 import FriendList from '../FriendsList'
 import RiskProfile from '../RiskProfile'
-
-const friend = {
-  name: 'Stanley',
-  location: 'Brooklyn, NY'
-}
+import TestResults from '../TestResults'
+import axios from 'axios'
 
 const FriendProfile = () => {
+  window.scrollTo(0, 0)
+  const url = window.location.pathname;
+  const id = url.substring(url.lastIndexOf('/') + 1);
+  const [friend, setFriend] = useState({})
+
+  useEffect(() => {
+    const getFriend = async() => {
+      const userFriend = await axios.get(`/api/user/${id}`)
+      setFriend(userFriend.data)
+    }
+    getFriend()
+  }, id)
+
   return (
     <ColumnContainer>
       <RowContainer>
-        <img className="profile-pic-big" src="https://cdn.onlinewebfonts.com/svg/img_415067.png"/>
+        <img className="profile-pic-big" src="https://cdn.onlinewebfonts.com/svg/img_415067.png" />
         <div className="profile-heading spaced">
           <h3>{friend.name}</h3>
-          <p>{friend.location}</p>
+          <p>{friend.username}</p>
+          <p><button><Link to= {`/profile`}>Back to Profile</Link></button></p>
         </div>
       </RowContainer>
       <RowContainer>
@@ -35,10 +46,7 @@ const FriendProfile = () => {
         </ColumnContainer>
         <SidebarRight flex="0 1 35%">
           <div>
-            <ResultsCard>
-              <h2>Test Results</h2>
-              <p>Negative: 10.20.20</p>
-            </ResultsCard>
+          <TestResults />
           </div>
           <div>
             <h2>Following</h2>

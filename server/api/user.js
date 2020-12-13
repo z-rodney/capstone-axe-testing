@@ -1,7 +1,7 @@
 const express = require('express');
 const userRouter = express.Router();
 const bcrypt = require('bcrypt');
-const { createUser, updateUser } = require('../db/neo4j/user');
+const { createUser, updateUser, getUserByUserId } = require('../db/neo4j/user');
 const { createSession } = require('../db/neo4j/session');
 const { postResults, getResults } = require('../db/neo4j/testResults');
 const {
@@ -67,6 +67,18 @@ userRouter.put('/:userId', async (req, res, next) => {
     const { userId } = req.user;
     const updatedUser = await updateUser(userId, req.body);
     res.status(200).send(updatedUser);
+  }
+  catch (err) {
+    next(err);
+  }
+})
+
+// GET /api/user/:userId/friends
+// retrieves a user's friends from db
+userRouter.get('/:userId', async(req, res, next) => {
+  try {
+    const result = await getUserByUserId(req.params.userId);
+    res.status(200).send(result);
   }
   catch (err) {
     next(err);
@@ -201,8 +213,7 @@ userRouter.post('/:userId/preferences', async(req, res, next) => {
 userRouter.get('/:userId/results', async (req, res, next) => {
   if (req.user) {
     try {
-      const { userId } = req.user
-      const allResults = await getResults(userId)
+      const allResults = await getResults(req.params.userId)
       res.send(allResults)
     } catch (err) {
       next(err)

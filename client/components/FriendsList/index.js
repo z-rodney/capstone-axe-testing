@@ -7,19 +7,24 @@ import { getFriends } from '../../redux/friends';
 
 
 const FriendList = ({all}) => {
+  const url = window.location.pathname;
+  const id = url.substring(url.lastIndexOf('/') + 1);
   const userId = useSelector(state => state.loginStatus.userId)
   const userFriends = useSelector(state => state.friends)
   const dispatch = useDispatch()
 
-useEffect(() => {
-  if (userId) {
-    dispatch(getFriends(userId))
-  }
-}, [userId])
+  useEffect(() => {
+    if (id === 'profile') {
+      dispatch(getFriends(userId));
+    }
+    else {
+      dispatch(getFriends(id))
+    }
+  }, [userId, id])
 
   return (
     <FriendCard>
-    <Link to="/friends">Add Friends</Link>
+    {id === 'profile' ? <Link to="/friends">Add Friends</Link> : null}
       {userFriends.map(friend => {
         return (
           <RowContainer key = {friend.userId}>
