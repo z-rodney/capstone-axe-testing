@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import Header from './CalendarHeader';
-import { CalendarStyle, DayNames, CalendarBody, Week } from './StyledElements';
+import { CalendarStyle, DayNames, CalendarBody, Week } from './StyleElements';
 
 export default function CalendarDetails({ value, onChange }) {
   const [calendar, setCalendar] = useState([]);

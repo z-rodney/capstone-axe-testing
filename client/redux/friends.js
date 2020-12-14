@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import axios from 'axios';
 import { ADD_FRIEND, GET_FRIENDS } from './actionConstants';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Previous, Next } from './StyledElements';
+import { Previous, Next } from './StyleElements';
 
 export default function CalendarHeader({ value, onChange }) {
   function currMonthName() {

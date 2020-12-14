@@ -4,7 +4,11 @@ const dotenv = require('dotenv')
 module.exports = () => {
 	const dotEnvConfig = dotenv.config().parsed
 	const keys = {
-		'process.env.MAPBOXPK': JSON.stringify(dotEnvConfig.MAPBOXPK)
+		'process.env.MAPBOXPK': JSON.stringify(dotEnvConfig.MAPBOXPK),
+		'process.env.NEO4J_URI': JSON.stringify(dotEnvConfig.NEO4J_URI),
+		'process.env.NEO4J_USER': JSON.stringify(dotEnvConfig.NEO4J_USER),
+		'process.env.NEO4J_PASSWORD': JSON.stringify(dotEnvConfig.NEO4J_PASSWORD),
+		'process.env.NEO4J_DATABASE': JSON.stringify(dotEnvConfig.NEO4J_DATABASE)
 	}
 	return {
 		entry: ["./client/index.js"],
