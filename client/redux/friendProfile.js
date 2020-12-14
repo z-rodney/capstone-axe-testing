@@ -8,7 +8,7 @@ const initialState = {
   userId: '',
   friends: [],
   prefs: {},
-  contacts: [],
+  locations: [],
   results: []
 }
 export const _getFriendProfile = (friend) => ({

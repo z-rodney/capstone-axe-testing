@@ -32,7 +32,7 @@ function EventDetails({ dateSelected, forFriend }) {
   const userId = useSelector(state => state.loginStatus.userId);
   const dispatch = useDispatch();
 
-  const locations = forFriend ? friendLocations : userLocations
+  const locations = (forFriend ? friendLocations : userLocations)
 
   dateSelected = new Date(dateSelected);
   dateSelected = moment(dateSelected).format('YYYY-MM-DD');
