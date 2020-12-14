@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 //at some point will be able to remove card from imports
 import { ColumnContainer, RowContainer, Card, SidebarRight } from '../styledComponents/index'
 import {Link} from 'react-router-dom'
 import FriendList from '../FriendsList'
 import RiskProfile from '../RiskProfile'
 import TestResults from '../TestResults'
-import axios from 'axios'
+import { getFriendProfile } from '../../redux/friendProfile'
 
 const FriendProfile = () => {
   window.scrollTo(0, 0)
   const url = window.location.pathname;
   const id = url.substring(url.lastIndexOf('/') + 1);
-  const [friend, setFriend] = useState({})
+  const dispatch = useDispatch();
+  const friend = useSelector(state => state.singleFriend);
+  const [friendId, setFriendId] = useState('')
 
   useEffect(() => {
-    const getFriend = async() => {
-      const userFriend = await axios.get(`/api/user/${id}`)
-      setFriend(userFriend.data)
-    }
-    getFriend()
+    dispatch(getFriendProfile(id))
+    setFriendId(id)
   }, id)
 
   return (

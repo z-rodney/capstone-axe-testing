@@ -51,6 +51,7 @@ function TestResults() {
   const [showForm, setShowForm] = useState(false)
   const dispatch = useDispatch()
   const userId = useSelector(state => state.loginStatus.userId)
+  const friendId = useSelector(state => state.singleFriend.userId)
   const testResults = useSelector(state => state.testResults)
 
   useEffect(() => {
@@ -58,7 +59,7 @@ function TestResults() {
       dispatch(getTestResults(userId));
     }
     else {
-      dispatch(getTestResults(id))
+      dispatch(getTestResults(friendId))
     }
   }, [userId, id, testResults.length])
 

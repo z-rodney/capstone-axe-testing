@@ -74,8 +74,8 @@ userRouter.put('/:userId', async (req, res, next) => {
   }
 })
 
-// GET /api/user/:userId/friends
-// retrieves a user's friends from db
+// GET /api/user/:userId/
+// retrieves a user from db
 userRouter.get('/:userId', async(req, res, next) => {
   try {
     const result = await getUserByUserId(req.params.userId);

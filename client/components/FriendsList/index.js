@@ -11,10 +11,11 @@ const FriendCard = styled(Card)`
   box-shadow: 4px 4px 6px rbga(0,0,0,.25);
 `
 
-const FriendList = ({all}) => {
+const FriendList = () => {
   const url = window.location.pathname;
   const id = url.substring(url.lastIndexOf('/') + 1);
   const userId = useSelector(state => state.loginStatus.userId)
+  const friendId = useSelector(state => state.singleFriend.userId)
   const userFriends = useSelector(state => state.friends)
   const dispatch = useDispatch()
 
@@ -23,7 +24,7 @@ const FriendList = ({all}) => {
       dispatch(getFriends(userId));
     }
     else {
-      dispatch(getFriends(id))
+      dispatch(getFriends(friendId))
     }
   }, [userId, id])
 
