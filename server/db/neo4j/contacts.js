@@ -1,5 +1,4 @@
 const driver = require('../db');
-const User = require('../models/User')
 const Contact = require('../models/Contact')
 
 
@@ -18,20 +17,6 @@ const getContacts = async (userId) => {
             const contactDate = currentContact._fields[1]
             const contact = new Contact(currentContact.get('c'), contactDate)
             allContacts.push(contact)
-            /* const resObj = {}
-            const currentContact = record[i]
-            const contact = new User(currentContact.get('c'))
-            contact.password = ''
-            resObj.contact = contact
-            resObj.contactDate = currentContact._fields[1]
-            allContacts.push(resObj) */
-            /* const resObj = {};
-            const currentContact = record[i];
-            const contact = new User(currentContact.get('c'));
-            contact.password = '';
-            resObj.contact = contact;
-            resObj.contactDate = currentContact._fields[1];
-            allContacts.push(resObj); */
         }
         return allContacts;
     } catch (err) {

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 import { getLocations } from '../../redux/userLocations';
 import styled from 'styled-components';
+import { Container } from '../styledComponents'
 import { mainOrange } from '../styledComponents/globalStyles';
 
 const DetailCard = styled.div`
@@ -17,6 +18,11 @@ const DetailCard = styled.div`
     margin-bottom: 0;
     margin-top: 5px;
   }
+
+  & h4 {
+    margin: 10px 0;
+  }
+
 `
 
 const Title = styled.p`
@@ -25,7 +31,6 @@ const Title = styled.p`
   text-align: center;
   font-weight: 500;
 `
-
 function EventDetails({ dateSelected }) {
   const locations = useSelector(state => state.locations);
   const userId = useSelector(state => state.loginStatus.userId);
@@ -46,7 +51,7 @@ function EventDetails({ dateSelected }) {
       <h3>Events</h3>
       { daysLocations.length > 0 ?
       <div>
-        <ul>
+        <ul className="no-padding">
           {daysLocations.map((ev) => {
             return (
               <DetailCard key={ ev.location.title }>
@@ -54,8 +59,8 @@ function EventDetails({ dateSelected }) {
                 <h4>Location:</h4>
                 <p>{ ev.location.placeName }</p>
                 <h4>Contacts:</h4>
-                <ul>{ ev.contacts && ev.contacts.map(c => {
-                  return <Link to={`/friends/${ c.userId }`} key={ c.userId }><li>{ c.name }</li></Link>
+                <ul >{ ev.contacts && ev.contacts.map(c => {
+                  return <Link to={`/friends/${ c.userId }`} key={ c.userId }><li className="with-margin">{ c.name }</li></Link>
                 }) }
                 </ul>
               </DetailCard>

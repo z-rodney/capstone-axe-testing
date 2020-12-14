@@ -3,14 +3,8 @@ const userRouter = express.Router();
 const bcrypt = require('bcrypt');
 const { createUser, updateUser } = require('../db/neo4j/user');
 const { createSession } = require('../db/neo4j/session');
-<<<<<<< HEAD
 const { postResults, getResults } = require('../db/neo4j/testResults')
-const {getContacts, getFriends, getLocations, getPreferences,
-  addFriend, addLocation, addContact, addPreferences } = require('../db/neo4j')
-const alertFriends = require('../sendgrid/alertFriends')
 const alertContacts = require('../sendgrid/alertContacts')
-=======
-const { postResults, getResults } = require('../db/neo4j/testResults');
 const {
   getContacts,
   getFriends,
@@ -23,7 +17,6 @@ const {
   updatePreferences,
   searchUsers
 } = require('../db/neo4j');
->>>>>>> dev
 
 const A_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 
@@ -263,13 +256,8 @@ userRouter.post('/:userId/preferences', async(req, res, next) => {
     next(err);
   }
 })
-<<<<<<< HEAD
-//GET /api/user/:userId/results
-//gets all test results
-=======
 
 // GET /api/user/:userId/results
->>>>>>> dev
 userRouter.get('/:userId/results', async (req, res, next) => {
   if (req.user) {
     try {
@@ -289,13 +277,10 @@ userRouter.get('/:userId/results', async (req, res, next) => {
 userRouter.post('/:userId/results', async (req, res, next) => {
   if (req.user) {
     try {
-      const {userId} = req.params
-      const { name } = req.user
+      const { userId } = req.params
       const { covidTest, testDate } = req.body
       const newResult = await postResults(userId, covidTest, testDate)
       if (newResult.covidTest === 'Positive') {
-        const friends = await getFriends(userId)
-        alertFriends(name, newResult.testDate, friends)
         const contacts = await getContacts(userId)
         alertContacts(newResult.testDate, contacts)
     }

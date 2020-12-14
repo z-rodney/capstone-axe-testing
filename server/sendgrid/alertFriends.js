@@ -1,3 +1,7 @@
+/*
+NOTE: email alerts to friends was to be implemented but was held off.
+code is left in case of re-implementation down the line.
+
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -24,7 +28,7 @@ const alertFriends = async (name, date, friends) => {
   try {
     const emails = getEmailAddresses(friends)
     const msg = generateMessage(name, date, emails)
-    //console.log('msg:', msg)
+    console.log('friend msg:', msg)
     await sgMail.sendMultiple(msg);
     console.log('email sent')
   } catch (error) {
@@ -35,5 +39,5 @@ const alertFriends = async (name, date, friends) => {
   }
 }
 
-module.exports = alertFriends
+module.exports = alertFriends*/
 
