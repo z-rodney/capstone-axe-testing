@@ -204,8 +204,6 @@ userRouter.put('/:userId/preferences', async(req, res, next) => {
   }
 })
 
-
-
 // POST /api/user/:userId/contact
 userRouter.post('/:userId/contact', async(req, res, next) => {
   try {
