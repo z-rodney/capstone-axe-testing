@@ -66,7 +66,7 @@ function EventDetails({ dateSelected, forFriend }) {
           })}
         </ul>
       </div>
-      : <div>No Events Found</div>
+      : <div>No events on this day.</div>
       }
     </div>
   )
