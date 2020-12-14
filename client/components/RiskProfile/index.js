@@ -19,13 +19,11 @@ const EditButton = () => {
   )
 }
 
-const RiskProfile = () => {
-  var url = window.location.pathname;
-  var id = url.substring(url.lastIndexOf('/') + 1);
+const RiskProfile = ({forFriend}) => {
   const dispatch = useDispatch();
   const userId = useSelector(state => state.loginStatus.userId);
   const userPrefs = useSelector(state => state.userPrefs);
-  const friendId = useSelector(state => state.singleFriend.userId)
+  const friendPrefs = useSelector(state => state.singleFriend.prefs)
   const {
     householdSize,
     indoorDining,
@@ -34,32 +32,29 @@ const RiskProfile = () => {
     essentialWorker,
     mask,
     pubTrans
-  } = userPrefs;
+  } = forFriend ? friendPrefs : userPrefs;
 
   useEffect(() => {
-    if (id === 'profile') {
+    if (!forFriend) {
       dispatch(getPreferences(userId));
     }
-    else {
-      dispatch(getPreferences(friendId))
-    }
-  }, [userId, id, householdSize, indoorDining, outdoorDining, immunocompromised, essentialWorker, mask, pubTrans])
+  }, [userId, householdSize, indoorDining, outdoorDining, immunocompromised, essentialWorker, mask, pubTrans])
 
   return (
     <RiskCard>
       <h2>
         Risks and Preferences
-        {id === 'profile' ? <EditButton /> : null}
+        {!forFriend && <EditButton /> }
       </h2>
-      { userPrefs ?
+      { (userPrefs || friendPrefs ) ?
         <div className="no-bullet">
-          <p>Household Size: { userPrefs.householdSize }</p>
-          <p>Wears a Mask: { userPrefs.mask ? 'YES' : 'NO' }</p>
-          <p>Essential Worker: { userPrefs.essentialWorker ? 'YES' : 'NO' }</p>
-          <p>Immunocompromised: { userPrefs.immunocompromised ? 'YES' : 'NO' }</p>
-          <p>Public Transit: { userPrefs.pubTrans ? 'YES' : 'NO' }</p>
-          <p>Indoor Dining: { userPrefs.indoorDining ? 'YES' : 'NO' }</p>
-          <p>Outdoor Dining: { userPrefs.outdoorDining ? 'YES' : 'NO' }</p>
+          <p>Household Size: { householdSize }</p>
+          <p>Wears a Mask: { mask ? 'YES' : 'NO' }</p>
+          <p>Essential Worker: { essentialWorker ? 'YES' : 'NO' }</p>
+          <p>Immunocompromised: { immunocompromised ? 'YES' : 'NO' }</p>
+          <p>Public Transit: { pubTrans ? 'YES' : 'NO' }</p>
+          <p>Indoor Dining: { indoorDining ? 'YES' : 'NO' }</p>
+          <p>Outdoor Dining: { outdoorDining ? 'YES' : 'NO' }</p>
         </div> : <div>No Preferences Found</div>
       }
     </RiskCard>

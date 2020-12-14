@@ -11,27 +11,24 @@ const FriendCard = styled(Card)`
   box-shadow: 4px 4px 6px rbga(0,0,0,.25);
 `
 
-const FriendList = () => {
-  const url = window.location.pathname;
-  const id = url.substring(url.lastIndexOf('/') + 1);
+const FriendList = ({forFriend}) => {
   const userId = useSelector(state => state.loginStatus.userId)
   const friendId = useSelector(state => state.singleFriend.userId)
   const userFriends = useSelector(state => state.friends)
+  const friendFriends = useSelector(state => state.singleFriend.friends)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (id === 'profile') {
+    if (!forFriend) {
       dispatch(getFriends(userId));
     }
-    else {
-      dispatch(getFriends(friendId))
-    }
-  }, [userId, id])
+  }, [userId, friendId])
 
+  const friends = (forFriend ? friendFriends : userFriends)
   return (
     <FriendCard>
-    {id === 'profile' ? <Link to="/friends">Add Friends</Link> : null}
-      {userFriends.map(friend => {
+    { !forFriend && <Link to="/friends">Add Friends</Link> }
+      {friends.map(friend => {
         return (
           <RowContainer key = {friend.userId}>
             <img className="profile-pic" src="https://cdn.onlinewebfonts.com/svg/img_415067.png" />

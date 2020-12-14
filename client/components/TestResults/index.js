@@ -45,36 +45,40 @@ function TestResultForm({ setShowForm }) {
   )
 }
 
-function TestResults() {
-  const url = window.location.pathname;
-  const id = url.substring(url.lastIndexOf('/') + 1);
+function TestResults({forFriend}) {
   const [showForm, setShowForm] = useState(false)
   const dispatch = useDispatch()
   const userId = useSelector(state => state.loginStatus.userId)
+  const userResults = useSelector(state => state.testResults)
   const friendId = useSelector(state => state.singleFriend.userId)
-  const testResults = useSelector(state => state.testResults)
+  const friendResults = useSelector(state => state.singleFriend.results)
 
   useEffect(() => {
-    if (id === 'profile') {
+    if (!forFriend) {
       dispatch(getTestResults(userId));
     }
-    else {
-      dispatch(getTestResults(friendId))
-    }
-  }, [userId, id, testResults.length])
+  }, [userId, userResults.length, friendId])
 
+  const results = (forFriend ? friendResults : userResults )
   return (
     <ResultsCard>
-      <h2>Test Results
-  {id === 'profile' ? <span className="plus-button" onClick={() => { setShowForm(!showForm) }}>+</span> : null}
+      <h2>
+        Test Results
+        {!forFriend && <span className="plus-button" onClick={() => { setShowForm(!showForm) }}>+</span> }
       </h2>
       {showForm && <TestResultForm setShowForm={setShowForm} />}
       <ul className="no-bullet">
-        {testResults.length ? testResults.map((test, id) => {
-          return (
-            <li key={id}>{test.covidTest}: {test.testDate}</li>
-          )
-        }) : <li><p>No tests results available.</p></li>}
+        {results.length ?
+          results.map((test, id) => {
+            return (
+              <li key={id}>{test.covidTest}: {test.testDate}</li>
+            )
+          }) :
+          <li>
+            <p>
+              No tests results available.
+            </p>
+          </li>}
       </ul>
     </ResultsCard>
   )
