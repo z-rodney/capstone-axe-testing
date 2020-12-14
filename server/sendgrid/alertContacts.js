@@ -41,7 +41,6 @@ const alertContacts = async (resultDate, contacts) => {
     const recentContacts = getRecentContacts(resultDate, contacts)
     if (recentContacts.length) {
       const messages = generateBatchMessages(recentContacts)
-      console.log('contact msgs:', messages)
       await sgMail.send(messages);
     }
   } catch (error) {

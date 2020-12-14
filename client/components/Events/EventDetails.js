@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 import { getLocations } from '../../redux/userLocations';
 import styled from 'styled-components';
-import { Container } from '../styledComponents'
 import { mainOrange } from '../styledComponents/globalStyles';
 
 const DetailCard = styled.div`
