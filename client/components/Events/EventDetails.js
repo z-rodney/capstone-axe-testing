@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import styled from 'styled-components'
-import { getLocations } from '../../redux/userLocations'
-import { mainOrange } from '../styledComponents/globalStyles'
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import moment from 'moment';
+import styled from 'styled-components';
+import { getLocations } from '../../redux/userLocations';
+import { mainOrange } from '../styledComponents/globalStyles';
 
 const DetailCard = styled.div`
   background: #F7F7F7;
@@ -24,55 +26,50 @@ const Title = styled.p`
   font-weight: 500;
 `
 
-function EventDetails() {
-  const locations = useSelector(state => state.locations)
-  const userId = useSelector(state => state.loginStatus.userId)
-  const [expand, setExpand] = useState(false)
-  const [selected, setSelected] = useState({})
-  const dispatch = useDispatch()
+function EventDetails({ dateSelected, forFriend }) {
+  const userLocations = useSelector(state => state.locations);
+  const friendLocations = useSelector(state => state.singleFriend.locations)
+  const userId = useSelector(state => state.loginStatus.userId);
+  const dispatch = useDispatch();
+
+  const locations = forFriend ? friendLocations : userLocations
+
+  dateSelected = new Date(dateSelected);
+  dateSelected = moment(dateSelected).format('YYYY-MM-DD');
+  const daysLocations = locations.filter(loc => loc.dateVisited === dateSelected);
 
   useEffect(() => {
-    if (userId) {
-      dispatch(getLocations(userId))
+    if (userId && !forFriend) {
+      dispatch(getLocations(userId));
     }
   }, [userId])
-
-
- const showDetails = (location) => {
-   setExpand(true)
-   setSelected(location)
- }
-
-  const eventItem = (current, id) => {
-    return (
-      <li
-        key={id}
-        onClick={() => { showDetails(current) }}
-      >
-        {current.location.title}
-      </li>
-    )
-  }
 
   return (
     <div>
       <h3>Events</h3>
-      {/*Temp list of events until calendar is set up */}
-      <ul>
-        {locations.map(eventItem)}
-      </ul>
-
-      <h3>Event Details</h3>
-      {expand ?
-        <DetailCard>
-          <Title>{selected.location.title}</Title>
-          <p>{selected.location.placeName}</p>
-          <p>Visited: {selected.dateVisited.visitedDate}</p>
-        </DetailCard> :
-        <p>Select an event to see details.</p>
+      { daysLocations.length > 0 ?
+      <div>
+        <ul>
+          {daysLocations.map((ev) => {
+            return (
+              <DetailCard key={ ev.location.title }>
+                <Title>{ ev.location.title }</Title>
+                <h4>Location:</h4>
+                <p>{ ev.location.placeName }</p>
+                <h4>Contacts:</h4>
+                <ul>{ ev.contacts && ev.contacts.map(c => {
+                  return <Link to={`/friends/${ c.userId }`} key={ c.userId }><li>{ c.name }</li></Link>
+                }) }
+                </ul>
+              </DetailCard>
+            )
+          })}
+        </ul>
+      </div>
+      : <div>No Events Found</div>
       }
     </div>
   )
 }
 
-export default EventDetails
+export default EventDetails;

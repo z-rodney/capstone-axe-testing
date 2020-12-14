@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components'
-//at some point will be able to remove card from imports
-import { ColumnContainer, RowContainer, Card, SidebarRight } from '../styledComponents/index'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
+import styled from 'styled-components'
+import { ColumnContainer, RowContainer, Card, SidebarRight } from '../styledComponents/index'
 import FriendList from '../FriendsList'
 import RiskProfile from '../RiskProfile'
 import TestResults from '../TestResults'
 import { getFriendProfile } from '../../redux/friendProfile'
+import Calendar from '../Calendar';
 
 const ProfileLink = styled(Link)`
   padding: 8px;
@@ -40,12 +40,11 @@ const FriendProfile = (props) => {
         </RowContainer>
         <RowContainer>
           <ColumnContainer>
-            {/* TO-DO: get react calendar component and insert here */}
             <div>
-            <h2>November 2020</h2>
-            <Card>
-              <p>Calendar to go here</p>
-            </Card>
+              <h2>Events</h2>
+              <Card>
+                  <Calendar forFriend={true} />
+              </Card>
             </div>
             <div>
               <RiskProfile forFriend={true} />
@@ -65,4 +64,4 @@ const FriendProfile = (props) => {
   )
 }
 
-export default FriendProfile
+export default FriendProfile;

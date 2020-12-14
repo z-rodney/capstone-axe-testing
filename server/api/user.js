@@ -87,7 +87,6 @@ userRouter.get('/:userId', async(req, res, next) => {
 })
 
 // GET /api/user/:userId/friends
-// retrieves a user's friends from db
 userRouter.get('/:userId/friends', async(req, res, next) => {
   try {
     const result = await getFriends(req.params.userId);
@@ -99,7 +98,6 @@ userRouter.get('/:userId/friends', async(req, res, next) => {
 })
 
 // GET /api/user/:userId/contacts
-// retrieves a user's Contacts from db
 userRouter.get('/:userId/contacts', async(req, res, next) => {
   try {
     // const {userId} = req.user
@@ -111,21 +109,31 @@ userRouter.get('/:userId/contacts', async(req, res, next) => {
   }
 })
 
-// GET /api/user/:userId/getLocations
-// retrieves a user's Locations from db
+// GET /api/user/:userId/locations
 userRouter.get('/:userId/locations', async(req, res, next) => {
   try {
-    const {userId} = req.user
-  const result = await getLocations(userId)
-    res.status(200).send(result)
+    const { userId } = req.user;
+    const result = await getLocations(userId);
+    res.status(200).send(result);
   }
   catch (err) {
-    next(err)
+    next(err);
   }
 })
 
-// GET /api/user/:userId/getPreferences
-// retrieves a user's Preferences from db
+// POST /api/user/:userId/location
+userRouter.post('/:userId/location', async(req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const insert = await addLocation(req.body.location, userId);
+    res.status(201).send(insert);
+  }
+  catch (err) {
+    next(err);
+  }
+})
+
+// GET /api/user/:userId/preferences
 userRouter.get('/:userId/preferences', async(req, res, next) => {
   try {
     const result = await getPreferences(req.params.userId);
@@ -137,7 +145,6 @@ userRouter.get('/:userId/preferences', async(req, res, next) => {
 })
 
 // POST /api/user/:userId/preferences
-// adds preferences to a user in db
 userRouter.post('/:userId/preferences', async(req, res, next) => {
   try {
     const {
@@ -168,7 +175,6 @@ userRouter.post('/:userId/preferences', async(req, res, next) => {
 })
 
 // PUT /api/user/:userId/preferences
-// updates user preferences
 userRouter.put('/:userId/preferences', async(req, res, next) => {
   try {
     const {
@@ -198,26 +204,20 @@ userRouter.put('/:userId/preferences', async(req, res, next) => {
   }
 })
 
-// POST /api/user/:userId/addLocation
-// adds a location to a user in db
-userRouter.post('/:userId/location', async(req, res, next) => {
-  try {
-      const {userId} = req.user
 
-    const insert = await addLocation(req.body.location, userId)
-    res.status(201).send(insert)
-  }
-  catch (err) {
-    next(err)
-  }
-})
 
-// POST /api/user/:userId/addContact
-// adds a Contact to a user in db
+// POST /api/user/:userId/contact
 userRouter.post('/:userId/contact', async(req, res, next) => {
   try {
-    const insert = await addContact(req.body)
-    res.status(201).send(insert)
+    const { userId } = req.params;
+    const { contacts, date } = req.body.location;
+    await addContact(contacts, date, userId);
+    if (contacts.length > 1) {
+      for (let i = 0; i < contacts.length - 1; i++) {
+        await addContact(contacts.slice(i + 1), date, contacts[i]);
+      }
+    }
+    res.sendStatus(201);
   }
   catch (err) {
     next(err)
@@ -225,7 +225,6 @@ userRouter.post('/:userId/contact', async(req, res, next) => {
 })
 
 // POST /api/user/:userId/friend
-// adds a friend to a user in db
 userRouter.post('/:userId/friend', async(req, res, next) => {
   if (req.user) {
     try {
@@ -241,7 +240,37 @@ userRouter.post('/:userId/friend', async(req, res, next) => {
   }
 })
 
-// POST /api/user/:userId/results
+// POST /api/user/:userId/preferences
+userRouter.post('/:userId/preferences', async(req, res, next) => {
+  try {
+    const {
+      householdSize,
+      indoorDining,
+      outdoorDining,
+      essentialWorker,
+      immunocompromised,
+      mask,
+      pubTrans
+    } = req.body;
+    const data = {
+      userId: req.user.userId,
+      householdSize,
+      indoorDining,
+      outdoorDining,
+      essentialWorker,
+      immunocompromised,
+      mask,
+      pubTrans
+    }
+    const preferences = await addPreferences(data);
+    res.status(201).send(preferences);
+  }
+  catch (err) {
+    next(err);
+  }
+})
+
+// GET /api/user/:userId/results
 userRouter.get('/:userId/results', async (req, res, next) => {
   if (req.user) {
     try {

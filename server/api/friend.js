@@ -1,7 +1,6 @@
 const express = require('express');
 const friendRouter = express.Router();
 const {
-  getContacts,
   getFriends,
   getLocations,
   getPreferences,
@@ -15,14 +14,12 @@ friendRouter.get('/:friendId', async (req, res, next) => {
       const { friendId } = req.params
       const [
         { name, userId, username },
-        friendContacts,
         friendFriends,
         friendLocations,
         friendPrefs,
         friendResults
       ] = await Promise.all([
         getUserByUserId(friendId),
-        getContacts(friendId),
         getFriends(friendId),
         getLocations(friendId),
         getPreferences(friendId),
@@ -32,7 +29,6 @@ friendRouter.get('/:friendId', async (req, res, next) => {
         name,
         username,
         friendId: userId,
-        contacts: friendContacts,
         friends: friendFriends,
         locations: friendLocations,
         prefs: friendPrefs,
