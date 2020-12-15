@@ -40,6 +40,26 @@ const seed = async (db) => {
                     'username': 'ranffi@ranffi.com',
                     'name': 'Ranffi',
                     'password': hashedPW,
+                }, {
+                    'username': 'eliot@test.com',
+                    'name': 'Eliot',
+                    'password': hashedPW,
+                }, {
+                    'username': 'peet@test.com',
+                    'name': 'Peet',
+                    'password': hashedPW,
+                }, {
+                    'username': 'ben@test.com',
+                    'name': 'Ben',
+                    'password': hashedPW,
+                }, {
+                    'username': 'stanley@test.com',
+                    'name': 'Stanley',
+                    'password': hashedPW,
+                }, {
+                    'username': 'prof@test.com',
+                    'name': 'Prof',
+                    'password': hashedPW,
                 }]}
         );
 
@@ -143,19 +163,54 @@ const seed = async (db) => {
             MATCH (ranffi:User {username:$ranffi})
             MATCH (zaina:User {username:$zaina})
             MATCH (zoe:User {username:$zoe})
+            MATCH (eliot:User {username:$eliot})
+            MATCH (peet:User {username:$peet})
+            MATCH (ben:User {username:$ben})
+            MATCH (stanley:User {username:$stanley})
+            MATCH (prof:User {username:$prof})
             CREATE (rehab)-[rel1:CONTACTED]->(ranffi)
             CREATE (ranffi)-[rel2:CONTACTED]->(rehab)
             CREATE (zaina)-[rel3:CONTACTED]->(zoe)
             CREATE (zoe)-[rel4:CONTACTED]->(zaina)
+            CREATE (zoe)-[rel5:CONTACTED]->(eliot)
+            CREATE (eliot)-[rel6:CONTACTED]->(zoe)
+            CREATE (zoe)-[rel7:CONTACTED]->(peet)
+            CREATE (peet)-[rel8:CONTACTED]->(zoe)
+            CREATE (zaina)-[rel9:CONTACTED]->(ben)
+            CREATE (ben)-[rel10:CONTACTED]->(zaina)
+            CREATE (zaina)-[rel11:CONTACTED]->(stanley)
+            CREATE (stanley)-[rel12:CONTACTED]->(zaina)
+            CREATE (ben)-[rel13:CONTACTED]->(prof)
+            CREATE (prof)-[rel14:CONTACTED]->(ben)
+            CREATE (prof)-[rel15:CONTACTED]->(rehab)
+            CREATE (rehab)-[rel16:CONTACTED]->(prof)
             SET rel1.contactDate = $contactDate1
             SET rel2.contactDate = $contactDate1
             SET rel3.contactDate = $contactDate2
-            SET rel4.contactDate = $contactDate2`,
+            SET rel4.contactDate = $contactDate2
+            SET rel5.contactDate = $contactDate2
+            SET rel6.contactDate = $contactDate2
+            SET rel7.contactDate = $contactDate2
+            SET rel8.contactDate = $contactDate2
+            SET rel9.contactDate = $contactDate2
+            SET rel10.contactDate = $contactDate2
+            SET rel11.contactDate = $contactDate2
+            SET rel12.contactDate = $contactDate2
+            SET rel13.contactDate = $contactDate2
+            SET rel14.contactDate = $contactDate2
+            SET rel15.contactDate = $contactDate2
+            SET rel16.contactDate = $contactDate2
+            `,
             {
                 zoe: 'zoe.greene12@gmail.com',
                 zaina: 'zaina@zaina.com',
                 ranffi: 'ranffi@ranffi.com',
                 rehab: 'rehab@rehab.com',
+                eliot: 'eliot@test.com',
+                peet: 'peet@test.com',
+                ben: 'ben@test.com',
+                stanley: 'stanley@test.com',
+                prof: 'prof@test.com',
                 contactDate1: '2020-11-01',
                 contactDate2: '2020-11-23'
             }

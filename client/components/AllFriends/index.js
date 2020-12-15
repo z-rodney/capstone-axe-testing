@@ -6,6 +6,7 @@ import NeoVis from 'neovis.js';
 import { Container, Card } from '../styledComponents';
 import { WideColumnContainer, Graph } from './StyleElements';
 import AddFriend from '../AddFriend';
+import { mainOrange } from '../styledComponents/globalStyles';
 
 const drawGraph = (userId) => {
   const config = {
@@ -16,6 +17,9 @@ const drawGraph = (userId) => {
     labels: {
       'User': {
         'caption': 'name',
+        'community': {
+          'color': mainOrange
+        },
         'title_properties': [
           'name',
           'username'
@@ -27,7 +31,7 @@ const drawGraph = (userId) => {
         'caption': false
       }
     },
-    initial_cypher: `MATCH (u:User {userId: '${userId}'})-[r1:CONTACTED]->(c1:User)-[r2:CONTACTED]->(c2:User) WHERE c2.userId <> u.userId RETURN *`
+    initial_cypher: `MATCH (u:User {userId: '${userId}'})-[r1:CONTACTED*1..4]-(c:User) RETURN *`
   };
   const viz = new NeoVis(config);
   viz.render();
