@@ -1,53 +1,66 @@
-import React from 'react';
-//at some point will be able to remove card from imports
-import { ColumnContainer, RowContainer, Card, SidebarRight, ResultsCard } from '../styledComponents/index';
-import FriendList from '../FriendsList';
-import RiskProfile from '../RiskProfile';
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, Redirect } from 'react-router-dom'
+import styled from 'styled-components'
+import { ColumnContainer, RowContainer, Card, SidebarRight } from '../styledComponents/index'
+import FriendList from '../FriendsList'
+import RiskProfile from '../RiskProfile'
+import TestResults from '../TestResults'
+import { getFriendProfile } from '../../redux/friendProfile'
 import Calendar from '../Calendar';
 
+const ProfileLink = styled(Link)`
+  padding: 8px;
+  margin-bottom: 4px;
+`
 
-const friend = {
-  name: 'Stanley',
-  location: 'Brooklyn, NY',
-};
+const FriendProfile = (props) => {
+  window.scrollTo(0, 0)
+  const dispatch = useDispatch();
+  const { friendId } = props.computedMatch.params
+  const userId = useSelector(state => state.loginStatus.userId);
+  const friendInfo = useSelector(state => state.singleFriend)
+  const { name, username } = friendInfo
 
-const FriendProfile = () => {
+  useEffect(() => {
+    dispatch(getFriendProfile(friendId))
+  }, [friendId])
+
   return (
-    <ColumnContainer>
-      <RowContainer>
-        <img className="profile-pic-big" src="https://cdn.onlinewebfonts.com/svg/img_415067.png" />
-        <div className="profile-heading spaced">
-          <h3>{friend.name}</h3>
-          <p>{friend.location}</p>
-        </div>
-      </RowContainer>
-      <RowContainer>
-        <ColumnContainer>
-          <div>
-            <h2>November 2020</h2>
-            <Card>
-              <Calendar />
-            </Card>
+    (friendId === userId) ?
+      <Redirect to="/profile" /> :
+      <ColumnContainer>
+        <ProfileLink to= "/profile">{`< Back to Profile`}</ProfileLink>
+        <RowContainer>
+          <img className="profile-pic-big" src="https://cdn.onlinewebfonts.com/svg/img_415067.png" />
+          <div className="profile-heading spaced">
+            <h3>{name}</h3>
+            <p>{username}</p>
           </div>
-          <div>
-            <RiskProfile />
-          </div>
-        </ColumnContainer>
-        <SidebarRight flex="0 1 35%">
-          <div>
-            <ResultsCard>
-              <h2>Test Results</h2>
-              <p>Negative: 10.20.20</p>
-            </ResultsCard>
-          </div>
-          <div>
-            <h2>Following</h2>
-            <FriendList />
-          </div>
-        </SidebarRight>
-      </RowContainer>
-    </ColumnContainer>
-  );
-};
+        </RowContainer>
+        <RowContainer>
+          <ColumnContainer>
+            <div>
+              <h2>Events</h2>
+              <Card>
+                  <Calendar forFriend={true} />
+              </Card>
+            </div>
+          </ColumnContainer>
+          <SidebarRight flex="0 1 35%">
+            <div>
+              <TestResults forFriend={true} />
+            </div>
+            <div>
+              <RiskProfile forFriend={true} />
+            </div>
+            <div>
+              <FriendList forFriend={true} />
+            </div>
+          </SidebarRight>
+        </RowContainer>
+      </ColumnContainer>
+  )
+}
 
 export default FriendProfile;

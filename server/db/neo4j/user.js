@@ -28,6 +28,29 @@ async function getUserByUsername(username) {
     }
 }
 
+async function getUserByUserId(userId) {
+    // Uses default neo4j database in neo4j desktop, which developers must run
+    // Otherwise, create db in seed file or heroku config for db(?)
+
+    // create a session to run cypher statements in
+    const session = driver.session({ database: process.env.NEO4J_DATABASE });
+    try {
+        const result = await session.readTransaction((tx) => {
+            return tx.run('MATCH (user:User {userId: $userId}) RETURN user', { userId });
+        });
+        if (_.isEmpty(result.records)) return null;
+        const record = result.records[0];
+        const user = new User(record.get('user'));
+        user.password = ''
+        return user
+    } catch (err) {
+        console.log(err);
+        throw err;
+    } finally {
+        session.close();
+    }
+}
+
 // INPUT: user properties OUTPUT: newly created user node
 async function createUser(username, password, name) {
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
@@ -79,6 +102,7 @@ async function updateUser(userId, data) {
 
 module.exports = {
     getUserByUsername,
+    getUserByUserId,
     createUser,
     updateUser
 }

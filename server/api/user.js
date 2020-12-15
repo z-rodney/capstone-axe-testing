@@ -1,9 +1,10 @@
 const express = require('express');
 const userRouter = express.Router();
 const bcrypt = require('bcrypt');
-const { createUser, updateUser } = require('../db/neo4j/user');
+const { createUser, updateUser, getUserByUserId } = require('../db/neo4j/user');
 const { createSession } = require('../db/neo4j/session');
-const { postResults, getResults } = require('../db/neo4j/testResults');
+const { postResults, getResults } = require('../db/neo4j/testResults')
+const alertContacts = require('../sendgrid/alertContacts')
 const {
   getContacts,
   getFriends,
@@ -75,6 +76,18 @@ userRouter.put('/:userId', async (req, res, next) => {
   }
 })
 
+// GET /api/user/:userId/
+// retrieves a user from db
+userRouter.get('/:userId', async(req, res, next) => {
+  try {
+    const result = await getUserByUserId(req.params.userId);
+    res.status(200).send(result);
+  }
+  catch (err) {
+    next(err);
+  }
+})
+
 // GET /api/user/:userId/friends
 userRouter.get('/:userId/friends', async(req, res, next) => {
   try {
@@ -104,6 +117,18 @@ userRouter.get('/:userId/locations', async(req, res, next) => {
     const { userId } = req.user;
     const result = await getLocations(userId);
     res.status(200).send(result);
+  }
+  catch (err) {
+    next(err);
+  }
+})
+
+// POST /api/user/:userId/location
+userRouter.post('/:userId/location', async(req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const insert = await addLocation(req.body.location, userId);
+    res.status(201).send(insert);
   }
   catch (err) {
     next(err);
@@ -181,6 +206,7 @@ userRouter.put('/:userId/preferences', async(req, res, next) => {
   }
 })
 
+<<<<<<< HEAD
 // POST /api/user/:userId/location
 userRouter.post('/:userId/location', async(req, res, next) => {
   try {
@@ -197,6 +223,8 @@ userRouter.post('/:userId/location', async(req, res, next) => {
   }
 })
 
+=======
+>>>>>>> dev
 // POST /api/user/:userId/contact
 userRouter.post('/:userId/contact', async(req, res, next) => {
   try {
@@ -265,8 +293,7 @@ userRouter.post('/:userId/preferences', async(req, res, next) => {
 userRouter.get('/:userId/results', async (req, res, next) => {
   if (req.user) {
     try {
-      const { userId } = req.user
-      const allResults = await getResults(userId)
+      const allResults = await getResults(req.params.userId)
       res.send(allResults)
     } catch (err) {
       next(err)
@@ -277,12 +304,17 @@ userRouter.get('/:userId/results', async (req, res, next) => {
 })
 
 //POST /api/user/:userId/results
+//Adds a new test result, and sends email alerts if positive
 userRouter.post('/:userId/results', async (req, res, next) => {
   if (req.user) {
     try {
-      const { userId } = req.user
+      const { userId } = req.params
       const { covidTest, testDate } = req.body
       const newResult = await postResults(userId, covidTest, testDate)
+      if (newResult.covidTest === 'Positive') {
+        const contacts = await getContacts(userId)
+        alertContacts(newResult.testDate, contacts)
+    }
       res.status(201).send(newResult)
     } catch (err) {
       next(err)
