@@ -68,7 +68,7 @@ function TestResults({forFriend}) {
       </h2>
       {showForm && <TestResultForm setShowForm={setShowForm} />}
       <ul className="no-bullet">
-        {results.length ?
+        {(results && results.length) ?
           results.map((test, id) => {
             return (
               <li key={id}>{test.covidTest}: {new Date(test.testDate).toDateString()}</li>
