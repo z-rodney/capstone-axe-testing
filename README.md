@@ -27,9 +27,10 @@ Proximity has currently had the following features:
 - View a map of recent locations (using Mapbox)
 - Search for and add friends
 - Receive email notifications when someone logs a positive test result within two weeks of being in contact with you
-
+- Visualize the bubble of your direct contacts and people they have contacted
+- Automatically generate COVID-19 data for a social event's location
 ### To-Do
 Plans to expand Proximity include:
-- Visualize the bubble of people you have recently contacted
 - Opt in to send email notifications to friends when you log a positive COVID-19 test result
-- Automatically generate COVID-19 data for a social event's location
+- Expand bubble visualization options
+
