@@ -46,16 +46,15 @@ const FriendProfile = (props) => {
                   <Calendar forFriend={true} />
               </Card>
             </div>
-            <div>
-              <RiskProfile forFriend={true} />
-            </div>
           </ColumnContainer>
           <SidebarRight flex="0 1 35%">
             <div>
               <TestResults forFriend={true} />
             </div>
             <div>
-              <h2>Following</h2>
+              <RiskProfile forFriend={true} />
+            </div>
+            <div>
               <FriendList forFriend={true} />
             </div>
           </SidebarRight>
