@@ -29,7 +29,7 @@ const seed = async (db) => {
                     'name': 'Zoe',
                     'password': hashedPW,
                 }, {
-                    'username': 'zaina@zaina.com',
+                    'username': 'zainarodney@aol.com',
                     'name': 'Zaina',
                     'password': hashedPW,
                 }, {
@@ -125,7 +125,7 @@ const seed = async (db) => {
                 CREATE (rehab)-[rel4:PREFERS]->(p4)`,
                 {
                     zoe: 'zoe.greene12@gmail.com',
-                    zaina: 'zaina@zaina.com',
+                    zaina: 'zainarodney@aol.com',
                     ranffi: 'ranffi@ranffi.com',
                     rehab: 'rehab@rehab.com'
                 }
@@ -151,7 +151,7 @@ const seed = async (db) => {
             CREATE (rehab)-[:FOLLOWS]->(ranffi)`,
             {
                 zoe: 'zoe.greene12@gmail.com',
-                zaina: 'zaina@zaina.com',
+                zaina: 'zainarodney@aol.com',
                 ranffi: 'ranffi@ranffi.com',
                 rehab: 'rehab@rehab.com'
             }
@@ -203,7 +203,7 @@ const seed = async (db) => {
             `,
             {
                 zoe: 'zoe.greene12@gmail.com',
-                zaina: 'zaina@zaina.com',
+                zaina: 'zainarodney@aol.com',
                 ranffi: 'ranffi@ranffi.com',
                 rehab: 'rehab@rehab.com',
                 eliot: 'eliot@test.com',
@@ -291,7 +291,7 @@ const seed = async (db) => {
             SET r16.visitedDate = $visitedDate4',
             {
                 zoe: 'zoe.greene12@gmail.com',
-                zaina: 'zaina@zaina.com',
+                zaina: 'zainarodney@aol.com',
                 ranffi: 'ranffi@ranffi.com',
                 rehab: 'rehab@rehab.com',
                 location1: 'Central Park Hang',
@@ -310,7 +310,7 @@ const seed = async (db) => {
         MATCH (zoe:User{username: 'zoe.greene12@gmail.com'})
         MATCH (rehab:User {username:'rehab@rehab.com'})
         MATCH (ranffi:User {username:'ranffi@ranffi.com'})
-        MATCH (zaina:User {username:'zaina@zaina.com'})
+        MATCH (zaina:User {username:'zainarodney@aol.com'})
         CREATE (zoe)-[rel1:TESTED]->(testRes1:TestResult {covidTest:'Negative', testDate:date('2020-11-23')})
         CREATE (zaina)-[rel2:TESTED]->(testRes2:TestResult {covidTest:'Positive', testDate:date('2020-09-09')})
         CREATE (rehab)-[rel3:TESTED]->(testRes3:TestResult {covidTest:'Negative', testDate:date('2020-10-14')})
