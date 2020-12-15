@@ -184,11 +184,13 @@ userRouter.put('/:userId/preferences', async(req, res, next) => {
 // POST /api/user/:userId/location
 userRouter.post('/:userId/location', async(req, res, next) => {
   try {
-    const { userId } = req.params;
-    const { coords } = req.body.location
-    console.log(getCovidRiskLevels(coords))
-    const insert = await addLocation(req.body.location, userId);
-    res.status(201).send(insert);
+    const { userId } = req.params
+    const { location } = req.body
+    const { coordinates } = req.body.location
+    const covidData = await getCovidRiskLevels(coordinates)
+    location.covidData = covidData
+    const insert = await addLocation(location, userId)
+    res.status(201).send(insert)
   }
   catch (err) {
     next(err);
