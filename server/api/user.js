@@ -3,7 +3,8 @@ const userRouter = express.Router();
 const bcrypt = require('bcrypt');
 const { createUser, updateUser, getUserByUserId } = require('../db/neo4j/user');
 const { createSession } = require('../db/neo4j/session');
-const { postResults, getResults } = require('../db/neo4j/testResults');
+const { postResults, getResults } = require('../db/neo4j/testResults')
+const alertContacts = require('../sendgrid/alertContacts')
 const {
   getContacts,
   getFriends,
@@ -283,12 +284,17 @@ userRouter.get('/:userId/results', async (req, res, next) => {
 })
 
 //POST /api/user/:userId/results
+//Adds a new test result, and sends email alerts if positive
 userRouter.post('/:userId/results', async (req, res, next) => {
   if (req.user) {
     try {
-      const { userId } = req.user
+      const { userId } = req.params
       const { covidTest, testDate } = req.body
       const newResult = await postResults(userId, covidTest, testDate)
+      if (newResult.covidTest === 'Positive') {
+        const contacts = await getContacts(userId)
+        alertContacts(newResult.testDate, contacts)
+    }
       res.status(201).send(newResult)
     } catch (err) {
       next(err)

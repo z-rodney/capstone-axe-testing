@@ -21,7 +21,7 @@ export const LocationFormStyle = styled.form`
   display: flex;
   flex-flow: column nowrap;
   box-sizing: border-box;
-  & button, & > input {
+  & button, & > input, & select {
     box-sizing: border-box;
     font-size: 15px;
     font-family: "Open Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
@@ -35,6 +35,7 @@ export const LocationFormStyle = styled.form`
 
 export const LocationButton = styled.button`
   background: #f6f6f3;
+  margin-top: 6px;
   &:hover {
     background: #e4e4dc;
   }

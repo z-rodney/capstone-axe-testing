@@ -17,6 +17,11 @@ const DetailCard = styled.div`
     margin-bottom: 0;
     margin-top: 5px;
   }
+
+  & h4 {
+    margin: 10px 0;
+  }
+
 `
 
 const Title = styled.p`
@@ -49,7 +54,7 @@ function EventDetails({ dateSelected, forFriend }) {
       <h3>Events</h3>
       { daysLocations.length > 0 ?
       <div>
-        <ul>
+        <ul className="no-padding">
           {daysLocations.map((ev) => {
             return (
               <DetailCard key={ ev.location.title }>
@@ -57,8 +62,8 @@ function EventDetails({ dateSelected, forFriend }) {
                 <h4>Location:</h4>
                 <p>{ ev.location.placeName }</p>
                 <h4>Contacts:</h4>
-                <ul>{ ev.contacts && ev.contacts.map(c => {
-                  return <Link to={`/friends/${ c.userId }`} key={ c.userId }><li>{ c.name }</li></Link>
+                <ul >{ ev.contacts && ev.contacts.map(c => {
+                  return <Link to={`/friends/${ c.userId }`} key={ c.userId }><li className="with-margin">{ c.name }</li></Link>
                 }) }
                 </ul>
               </DetailCard>
