@@ -29,10 +29,10 @@ friendRouter.get('/:friendId', async (req, res, next) => {
         name,
         username,
         friendId: userId,
-        friends: friendFriends,
-        locations: friendLocations,
-        prefs: friendPrefs,
-        results: friendResults
+        friends: friendFriends || [],
+        locations: friendLocations || [],
+        prefs: friendPrefs || {},
+        results: friendResults || {}
       }
       res.send(friendProfile)
     } catch (err) {

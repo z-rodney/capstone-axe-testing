@@ -46,7 +46,7 @@ const RiskProfile = ({forFriend}) => {
         Risks and Preferences
         {!forFriend && <EditButton /> }
       </h2>
-      { (userPrefs || friendPrefs ) ?
+      { ((!forFriend && Object.entries(userPrefs).length) || (forFriend && Object.entries(friendPrefs).length) ) ?
         <div className="no-bullet">
           <p>Household Size: { householdSize }</p>
           <p>Wears a Mask: { mask ? 'YES' : 'NO' }</p>

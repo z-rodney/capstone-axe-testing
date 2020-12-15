@@ -30,14 +30,15 @@ const FriendList = ({forFriend}) => {
     <FriendCard>
       { forFriend ? <h2>Following</h2> : <h2>Friends</h2> }
       { !forFriend && <Link to="/friends">Add Friends</Link> }
-        {friends.map(friend => {
+      {friends.length
+        ? friends.map(friend => {
           return (
             <RowContainer key = {friend.userId}>
               <img className="profile-pic" src="https://cdn.onlinewebfonts.com/svg/img_415067.png" />
               <Link to= {`/friends/${friend.userId}`}><p className="spaced">{friend.name}</p></Link>
             </RowContainer>
           )})
-      }
+        : <p>No friends</p>}
     </FriendCard>
   )
 }
