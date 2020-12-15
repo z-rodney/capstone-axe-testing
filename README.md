@@ -1,9 +1,9 @@
-# capstone-heroes
+# Proximity 📍
 
 ## Introduction
 With so many unknowns about the future of the coronavirus pandemic and our world, it’s hard to determine, with certainty, how safe you really are. This app is a way to understand your potential level of risk based on your behaviors, social contacts, and whereabouts and get back some peace of mind.
 
-Our app is a platform to keep track of your contacts and whereabouts, connect with friends and loved ones to see theirs, and get current estimates of your COVID risk.
+Our app is a platform to keep track of your contacts and whereabouts, connect with friends and loved ones to see theirs, and get current estimates of your COVID-19 risk.
 
 Created with React, Redux, Node.js, Express, and Neo4j.
 
@@ -23,13 +23,13 @@ npm run start-dev
 ## Features
 Proximity has currently had the following features:
 - Log in and out
-- Add recent social events
+- Add recent social events and others present with you
 - View a map of recent locations (using Mapbox)
 - Search for and add friends
-- Receive email notifications when a friend logs a positive COVID-19 test result
 - Receive email notifications when someone logs a positive test result within two weeks of being in contact with you
 
 ### To-Do
 Plans to expand Proximity include:
 - Visualize the bubble of people you have recently contacted
-
+- Opt in to send email notifications to friends when you log a positive COVID-19 test result
+- Automatically generate COVID-19 data for a social event's location

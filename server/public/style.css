@@ -38,6 +38,10 @@ select {
   color: #43AA8B;
 }
 
+.no-padding {
+  padding-left: 0;
+}
+
 /* RISK TOLERANCE FORM */
 
 .question {

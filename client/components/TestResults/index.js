@@ -65,7 +65,7 @@ function TestResults() {
       <ul className="no-bullet">
         {testResults.length ? testResults.map((test, id) => {
           return (
-            <li key={id}>{test.covidTest}: {test.testDate}</li>
+            <li key={id}>{test.covidTest}: {new Date(test.testDate).toDateString()}</li>
           )
         }) : <li><p>No tests results available.</p></li>}
       </ul>
