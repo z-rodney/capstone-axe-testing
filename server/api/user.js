@@ -122,13 +122,16 @@ userRouter.get('/:userId/locations', async(req, res, next) => {
     next(err);
   }
 })
-
 // POST /api/user/:userId/location
 userRouter.post('/:userId/location', async(req, res, next) => {
   try {
-    const { userId } = req.params;
-    const insert = await addLocation(req.body.location, userId);
-    res.status(201).send(insert);
+    const { userId } = req.params
+    const { location } = req.body
+    const { coordinates } = req.body.location
+    const covidData = await getCovidRiskLevels(coordinates)
+    location.covidData = covidData
+    const insert = await addLocation(location, userId)
+    res.status(201).send(insert)
   }
   catch (err) {
     next(err);
@@ -206,25 +209,8 @@ userRouter.put('/:userId/preferences', async(req, res, next) => {
   }
 })
 
-<<<<<<< HEAD
-// POST /api/user/:userId/location
-userRouter.post('/:userId/location', async(req, res, next) => {
-  try {
-    const { userId } = req.params
-    const { location } = req.body
-    const { coordinates } = req.body.location
-    const covidData = await getCovidRiskLevels(coordinates)
-    location.covidData = covidData
-    const insert = await addLocation(location, userId)
-    res.status(201).send(insert)
-  }
-  catch (err) {
-    next(err);
-  }
-})
 
-=======
->>>>>>> dev
+
 // POST /api/user/:userId/contact
 userRouter.post('/:userId/contact', async(req, res, next) => {
   try {
