@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { getTestResults, addTestResults } from '../../redux/testResults'
-import { ResultsCard } from '../FriendProfile/StyleElements'
 import { TestCard, FormQuestion, Submit, OuterWrapper  } from './StyleElements'
-import { RowContainer, ColumnContainer } from '../styledComponents'
+import { RowContainer, ColumnContainer, ResultsCard } from '../styledComponents'
 
 function TestResultForm({ setShowForm }) {
   const userId = useSelector(state => state.loginStatus.userId)

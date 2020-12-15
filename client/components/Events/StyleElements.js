@@ -44,23 +44,3 @@ export const LocationFormInput = styled.input`
   height: 36px;
   margin: 6px 0;
 `
-
-export const DetailCard = styled.div`
-  background: #F7F7F7;
-  border-radius: 9px;
-  box-sizing: border-box;
-  padding: 7px;
-  margin: 0 5px;
-
-  & p:not(:first-child) {
-    margin-bottom: 0;
-    margin-top: 5px;
-  }
-`
-
-export const Title = styled.p`
-  color: #ec4e20;
-  margin-bottom: 0;
-  text-align: center;
-  font-weight: 500;
-`

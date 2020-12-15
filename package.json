@@ -6,10 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "build-watch": "webpack -w",
+    "build-watch": "webpack -w --config webpack.config.dev.js",
     "start-server": "nodemon server/index.js -e html,js,css --ignore public",
     "start-dev": "npm run build-watch & npm run start-server",
-    "seed": "node seed"
+    "seed": "node seed",
+    "start": "node server/index.js"
   },
   "eslintConfig": {
     "extends": [
@@ -37,6 +38,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "lodash": "^4.17.20",
+    "moment": "^2.29.1",
+    "moment-range": "^4.0.2",
     "morgan": "^1.10.0",
     "neo4j-driver": "^4.2.1",
     "react": "^17.0.1",

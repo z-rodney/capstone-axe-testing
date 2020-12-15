@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import { Link as LinkRouter } from 'react-router-dom';
 import { Link as LinkScroll } from 'react-scroll';
+import { mainDarkGreen, mainOrange } from '../styledComponents/globalStyles'
 
 export const Nav = styled.nav`
-  ${'' /* background: ${({ scrollNav }) => (scrollNav ? '#43AA8B' : 'transparent')}; */}
-  background: #254441;
+  background: ${mainDarkGreen};
   height: 80px;
-  ${'' /* margin-top: -80px; */}
   margin-top: 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   font-size: 1rem;
@@ -20,6 +20,9 @@ export const Nav = styled.nav`
     /* Nav will trigger in this screen size */
     transition: 0.8s all ease;
   }
+  @media screen and (max-width: 400px) {
+    height: 80%;
+  }
 `;
 
 export const NavbarContainer = styled.div`
@@ -30,15 +33,18 @@ export const NavbarContainer = styled.div`
   padding: 0 20px;
   max-width: 1600px;
   z-index: 1;
-`;
 
-export const NavWrap = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  @media screen and (max-width: 400px) {
-    height: 80%;
+  & ul.nav-menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    text-align: center;
+    margin-right: -10px;
+
+    @media screen and (max-width: 860px) {
+      /* NavMenu will trigger in this screen size */
+      display: none;
+    }
   }
 `;
 
@@ -84,19 +90,6 @@ export const MobileIcon = styled.div`
   }
 `;
 
-export const NavMenu = styled.ul`
-  display: flex;
-  align-items: center;
-  list-style: none;
-  text-align: center;
-  margin-right: -10px;
-
-  @media screen and (max-width: 860px) {
-    /* NavMenu will trigger in this screen size */
-    display: none;
-  }
-`;
-
 export const NavItem = styled.li`
   height: 80px;
   display: flex;
@@ -123,7 +116,6 @@ export const NavLinks = styled(LinkRouter)`
   text-decoration: none;
   font-size: 18px;
   cursor: pointer;
-  ${'' /* width: 100%; */}
 
   &:active {
     color: #01bf71;
@@ -132,7 +124,7 @@ export const NavLinks = styled(LinkRouter)`
 
   &:hover {
     transition: all 0.2s ease-in-out;
-    color: #ec4e20;
+    color: ${mainOrange};
   }
 `;
 
@@ -144,14 +136,13 @@ export const NavLinkDown = styled(LinkScroll)`
   padding: 0 1rem;
   text-decoration: none;
   cursor: pointer;
-  ${'' /* width: 100%; */}
 
   &:active {
     border-bottom: 3px solid #01bf71;
   }
   &:hover {
     transition: all 0.2s ease-in-out;
-    color: #ec4e20;
+    color: ${mainOrange};
   }
 `;
 
@@ -160,31 +151,30 @@ export const NavBtn = styled.nav`
   align-items: center;
   justify-content: space-evenly;
   margin: 0 10px;
+  box-sizing: border-box;
+
+  & a {
+    border-radius: 50px;
+    background: ${mainOrange};
+    white-space: nowrap;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 18px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+  }
+
+  & a:hover {
+    background: #01bf71;
+    transition: all 0.2s ease-in-out;
+    color: #fff;
+  }
 
   @media screen and (max-width: 860px) {
     /* NavBtn will trigger in this screen size */
     display: none;
   }
 `;
-
-export const NavBtnLink = styled(LinkRouter)`
-  border-radius: 50px;
-  background: #ec4e20;
-  white-space: nowrap;
-  padding: 10px 20px;
-  margin-bottom: 20px;
-  color: #fff;
-  font-size: 18px;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    background: #01bf71;
-    transition: all 0.2s ease-in-out;
-    color: #fff;
-  }
-`;
-

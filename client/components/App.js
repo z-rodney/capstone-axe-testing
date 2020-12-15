@@ -4,11 +4,10 @@ import Home from './Home';
 import Footer from './Footer';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
-import AccountSettings from './Account'
-import AllFriends from './AllFriends'
-import FriendProfile from './FriendProfile'
-import UserProfile from './UserProfile'
-import RiskForm from './RiskForm'
+import AllFriends from './AllFriends';
+import FriendProfile from './FriendProfile';
+import UserProfile from './UserProfile';
+import RiskForm from './RiskForm';
 import Navbar from './Navbar';
 import PrivateRoute from './PrivateRoute';
 
@@ -19,13 +18,12 @@ function App() {
       <Switch>
         <Route path="/signIn" component={SignIn} exact />
         <Route path="/signup" component={SignUp} exact />
-        <Route exact path="/profile" component={UserProfile} />
-        <Route exact path="/friends" component={AllFriends} />
-        <Route exact path="/friends/:friendId" component={FriendProfile} />
-        <Route exact path="/account" component={AccountSettings} />
-        <PrivateRoute path="/profile" component={UserProfile} />
+        <PrivateRoute exact path="/profile" component={UserProfile} />
+        <PrivateRoute exact path="/friends" component={AllFriends} />
+        <PrivateRoute exact path="/friends/:friendId" component={FriendProfile} />
         <Route exact path="/my-risk" component={RiskForm} />
-        <Route path="/" component={Home} exact />
+        <PrivateRoute exact path="/edit/my-risk" component={RiskForm} edit={true} />
+        <Route path="/" component={Home} />
       </Switch>
       <Footer />
     </Router>

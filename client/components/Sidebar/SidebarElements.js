@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import { Link as LinkRouter } from 'react-router-dom';
-import { Link as LinkScroll } from 'react-scroll';
 import { FaTimes } from 'react-icons/fa';
+import { mainDarkGreen, mainOrange } from '../styledComponents/globalStyles'
 
 export const SidebarContainer = styled.aside`
   position: fixed;
   z-index: 999;
   width: 100%;
   height: 100%;
-  background: #254441;
+  background: ${mainDarkGreen};
   display: grid;
   align-items: center;
   top: 0;
@@ -50,7 +50,7 @@ export const SidebarLink = styled(LinkRouter)`
 
   &:hover {
     transition: all 0.2s ease-in-out;
-    color: #EC4E20;
+    color: ${mainOrange};
   }
 `;
 
@@ -74,7 +74,7 @@ export const SidebarMenu = styled.ul`
 
 export const SidebarRoute = styled(LinkRouter)`
   border-radius: 40px;
-  background: #EC4E20;
+  background: ${mainOrange};
   white-space: nowrap;
   padding: 10px 30px;
   margin: 10px;
