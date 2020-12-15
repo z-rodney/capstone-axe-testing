@@ -8,4 +8,5 @@ export const RiskCard = styled(Card)`
   box-shadow: 4px 4px 6px rbga(0,0,0,.25);
   border: none;
   margin-top: 28px;
+  margin-botton: 28px;
 `

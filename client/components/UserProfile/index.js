@@ -7,9 +7,9 @@ import Locations from '../Locations'
 import Events from '../Events'
 import TestResults from '../TestResults'
 
-
 const UserProfile = () => {
   const name = useSelector(state => state.loginStatus.name)
+
   return (
     <div>
       <div className="page-heading">
@@ -21,7 +21,6 @@ const UserProfile = () => {
           <RiskProfile />
           <TestResults />
           <div>
-            <h2>Friends</h2>
             <FriendList />
           </div>
         </Sidebar>
