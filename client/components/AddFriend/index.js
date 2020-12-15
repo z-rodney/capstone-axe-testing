@@ -5,11 +5,33 @@ import { useInputClear } from '../../customHooks/useInput';
 import { Container, RowContainer, FormButton } from '../styledComponents';
 import { searchFriends, updateFriends, clearSearch } from '../../redux/searchFriends';
 import { addFriend } from '../../redux/friends';
+import { mainOrange, textColorLight, mainLightGreen, mainDarkGreen } from '../styledComponents/globalStyles'
 import styled from 'styled-components'
-
 
 const SearchButton = styled(FormButton)`
   height: 36px;
+`
+
+const FriendRow = styled(RowContainer)`
+  align-items: center;
+`
+
+const Button = styled.button`
+  border-radius: 8px;
+  background: ${mainOrange};
+  color: ${textColorLight};
+  font-size: .9rem;
+  text-align: center;
+  border: solid 1px #BC3810;
+  transition: all 0.2s ease-in-out;
+  height: 36px;
+  font-family: "Roboto Mono";
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: ${mainLightGreen};
+    border: solid 1px ${mainDarkGreen};
+  }
 `
 
 const SearchInput = styled.input`
@@ -61,11 +83,11 @@ const AddFriend = () => {
           (searchResults.length
           ? searchResults.map(user => {
               return (
-                <RowContainer key={ user.userId }>
+                <FriendRow key={ user.userId }>
                   <img className="all-friends" src="https://cdn.onlinewebfonts.com/svg/img_415067.png" />
                   <Link to={`/friends/${user.userId}`}><p className="spaced">{ user.name }</p></Link>
-                  <button type="button" onClick={ () => followFriend(user.userId) }>Follow</button>
-                </RowContainer>
+                  <Button type="button" onClick={ () => followFriend(user.userId) }>Follow</Button>
+                </FriendRow>
               )
           })
           : <p>Sorry, no results found.</p>)

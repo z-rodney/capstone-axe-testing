@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const _ = require('lodash');
 const TestResult = require('../models/TestResults');
 const driver = require('../db');
