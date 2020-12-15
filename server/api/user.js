@@ -16,6 +16,7 @@ const {
   updatePreferences,
   searchUsers
 } = require('../db/neo4j');
+const getCovidRiskLevels = require('../covidData')
 
 const A_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 
@@ -184,6 +185,8 @@ userRouter.put('/:userId/preferences', async(req, res, next) => {
 userRouter.post('/:userId/location', async(req, res, next) => {
   try {
     const { userId } = req.params;
+    const { coords } = req.body.location
+    console.log(getCovidRiskLevels(coords))
     const insert = await addLocation(req.body.location, userId);
     res.status(201).send(insert);
   }
