@@ -71,7 +71,7 @@ function TestResults({forFriend}) {
         {results.length ?
           results.map((test, id) => {
             return (
-              <li key={id}>{test.covidTest}: {test.testDate}</li>
+              <li key={id}>{test.covidTest}: {new Date(test.testDate).toDateString()}</li>
             )
           }) :
           <li>
