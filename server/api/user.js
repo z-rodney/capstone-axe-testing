@@ -17,6 +17,7 @@ const {
   updatePreferences,
   searchUsers
 } = require('../db/neo4j');
+const getCovidRiskLevels = require('../covidData')
 
 const A_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 
@@ -121,13 +122,16 @@ userRouter.get('/:userId/locations', async(req, res, next) => {
     next(err);
   }
 })
-
 // POST /api/user/:userId/location
 userRouter.post('/:userId/location', async(req, res, next) => {
   try {
-    const { userId } = req.params;
-    const insert = await addLocation(req.body.location, userId);
-    res.status(201).send(insert);
+    const { userId } = req.params
+    const { location } = req.body
+    const { coordinates } = req.body.location
+    const covidData = await getCovidRiskLevels(coordinates)
+    location.covidData = covidData
+    const insert = await addLocation(location, userId)
+    res.status(201).send(insert)
   }
   catch (err) {
     next(err);
@@ -204,6 +208,8 @@ userRouter.put('/:userId/preferences', async(req, res, next) => {
     next(err);
   }
 })
+
+
 
 // POST /api/user/:userId/contact
 userRouter.post('/:userId/contact', async(req, res, next) => {

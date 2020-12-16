@@ -44,19 +44,23 @@ const getLocations = async (userId) => {
     }
 }
 
-const addLocation = async ({ title, date, coordinates, placeName, contacts }, userId) => {
+const addLocation = async ({ title, date, coordinates, placeName, contacts, covidData: {caseDensity, testPositivityRatio} }, userId) => {
     let session = driver.session();
-
     try {
         const location = await session.run(
             `UNWIND $contacts AS contactId
             MATCH (c:User {userId: contactId})
-            MERGE (l:Location {title: $title, placeName: $placeName, coordinates: $coordinates})
+            MERGE (l:Location {
+                title: $title,
+                placeName: $placeName,
+                coordinates: $coordinates,
+                caseDensity: $caseDensity,
+                testPosRatio: $testPositivityRatio})
             ON CREATE SET l.locationId = apoc.create.uuid()
             CREATE (c)-[v:VISITED]->(l)
             SET v.visitedDate = $date
             RETURN l, v`,
-            { title, date, coordinates, placeName, contacts: [...contacts, userId] }
+            { title, date, coordinates, placeName, caseDensity, testPositivityRatio, contacts: [...contacts, userId] }
         );
 
         const currentLocation = location.records[0];

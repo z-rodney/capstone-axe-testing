@@ -62,10 +62,22 @@ function EventDetails({ dateSelected, forFriend }) {
                 <h4>Location:</h4>
                 <p>{ ev.location.placeName }</p>
                 <h4>Contacts:</h4>
-                <ul >{ ev.contacts && ev.contacts.map(c => {
-                  return <Link to={`/friends/${ c.userId }`} key={ c.userId }><li className="with-margin">{ c.name }</li></Link>
-                }) }
-                </ul>
+                {ev.contacts &&
+                  (ev.contacts.length
+                  ? <ul>
+                    {ev.contacts.map(c => {
+                      return <Link to={`/friends/${c.userId}`} key={c.userId}><li className="with-margin">{c.name}</li></Link>
+                    })}
+                    </ul>
+                  : <p>None</p>
+                  )}
+                <h4>COVID-19 Data in this area:</h4>
+                <p>{`${Math.ceil(ev.location.caseDensity) || 'Unknown'} cases per 100,000 people`}</p>
+                <p>{`${ev.location.testPosRatio
+                  ? (ev.location.testPosRatio * 100).toFixed(2)
+                  : 'Unknown'}% test positivity rate`}
+                </p>
+                <small><a href="https://www.covidactnow.org/?s=1438402">Want more info?</a></small>
               </DetailCard>
             )
           })}

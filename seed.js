@@ -70,7 +70,7 @@ const seed = async (db) => {
             SET p = map`,
             {
                 'props': [{
-                    'mask': true,
+                    'mask': 'sometimes',
                     'indoorDining': false,
                     'outdoorDining': true,
                     'pubTrans': true,
@@ -79,7 +79,7 @@ const seed = async (db) => {
                     'immunocompromised': false,
                     'essentialWorker': false
                 }, {
-                    'mask': true,
+                    'mask': 'always',
                     'indoorDining': true,
                     'outdoorDining': false,
                     'pubTrans': false,
@@ -88,7 +88,7 @@ const seed = async (db) => {
                     'essentialWorker': false,
                     'covidPosContact': false
                 }, {
-                    'mask': true,
+                    'mask': 'sometimes',
                     'indoorDining': false,
                     'outdoorDining': true,
                     'pubTrans': false,
@@ -97,7 +97,7 @@ const seed = async (db) => {
                     'essentialWorker': true,
                     'covidPosContact': false,
                 }, {
-                    'mask': true,
+                    'mask': 'always',
                     'indoorDining': false,
                     'outdoorDining': true,
                     'pubTrans': false,
