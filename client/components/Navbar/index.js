@@ -90,7 +90,7 @@ const Navbar = (props) => {
                   <NavIcon>
                     <FaRegUserCircle />
                   </NavIcon>
-                  <NavLinks to="friends" id="friends">
+                  <NavLinks to="/friends" id="friends">
                     Friends
                   </NavLinks>
                   <NavBtn onClick={logoutSubmit}>
