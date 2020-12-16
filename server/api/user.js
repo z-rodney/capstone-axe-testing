@@ -122,6 +122,7 @@ userRouter.get('/:userId/locations', async(req, res, next) => {
     next(err);
   }
 })
+
 // POST /api/user/:userId/location
 userRouter.post('/:userId/location', async(req, res, next) => {
   try {
@@ -208,8 +209,6 @@ userRouter.put('/:userId/preferences', async(req, res, next) => {
     next(err);
   }
 })
-
-
 
 // POST /api/user/:userId/contact
 userRouter.post('/:userId/contact', async(req, res, next) => {

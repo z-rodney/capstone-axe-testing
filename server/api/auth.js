@@ -3,7 +3,7 @@ const authRouter = express.Router();
 const bcrypt = require('bcrypt');
 const { getUserByUsername } = require('../db/neo4j/user');
 const { createSession, destroySession, getUserBySession } = require('../db/neo4j/session');
-const A_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
+const A_WEEK_IN_SECONDS = 60 * 60 * 24 * 7 * 1000;
 
 // GET /api/auth/whoami
 authRouter.get('/whoami', (req, res, next) => {

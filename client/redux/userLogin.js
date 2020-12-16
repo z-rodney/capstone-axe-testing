@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT } from './actionConstants';
 import { checkLogin } from './loginStatus';
+import { clearPreferences } from './userPrefs';
 
 export const _loginRequest = () => ({
   type: USER_LOGIN_REQUEST
@@ -44,6 +45,7 @@ export const logout = (sessionId) => {
     await axios.delete(`/api/auth/logout/${sessionId}`);
     dispatch(_logout());
     dispatch(checkLogin());
+    dispatch(clearPreferences());
   }
 };
 
