@@ -1,5 +1,8 @@
 import styled from 'styled-components';
-import { secondaryBeige } from '../styledComponents/globalStyles';
+import {
+  secondaryBeige,
+  mainDarkGreen,
+} from '../styledComponents/globalStyles';
 
 export const HeroContainer = styled.nav`
   background: ${secondaryBeige};
@@ -23,14 +26,6 @@ export const HeroBg = styled.nav`
   overflow: hidden;
 `;
 
-export const ImageBg = styled.image`
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-  object-fit: cover;
-  background: #232a34;
-`;
-
 export const HeroContent = styled.nav`
   max-width: 1200px;
   padding: 8px 24px;
@@ -42,7 +37,7 @@ export const HeroContent = styled.nav`
 `;
 
 export const HeroH1 = styled.h1`
-  color: #fff;
+  color: ${mainDarkGreen};
   text-align: center;
   font-size: 48px;
 
@@ -56,7 +51,7 @@ export const HeroH1 = styled.h1`
 `;
 
 export const HeroP = styled.p`
-  color: #fff;
+  color: ${mainDarkGreen};
   text-align: center;
   font-size: 24px;
   margin-top: 24px;

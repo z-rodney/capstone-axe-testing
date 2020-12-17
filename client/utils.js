@@ -3,22 +3,21 @@ export const generateJSONFeatures = (locations) => {
     type: 'geojson',
     data: {
       type: 'FeatureCollection',
-      features: []
-    }
-  }
+      features: [],
+    },
+  };
   locations.forEach((locData) => {
     geoJSONData.data.features.push({
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: locData.location.coordinates,
-        },
-        properties: {
-          title: locData.location.title,
-          date: locData.dateVisited.visitedDate,
-          // description: `description for Random Point #${id}`,
-        },
-    })
-  })
-  return geoJSONData
-}
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: locData.location.coordinates,
+      },
+      properties: {
+        title: locData.location.title,
+        date: locData.dateVisited.visitedDate,
+      },
+    });
+  });
+  return geoJSONData;
+};

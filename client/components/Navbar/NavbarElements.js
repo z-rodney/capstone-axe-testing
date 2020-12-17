@@ -47,7 +47,6 @@ export const NavbarContainer = styled.div`
     margin-right: -10px;
 
     @media screen and (max-width: 860px) {
-      /* NavMenu will trigger in this screen size */
       display: none;
     }
   }
@@ -61,7 +60,6 @@ export const NavMenu = styled.ul`
   margin-right: -10px;
 
   @media screen and (max-width: 860px) {
-    /* NavMenu will trigger in this screen size */
     display: none;
   }
 `;
@@ -94,7 +92,6 @@ export const MobileIcon = styled.div`
   color: ${textColorLight};
 
   @media screen and (max-width: 860px) {
-    /* MobileIcon will trigger in this screen size */
     display: block;
     justify-content: center;
     align-items: center;
@@ -192,7 +189,6 @@ export const NavBtn = styled.nav`
   }
 
   @media screen and (max-width: 860px) {
-    /* NavBtn will trigger in this screen size */
     display: none;
   }
 `;

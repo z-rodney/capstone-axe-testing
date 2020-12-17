@@ -1,4 +1,5 @@
 import React from 'react';
+import { textColorLight } from '../styledComponents/globalStyles';
 import {
   CloseIcon,
   Icon,
@@ -21,7 +22,11 @@ const Sidebar = ({ isOpen, toggle, toggleFooter }) => {
           <SidebarLink to="/" onClick={toggle}>
             Home
           </SidebarLink>
-          <SidebarLink to="/about-us" onClick={toggleFooter}>
+          <SidebarLink
+            value={{ color: textColorLight }}
+            to="/about-us"
+            onClick={toggleFooter}
+          >
             About Us
           </SidebarLink>
           <SidebarLink to="/profile" onClick={toggle}>
