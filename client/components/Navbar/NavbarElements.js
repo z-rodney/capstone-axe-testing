@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import { Link as LinkRouter } from 'react-router-dom';
 import { Link as LinkScroll } from 'react-scroll';
-import { mainDarkGreen, mainOrange } from '../styledComponents/globalStyles'
+import {
+  mainDarkGreen,
+  mainOrange,
+  textColorLight,
+} from '../styledComponents/globalStyles';
 
 export const Nav = styled.nav`
   background: ${mainDarkGreen};
@@ -49,8 +53,21 @@ export const NavbarContainer = styled.div`
   }
 `;
 
+export const NavMenu = styled.ul`
+  display: flex;
+  align-items: center;
+  list-style: none;
+  text-align: center;
+  margin-right: -10px;
+
+  @media screen and (max-width: 860px) {
+    /* NavMenu will trigger in this screen size */
+    display: none;
+  }
+`;
+
 export const NavLogo = styled(LinkRouter)`
-  color: #fff;
+  color: ${textColorLight};
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -74,7 +91,7 @@ export const NavLogo = styled(LinkRouter)`
 
 export const MobileIcon = styled.div`
   display: none;
-  color: #fff;
+  color: ${textColorLight};
 
   @media screen and (max-width: 860px) {
     /* MobileIcon will trigger in this screen size */
@@ -87,7 +104,7 @@ export const MobileIcon = styled.div`
     right: 0;
     transform: translate(-100%, 60%);
     cursor: pointer;
-    color: #fff;
+    color: ${textColorLight};
   }
 `;
 
@@ -100,7 +117,7 @@ export const NavItem = styled.li`
 `;
 
 export const NavIcon = styled.div`
-  color: #fff;
+  color: ${textColorLight};
   width: 60px;
   display: flex;
   align-items: center;
@@ -109,7 +126,7 @@ export const NavIcon = styled.div`
 `;
 
 export const NavLinks = styled(LinkRouter)`
-  color: #fff;
+  color: ${textColorLight};
   display: flex;
   align-items: center;
   height: 100%;
@@ -130,7 +147,7 @@ export const NavLinks = styled(LinkRouter)`
 `;
 
 export const NavLinkDown = styled(LinkScroll)`
-  color: #fff;
+  color: ${textColorLight};
   display: flex;
   align-items: center;
   height: 100%;
@@ -159,7 +176,7 @@ export const NavBtn = styled.nav`
     background: ${mainOrange};
     white-space: nowrap;
     padding: 10px 20px;
-    color: #fff;
+    color: ${textColorLight};
     font-size: 18px;
     outline: none;
     border: none;
@@ -171,7 +188,7 @@ export const NavBtn = styled.nav`
   & a:hover {
     background: #01bf71;
     transition: all 0.2s ease-in-out;
-    color: #fff;
+    color: ${textColorLight};
   }
 
   @media screen and (max-width: 860px) {

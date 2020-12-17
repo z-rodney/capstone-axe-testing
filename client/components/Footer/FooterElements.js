@@ -1,5 +1,9 @@
 import styled from 'styled-components';
-import { textColorLight, mainDarkGreen, mainOrange } from '../styledComponents/globalStyles'
+import {
+  textColorLight,
+  mainDarkGreen,
+  mainOrange,
+} from '../styledComponents/globalStyles';
 
 export const FooterWrap = styled.footer`
   background: ${mainDarkGreen};
@@ -77,7 +81,7 @@ export const SocialMediaWrap = styled.div`
     flex-direction: column;
   }
 
-  & .social-logo {
+  & .app-logo {
     color: #fff;
     display: flex;
     align-items: center;

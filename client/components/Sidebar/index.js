@@ -27,6 +27,9 @@ const Sidebar = ({ isOpen, toggle, toggleFooter }) => {
           <SidebarLink to="/profile" onClick={toggle}>
             My Account
           </SidebarLink>
+          <SidebarLink to="/friends" onClick={toggle}>
+            Friends
+          </SidebarLink>
         </SidebarMenu>
         <SideBtnWrap>
           <SidebarRoute to="/signin">Log In</SidebarRoute>

@@ -17,15 +17,15 @@ const toggleHome = () => {
 const Footer = () => {
   return (
     <FooterWrap>
-        <FooterLinksWrapper>
-          <FooterLinkItems id="about-us">
-            <h1>About Us</h1>
-            <Link to="/">Who We Are</Link>
-            <Link to="/">How Proximity Works</Link>
-          </FooterLinkItems>
-        </FooterLinksWrapper>
+      <FooterLinksWrapper>
+        <FooterLinkItems id="about-us">
+          <h1>About Us</h1>
+          <Link to="/">Who We Are</Link>
+          <Link to="/">How Proximity Works</Link>
+        </FooterLinkItems>
+      </FooterLinksWrapper>
       <SocialMediaWrap>
-        <Link className="social-logo" to="/" onClick={toggleHome}>
+        <Link className="app-logo" to="/" onClick={toggleHome}>
           <GrLocation />
           Proximity
         </Link>

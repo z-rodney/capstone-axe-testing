@@ -2,7 +2,7 @@
 /* eslint-disable camelcase */
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import NeoVis from 'neovis.js';
+import NeoVis from 'NeoVis.js';
 import { Container, Card } from '../styledComponents';
 import { WideColumnContainer, Graph } from './StyleElements';
 import AddFriend from '../AddFriend';
@@ -15,27 +15,24 @@ const drawGraph = (userId) => {
     server_user: process.env.NEO4J_USER,
     server_password: process.env.NEO4J_PASSWORD,
     labels: {
-      'User': {
-        'caption': 'name',
-        'community': {
-          'color': mainOrange
+      User: {
+        caption: 'name',
+        community: {
+          color: mainOrange,
         },
-        'title_properties': [
-          'name',
-          'username'
-        ]
-      }
+        title_properties: ['name', 'username'],
+      },
     },
     relationships: {
-      'CONTACTED': {
-        'caption': false
-      }
+      CONTACTED: {
+        caption: false,
+      },
     },
-    initial_cypher: `MATCH (u:User {userId: '${userId}'})-[r1:CONTACTED*1..4]-(c:User) RETURN *`
+    initial_cypher: `MATCH (u:User {userId: '${userId}'})-[r1:CONTACTED*1..4]-(c:User) RETURN *`,
   };
   const viz = new NeoVis(config);
   viz.render();
-}
+};
 
 const AllFriends = () => {
   const userInfo = useSelector((state) => state.loginStatus);
@@ -44,7 +41,6 @@ const AllFriends = () => {
   useEffect(() => {
     drawGraph(userId);
   }, []);
-
 
   return (
     <Container>
@@ -61,7 +57,7 @@ const AllFriends = () => {
         </div>
       </WideColumnContainer>
     </Container>
-  )
-}
+  );
+};
 
 export default AllFriends;

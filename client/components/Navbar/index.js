@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom';
 import { FaBars, FaRegUserCircle } from 'react-icons/fa';
 import { GrLocation } from 'react-icons/gr';
 import { animateScroll as scroll } from 'react-scroll';
@@ -11,6 +11,7 @@ import {
   NavLogo,
   MobileIcon,
   NavLinks,
+  NavMenu,
   NavItem,
   NavIcon,
   NavBtn,
@@ -20,14 +21,18 @@ import { loginFromSession } from '../../redux/loginStatus';
 import { logout } from '../../redux/userLogin';
 import { getCookieValue } from '../../../server/utils';
 
-const Navbar = (props) => {
+const Navbar = ({ toggle }) => {
   const [scrollNav, setScrollNav] = useState(false);
 
   const changeNav = () => {
-    setScrollNav( window.scrollY >= 80 )
+    if (window.scrollY >= 80) {
+      setScrollNav(true);
+    } else {
+      setScrollNav(false);
+    }
   };
   const userInfo = useSelector((state) => state.loginStatus);
-  const {userId} = userInfo;
+  const { userId } = userInfo;
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -35,11 +40,10 @@ const Navbar = (props) => {
   useEffect(() => {
     const sessionId = getCookieValue('sessionId');
     if (sessionId) {
-      dispatch(loginFromSession(sessionId))
+      dispatch(loginFromSession(sessionId));
     }
     window.addEventListener('scroll', changeNav);
   }, []);
-
 
   const toggleHome = () => {
     scroll.scrollToTop();
@@ -53,7 +57,7 @@ const Navbar = (props) => {
     const sessionId = getCookieValue('sessionId');
     dispatch(logout(sessionId));
     history.push('/');
-  }
+  };
 
   return (
     <>
@@ -64,42 +68,44 @@ const Navbar = (props) => {
               <GrLocation />
               Proximity
             </NavLogo>
-            <MobileIcon onClick={props.toggle}>
+            <MobileIcon onClick={toggle}>
               <FaBars />
             </MobileIcon>
-            <ul className="nav-menu">
+            <NavMenu>
               <NavItem>
                 <NavLinks to="/" id="home" onClick={toggleHome}>
                   Home
                 </NavLinks>
               </NavItem>
               <NavItem>
-                <NavLinkDown
-                  to="about-us"
-                  id="about-us"
-                  onClick={toggleFooter}
-                >
+                <NavLinkDown to="about-us" id="about-us" onClick={toggleFooter}>
                   About Us
                 </NavLinkDown>
               </NavItem>
-              {userId ?
-                <NavItem>
-                  <NavLinks to="/profile" id="profile">
-                    My Account
-                  </NavLinks>
-                  <NavIcon>
-                    <FaRegUserCircle />
-                  </NavIcon>
-                  <NavLinks to="/friends" id="friends">
-                    Friends
-                  </NavLinks>
-                  <NavBtn onClick={logoutSubmit}>
-                    <Link to="/" id="signout">
-                      Log Out
-                    </Link>
-                  </NavBtn>
-                </NavItem>
-                :
+              {userId ? (
+                <NavMenu>
+                  <NavItem>
+                    <NavLinks to="/profile" id="profile">
+                      My Account
+                    </NavLinks>
+                    <NavIcon>
+                      <FaRegUserCircle />
+                    </NavIcon>
+                  </NavItem>
+                  <NavItem>
+                    <NavLinks to="/friends" id="friends">
+                      Friends
+                    </NavLinks>
+                  </NavItem>
+                  <NavItem>
+                    <NavBtn onClick={logoutSubmit}>
+                      <Link to="/" id="signout">
+                        Log Out
+                      </Link>
+                    </NavBtn>
+                  </NavItem>
+                </NavMenu>
+              ) : (
                 <NavItem>
                   <NavBtn>
                     <Link to="/signin" id="signin">
@@ -111,8 +117,9 @@ const Navbar = (props) => {
                       Sign Up
                     </Link>
                   </NavBtn>
-                </NavItem>}
-            </ul>
+                </NavItem>
+              )}
+            </NavMenu>
           </NavbarContainer>
         </Nav>
       </IconContext.Provider>
