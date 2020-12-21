@@ -3,7 +3,7 @@
 ## Introduction
 With so many unknowns about the future of the coronavirus pandemic and our world, it’s hard to determine, with certainty, how safe you really are. This app is a way to understand your potential level of risk based on your behaviors, social contacts, and whereabouts and get back some peace of mind.
 
-Please watch this video for a demo of our app: https://youtu.be/vL4WHf3giuE.
+Please watch this video for a demo of our app: https://youtu.be/PWM_nCaPCCc.
 
 Created with Node.js, Express, Neo4j, React/Redux, and the Mapbox, SendGrid, Neovis.js APIs and live data from Covid ActNow.
 
