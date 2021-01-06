@@ -33,7 +33,7 @@
     "@mapbox/mapbox-gl-geocoder": "^4.7.0",
     "@sendgrid/mail": "^7.4.0",
     "apoc": "^2.1.6",
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
