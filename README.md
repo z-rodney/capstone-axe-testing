@@ -35,4 +35,5 @@ Proximity has currently had the following features:
 Plans to expand Proximity include:
 - Opt in to send email notifications to friends when you log a positive COVID-19 test result
 - Expand bubble visualization options
+- Deploy with Docker
 
