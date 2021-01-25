@@ -1,6 +1,7 @@
 const { getUserBySession } = require('../db/neo4j/session');
 
 const auth = async (req, res, next) => {
+  console.log('auth middleware');
   if (req.cookies) {
     const { sessionId } = req.cookies;
     if (!sessionId) {
