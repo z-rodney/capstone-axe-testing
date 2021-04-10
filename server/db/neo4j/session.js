@@ -6,9 +6,15 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
-// INPUT: cookie's sessionId OUTPUT: user node
+
+/**
+ * Get the user node corresponding to the given sessionId
+ *
+ * @param {*} sessionId: belongs to current cookie
+ * @return {*} user node associated with that session
+ */
 async function getUserBySession(sessionId) {
-  // create a session to run cypher statements in
+  // Create a session to run cypher statements in
   const session = driver.session({ database: process.env.NEO4J_DATABASE });
 
   try {
@@ -26,14 +32,22 @@ async function getUserBySession(sessionId) {
   }
 }
 
-// INPUT: username OUTPUT: newly created session node
+
+/**
+ * Creates a session node associated with the given username
+ *
+ * @param {*} username
+ * @return {*} Newly created session node
+ */
 async function createSession(username) {
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
 
     try {
         const result = await session.writeTransaction((tx) => {
-            return tx.run('MATCH (user:User { username: $username }) CREATE (user)-[rel:HAS_SESSION]->(session:Session { sessionId: apoc.create.uuid() }) RETURN session',
-            { username: username });
+            return tx.run(`
+                MATCH (user:User { username: $username })
+                CREATE (user)-[rel:HAS_SESSION]->(session:Session { sessionId: apoc.create.uuid() })
+                RETURN session`, { username: username });
         });
         if (_.isEmpty(result.records)) return null;
         const record = result.records[0];
@@ -46,15 +60,21 @@ async function createSession(username) {
     }
 }
 
-// INPUT: sessionId
+
+/**
+ * Delete the session node with the given ID
+ *
+ * @param {*} sessionId
+ */
 async function destroySession(sessionId) {
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
 
     try {
         await session.writeTransaction((tx) => {
-            return tx.run('MATCH (session:Session { sessionId: $sessionId }) DETACH DELETE session', { sessionId: sessionId })
+            return tx.run(`
+            MATCH (session:Session { sessionId: $sessionId })
+            DETACH DELETE session`, { sessionId: sessionId })
         });
-        console.log('Record deleted');
     } catch (err) {
         console.log(err);
         throw err;
@@ -67,4 +87,4 @@ module.exports = {
   getUserBySession,
   createSession,
   destroySession
-}
+};
