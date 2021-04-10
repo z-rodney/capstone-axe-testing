@@ -1,7 +1,13 @@
 const driver = require('../db');
-const Contact = require('../models/Contact')
+const Contact = require('../models/Contact');
 
 
+/**
+ * Returns all contacts for a given user ID in an array
+ *
+ * @param {*} userId
+ * @return {*} user's contacts
+ */
 const getContacts = async (userId) => {
     let session = driver.session();
     try {
@@ -13,10 +19,10 @@ const getContacts = async (userId) => {
         const record = user.records;
         const allContacts = [];
         for (let i = 0; i < record.length; i++) {
-            const currentContact = record[i]
-            const contactDate = currentContact._fields[1]
-            const contact = new Contact(currentContact.get('c'), contactDate)
-            allContacts.push(contact)
+            const currentContact = record[i];
+            const contactDate = currentContact._fields[1];
+            const contact = new Contact(currentContact.get('c'), contactDate); // Create contact object
+            allContacts.push(contact);
         }
         return allContacts;
     } catch (err) {
@@ -27,6 +33,15 @@ const getContacts = async (userId) => {
 
 }
 
+
+/**
+ * Adds given contact(s) for a userId on a given date. Query "unwinds" all contacts
+ * add contact relationship for each. Relationship is bidirectional.
+ *
+ * @param {*} contacts
+ * @param {*} date
+ * @param {*} userId
+ */
 const addContact = async (contacts, date, userId) => {
     let session = driver.session();
     try {
@@ -50,4 +65,4 @@ const addContact = async (contacts, date, userId) => {
 module.exports = {
     getContacts,
     addContact
-}
+};

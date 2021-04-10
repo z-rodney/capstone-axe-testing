@@ -11,7 +11,8 @@ const {
 friendRouter.get('/:friendId', async (req, res, next) => {
   if (req.user) {
     try {
-      const { friendId } = req.params
+      const { friendId } = req.params;
+      // Fill friend with all relevant details for a given friendId
       const [
         { name, userId, username },
         friendFriends,
@@ -24,7 +25,8 @@ friendRouter.get('/:friendId', async (req, res, next) => {
         getLocations(friendId),
         getPreferences(friendId),
         getResults(friendId)
-      ])
+      ]);
+      // Build profile object with the details from the db, if present
       const friendProfile = {
         name,
         username,
@@ -33,14 +35,14 @@ friendRouter.get('/:friendId', async (req, res, next) => {
         locations: friendLocations || [],
         prefs: friendPrefs || {},
         results: friendResults || {}
-      }
-      res.send(friendProfile)
+      };
+      res.send(friendProfile);
     } catch (err) {
-      next(err)
+      next(err);
     }
   } else {
     res.status(404).send({ message: 'Unauthorized: User is not signed in.'});
   }
 })
 
-module.exports = friendRouter
+module.exports = friendRouter;

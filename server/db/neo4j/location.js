@@ -3,6 +3,13 @@ const Location = require('../models/Location');
 const User = require('../models/User');
 
 
+/**
+ * Returns all the locations that a given userId has visited. Relationship direction
+ * not applicable.
+ *
+ * @param {*} userId
+ * @return {*}
+ */
 const getLocations = async (userId) => {
     let session = driver.session();
     try {
@@ -29,7 +36,7 @@ const getLocations = async (userId) => {
             const contacts = [];
             for (let j = 0; j < conRecord.length; j++) {
                 const newContact = new User(conRecord[j].get('c'));
-                newContact.password = '';
+                newContact.password = ''; // blind the passwords
                 contacts.push(newContact);
             }
             resObj.contacts = contacts;
@@ -44,6 +51,15 @@ const getLocations = async (userId) => {
     }
 }
 
+
+/**
+ * Add a location node with the given properties, create relationship between
+ * given user and the newly created location node
+ *
+ * @param {*} { title, date, coordinates, placeName, contacts, covidData: {caseDensity, testPositivityRatio} }
+ * @param {*} userId
+ * @return {*}
+ */
 const addLocation = async ({ title, date, coordinates, placeName, contacts, covidData: {caseDensity, testPositivityRatio} }, userId) => {
     let session = driver.session();
     try {
@@ -95,4 +111,4 @@ const addLocation = async ({ title, date, coordinates, placeName, contacts, covi
 module.exports = {
     getLocations,
     addLocation
-}
+};
