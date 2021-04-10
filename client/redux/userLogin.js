@@ -33,7 +33,7 @@ export const login = (username, password, history) => {
       });
       dispatch(_loginSuccess());
       dispatch(checkLogin());
-      history.push('/profile');
+      history.push('/profile'); // redirect to the user's profile
     } catch (error) {
       dispatch(_loginFailure(error));
     }

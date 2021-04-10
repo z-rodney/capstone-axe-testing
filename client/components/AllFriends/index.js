@@ -8,6 +8,14 @@ import { WideColumnContainer, Graph } from './StyleElements';
 import AddFriend from '../AddFriend';
 import { mainOrange } from '../styledComponents/globalStyles';
 
+
+/**
+ * Neovis graphing function for a given user ID.
+ * Queries Neo4J database for a the user's contacts through the 4th degree,
+ * renders a visualization of the results of this query with set config.
+ *
+ * @param {*} userId
+ */
 const drawGraph = (userId) => {
   const config = {
     container_id: 'viz',

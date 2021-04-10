@@ -3,7 +3,7 @@ const authRouter = express.Router();
 const bcrypt = require('bcrypt');
 const { getUserByUsername } = require('../db/neo4j/user');
 const { createSession, destroySession, getUserBySession } = require('../db/neo4j/session');
-const A_WEEK_IN_SECONDS = 60 * 60 * 24 * 7 * 1000;
+const { A_WEEK_IN_MSECONDS } = require('../../constants');
 
 // GET /api/auth/whoami
 authRouter.get('/whoami', (req, res, next) => {
@@ -12,7 +12,7 @@ authRouter.get('/whoami', (req, res, next) => {
       username: req.user.username,
       userId: req.user.userId,
       name: req.user.name
-    }
+    };
     res.send(user);
   } else {
     res.status(404).send({username: null, userId: null});
@@ -22,25 +22,25 @@ authRouter.get('/whoami', (req, res, next) => {
 //GET /api/auth/session/:sessionId
 authRouter.get('/session/:sessionId', async (req, res, next) => {
   try {
-    const sessionId = req.params.sessionId
-    const {userId, username, name } = await getUserBySession(sessionId)
+    const sessionId = req.params.sessionId;
+    const {userId, username, name } = await getUserBySession(sessionId);
     if (!userId) {
-      res.staus(404).send(null)
+      res.staus(404).send(null);
     }
     const userInfo = {
       name,
       userId,
       username
-    }
-    res.send(userInfo)
+    };
+    res.send(userInfo);
   } catch (err) {
-    next(err)
+    next(err);
   }
 })
 
 // POST /api/auth/login
 authRouter.post('/login', async (req, res) => {
-  const { username, password } = req.body
+  const { username, password } = req.body;
 
   if (typeof username !== 'string' || typeof password !== 'string') {
     res.status(400).send({
@@ -62,20 +62,20 @@ authRouter.post('/login', async (req, res) => {
           const createdSession = await createSession(username);
 
           res.cookie('sessionId', createdSession.sessionId, {
-            maxAge: A_WEEK_IN_SECONDS,
+            maxAge: A_WEEK_IN_MSECONDS,
             path: '/',
           });
           res.status(201).send(foundUser);
         }
       } else {
         //if a user isn't found, send such an error
-        res.status(404).send({ message: 'User not found.' })
+        res.status(404).send({ message: 'User not found.' });
       }
     } catch (e) {
-      console.error(e.message)
+      console.error(e.message);
       res.status(500).send({
         message: e.message,
-      })
+      });
     }
   }
 })

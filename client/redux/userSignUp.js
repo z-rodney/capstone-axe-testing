@@ -29,7 +29,7 @@ export const signUp = (username, password, name, history) => {
       });
       dispatch(checkLogin());
       dispatch(_signUpSuccess());
-      history.push('/my-risk');
+      history.push('/my-risk'); // redirect to the risk preferences form upon sign-up
     } catch (error) {
       dispatch(_signUpFailure(error));
     }

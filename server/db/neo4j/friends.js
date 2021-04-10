@@ -1,7 +1,14 @@
 const _ = require('lodash');
 const driver = require('../db');
-const User = require('../models/User')
+const User = require('../models/User');
 
+
+/**
+ * Queries and returns an array of all friend nodes for a given userId
+ *
+ * @param {*} userId
+ * @return {*}
+ */
 const getFriends = async (userId) => {
     let session = driver.session();
 
@@ -14,7 +21,7 @@ const getFriends = async (userId) => {
         for (let i = 0; i < record.length; i++) {
             const currentFriend = record[i];
             const friend = new User(currentFriend.get('User'));
-            friend.password = '';
+            friend.password = ''; // make sure to blind the password
             allFriends.push(friend);
         }
         return allFriends;
@@ -26,6 +33,14 @@ const getFriends = async (userId) => {
     }
 }
 
+
+/**
+ * Add unidirectional "following" relationship from user to friendId
+ *
+ * @param {*} userId
+ * @param {*} friendId
+ * @return {*}
+ */
 const addFriend = async (userId, friendId) => {
     const session = driver.session();
     try {
@@ -38,7 +53,7 @@ const addFriend = async (userId, friendId) => {
         );
         const record = user.records[0];
         const newFriend = new User(record.get('friend'));
-        newFriend.password = '';
+        newFriend.password = ''; // make sure to blind the password
         return newFriend;
     }
     catch (err) {
@@ -48,6 +63,16 @@ const addFriend = async (userId, friendId) => {
     }
 }
 
+
+/**
+ * Search all users in the db that might match the given searchTerm in name or username.
+ * Users can not already by followed by the person with the given userId so that we're
+ * only showing new friends.
+ *
+ * @param {*} searchTerm
+ * @param {*} userId
+ * @return {*}
+ */
 const searchUsers = async (searchTerm, userId) => {
     const session = driver.session({ database: process.env.NEO4J_DATABASE });
 
@@ -84,4 +109,4 @@ module.exports = {
     getFriends,
     addFriend,
     searchUsers
-}
+};

@@ -23,7 +23,7 @@ const SignIn = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const loginStatus = useSelector(state => state.login);
-  const userId = useSelector(state => state.loginStatus.userId)
+  const userId = useSelector(state => state.loginStatus.userId);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -32,9 +32,9 @@ const SignIn = () => {
 
   return (
     <>
-      {/*redirects to profile if user is logged in
-       also prevents signin form from appearing again after
-       logging in from a re-directed private route*/}
+      {/* Redirects to profile if user is logged in.
+       Also prevents sign in form from appearing again after
+       logging in from a re-directed private route. */}
       {userId && <Redirect to="/profile" />
       }
       <SignInContainer>

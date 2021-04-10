@@ -3,8 +3,8 @@ const userRouter = express.Router();
 const bcrypt = require('bcrypt');
 const { createUser, updateUser, getUserByUserId } = require('../db/neo4j/user');
 const { createSession } = require('../db/neo4j/session');
-const { postResults, getResults } = require('../db/neo4j/testResults')
-const alertContacts = require('../sendgrid/alertContacts')
+const { postResults, getResults } = require('../db/neo4j/testResults');
+const alertContacts = require('../sendgrid/alertContacts');
 const {
   getContacts,
   getFriends,
@@ -17,9 +17,9 @@ const {
   updatePreferences,
   searchUsers
 } = require('../db/neo4j');
-const getCovidRiskLevels = require('../covidData')
+const getCovidRiskLevels = require('../covidData');
 
-const A_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
+const { A_WEEK_IN_MSECONDS } = require('../../constants');
 
 // POST /api/user
 // Creates new user in db
@@ -40,7 +40,7 @@ userRouter.post('/', async (req, res) => {
       if (newUser) {
         const newSession = await createSession(username);
         res.cookie('sessionId', newSession.sessionId, {
-          maxAge: A_WEEK_IN_SECONDS,
+          maxAge: A_WEEK_IN_MSECONDS,
           path: '/',
         });
 
@@ -102,12 +102,11 @@ userRouter.get('/:userId/friends', async(req, res, next) => {
 // GET /api/user/:userId/contacts
 userRouter.get('/:userId/contacts', async(req, res, next) => {
   try {
-    // const {userId} = req.user
-    const result = await getContacts(req.params.userId)
-    res.status(200).send(result)
+    const result = await getContacts(req.params.userId);
+    res.status(200).send(result);
   }
   catch (err) {
-    next(err)
+    next(err);
   }
 })
 
@@ -126,13 +125,13 @@ userRouter.get('/:userId/locations', async(req, res, next) => {
 // POST /api/user/:userId/location
 userRouter.post('/:userId/location', async(req, res, next) => {
   try {
-    const { userId } = req.params
-    const { location } = req.body
-    const { coordinates } = req.body.location
-    const covidData = await getCovidRiskLevels(coordinates)
-    location.covidData = covidData
-    const insert = await addLocation(location, userId)
-    res.status(201).send(insert)
+    const { userId } = req.params;
+    const { location } = req.body;
+    const { coordinates } = req.body.location;
+    const covidData = await getCovidRiskLevels(coordinates);
+    location.covidData = covidData;
+    const insert = await addLocation(location, userId);
+    res.status(201).send(insert);
   }
   catch (err) {
     next(err);
@@ -162,6 +161,7 @@ userRouter.post('/:userId/preferences', async(req, res, next) => {
       mask,
       pubTrans
     } = req.body;
+    // Create data object for db
     const data = {
       userId: req.user.userId,
       householdSize,
@@ -171,7 +171,7 @@ userRouter.post('/:userId/preferences', async(req, res, next) => {
       immunocompromised,
       mask,
       pubTrans
-    }
+    };
     const preferences = await addPreferences(data);
     res.status(201).send(preferences);
   }
@@ -201,7 +201,7 @@ userRouter.put('/:userId/preferences', async(req, res, next) => {
       immunocompromised,
       mask,
       pubTrans
-    }
+    };
     const preferences = await updatePreferences(data);
     res.status(201).send(preferences);
   }
@@ -278,34 +278,34 @@ userRouter.post('/:userId/preferences', async(req, res, next) => {
 userRouter.get('/:userId/results', async (req, res, next) => {
   if (req.user) {
     try {
-      const allResults = await getResults(req.params.userId)
-      res.send(allResults)
+      const allResults = await getResults(req.params.userId);
+      res.send(allResults);
     } catch (err) {
-      next(err)
+      next(err);
     }
   } else {
-    res.status(404).send({message: 'Unauthorized: User is not signed in.'})
+    res.status(404).send({message: 'Unauthorized: User is not signed in.'});
   }
 })
 
 //POST /api/user/:userId/results
-//Adds a new test result, and sends email alerts if positive
+// Adds a new test result, and sends email alerts if positive
 userRouter.post('/:userId/results', async (req, res, next) => {
   if (req.user) {
     try {
-      const { userId } = req.params
-      const { covidTest, testDate } = req.body
-      const newResult = await postResults(userId, covidTest, testDate)
+      const { userId } = req.params;
+      const { covidTest, testDate } = req.body;
+      const newResult = await postResults(userId, covidTest, testDate);
       if (newResult.covidTest === 'Positive') {
-        const contacts = await getContacts(userId)
-        alertContacts(newResult.testDate, contacts)
+        const contacts = await getContacts(userId);
+        alertContacts(newResult.testDate, contacts);
     }
-      res.status(201).send(newResult)
+      res.status(201).send(newResult);
     } catch (err) {
-      next(err)
+      next(err);
     }
   } else {
-    res.status(404).send({message: 'Unauthorized: User is not signed in.'})
+    res.status(404).send({message: 'Unauthorized: User is not signed in.'});
   }
 })
 

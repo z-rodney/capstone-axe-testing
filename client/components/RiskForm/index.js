@@ -6,7 +6,17 @@ import { Card } from '../styledComponents';
 import { FormCard, RadioContainer, CenterWrapper } from './StyleElements';
 import { addPreferences, updatePreferences } from '../../redux/userPrefs';
 
-export default function RiskForm({edit}) {
+
+/**
+ * Component for "survey" of user's risk levels and preferences.
+ * If called with prop edit === true, then allow the user to edit their previous
+ * preference selections.
+ *
+ * @export
+ * @param {*} {edit}
+ * @return {*}
+ */
+export default function RiskForm({ edit }) {
   const { register, handleSubmit, errors } = useForm();
   const userId = useSelector(state => state.loginStatus.userId);
   const userPrefs = useSelector(state => state.userPrefs);
@@ -26,6 +36,7 @@ export default function RiskForm({edit}) {
     return (str === 'true');
   }
 
+  // Format form data to integers, booleans as will be used by the db
   const onSubmit = (data) => {
     data.householdSize *= 1;
     data.indoorDining = stringToBool(data.indoorDining);
@@ -34,6 +45,8 @@ export default function RiskForm({edit}) {
     data.essentialWorker = stringToBool(data.essentialWorker);
     data.mask = stringToBool(data.mask);
     data.pubTrans = stringToBool(data.pubTrans);
+
+    // If user is editing their previous preferences, update, otherwise create new ones
     if (edit) {
       dispatch(updatePreferences(userId, data, history));
     } else {

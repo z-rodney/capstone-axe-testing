@@ -7,7 +7,7 @@ import {getLocations} from '../../redux/userLocations'
 
 window.mapboxgl.accessToken = process.env.MAPBOXPK
 
-//object formatted for mapbox Map
+// Object formatted for mapbox Map
 const sourceData = {
   id: 'visited-locations-layer',
   source: 'visited-locations-data',
@@ -30,8 +30,9 @@ function Locations() {
     }
   }, [userId])
   const mapContainerRef = useRef(null)
-  //helper function that takes array of coordinates and turns it into
-  //specifically formatted JSON for geographic information
+
+  // Helper function that takes array of coordinates and turns it into
+  // specifically formatted JSON for geographic information
   const geoJSONSource = generateJSONFeatures(locations)
 
   useEffect(() => {
@@ -43,9 +44,9 @@ function Locations() {
     });
 
     map.on('load', () => {
-      //source with visited locations to render
+      // source with visited locations to render
       map.addSource('visited-locations-data', geoJSONSource)
-      //layer on map that renders source
+      // layer on map that renders source
       map.addLayer(sourceData)
     })
 

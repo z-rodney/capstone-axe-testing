@@ -10,6 +10,12 @@ export default function CalendarDetails({ value, onChange }) {
     setCalendar(buildCalendar(value));
   }, [value]);
 
+  /**
+   * Create month calendar off of the given date.
+   *
+   * @param {*} date
+   * @return {*} calendar array
+   */
   function buildCalendar(date) {
     const cal = [];
     const startDay = date.clone().startOf('month').startOf('week');
@@ -34,6 +40,13 @@ export default function CalendarDetails({ value, onChange }) {
     return moment(new Date()).isSame(day, 'day');
   }
 
+  /**
+   * For a given day in the calendar object, returns correct styling. If the
+   * given day is the selected or current day, style accordingly.
+   *
+   * @param {*} day
+   * @return {*}
+   */
   function dayStyles(day) {
     if (isSelected(day, value)) return 'selected';
     if (isToday(day)) return 'today';

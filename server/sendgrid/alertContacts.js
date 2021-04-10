@@ -1,16 +1,18 @@
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-const { oneDayInSeconds } = require('../../constants')
+const { oneDayInSeconds } = require('../../constants');
 
+// Calculate days between two dates to determine time since exposure
 const daysBetween = (date1, date2) => {
-  return Math.abs(Math.ceil((date1 - date2) / oneDayInSeconds))
+  return Math.abs(Math.ceil((date1 - date2) / oneDayInSeconds));
 }
 
+// Return all contacts that have met within 15 days of the positive result
 const getRecentContacts = (resultDate, contacts) => {
   return contacts.filter(contact => {
-    let differenceInDays = daysBetween(resultDate, contact.contactDate)
-    if (differenceInDays <= 15) return contact
-  })
+    let differenceInDays = daysBetween(resultDate, contact.contactDate);
+    if (differenceInDays <= 15) return contact;
+  });
 }
 
 const generateMessage = (date, email) => {
@@ -29,27 +31,29 @@ const generateMessage = (date, email) => {
   }
 }
 
+// Create messages for each contact to be notified
 const generateBatchMessages = (contacts) => {
   return contacts.map(contact => {
-    const { contactDate, username } = contact
-    return generateMessage(contactDate, username)
-  })
+    const { contactDate, username } = contact;
+    return generateMessage(contactDate, username);
+  });
 }
 
+// Use Send Grid to send email to relevant contacts
 const alertContacts = async (resultDate, contacts) => {
   try {
-    const recentContacts = getRecentContacts(resultDate, contacts)
+    const recentContacts = getRecentContacts(resultDate, contacts);
     if (recentContacts.length) {
-      const messages = generateBatchMessages(recentContacts)
+      const messages = generateBatchMessages(recentContacts);
       await sgMail.send(messages);
     }
   } catch (error) {
     console.error(error);
     if (error.response) {
-      console.error(error.response.body)
+      console.error(error.response.body);
     }
   }
 }
 
-module.exports = alertContacts
+module.exports = alertContacts;
 

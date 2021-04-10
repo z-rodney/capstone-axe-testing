@@ -19,7 +19,16 @@ const EditButton = () => {
   )
 }
 
-const RiskProfile = ({forFriend}) => {
+
+/**
+ * Component of user profile that displays their answers to the risk preferences
+ * questions. If forFriend === true, show as for a user's friends, otherwise show as
+ * the current user.
+ *
+ * @param {*} { forFriend }
+ * @return {*}
+ */
+const RiskProfile = ({ forFriend }) => {
   const dispatch = useDispatch();
   const userId = useSelector(state => state.loginStatus.userId);
   const userPrefs = useSelector(state => state.userPrefs);
