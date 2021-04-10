@@ -12,6 +12,14 @@ import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import PrivateRoute from './PrivateRoute';
 
+
+/**
+ * Main component; Includes Sidebar, Navbar, and Footer for every view
+ * Routes given for SignIn/SignUp, Private routes showing the meat of the app
+ * show if the user is logged in.
+ *
+ * @return {*}
+ */
 function App() {
   const [isOpen, setIsOpen] = useState(false);
 

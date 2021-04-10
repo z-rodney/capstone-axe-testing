@@ -18,6 +18,13 @@ import {
   SearchInput,
 } from '../styledComponents';
 
+
+/**
+ * Component contains form to search for and add new friends.
+ * Search results return new users not in the existing friends list with button to Follow.
+ *
+ * @return {*}
+ */
 const AddFriend = () => {
   const [searchTerm, setTerm] = useInputClear('');
   const [searched, setSearched] = useState(false);
@@ -30,6 +37,12 @@ const AddFriend = () => {
     dispatch(clearSearch());
   }, []);
 
+  /**
+   * On submit, search all users for the specific term.
+   * Set the text box field to blank and mark local state that a term has been searched.
+   *
+   * @param {*} ev
+   */
   const handleSubmit = (ev) => {
     ev.preventDefault();
     dispatch(searchFriends(searchTerm));
@@ -37,6 +50,11 @@ const AddFriend = () => {
     setSearched(true);
   };
 
+  /**
+   * Adds user with given ID to the current user's follow list.
+   *
+   * @param {*} friendId
+   */
   const followFriend = (friendId) => {
     dispatch(addFriend(friendId, userId));
     dispatch(updateFriends(friendId));

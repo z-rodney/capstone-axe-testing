@@ -16,6 +16,12 @@ import {
   FormButton,
 } from './SignUpElements';
 
+
+/**
+ * Component for account sign-up form. User enters email, pwd
+ *
+ * @return {*}
+ */
 const SignUp = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

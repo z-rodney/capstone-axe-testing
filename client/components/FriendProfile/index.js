@@ -14,6 +14,14 @@ const ProfileLink = styled(Link)`
   margin-bottom: 4px;
 `
 
+/**
+ * Parent component for a friend's profile. Calls sub-components with forFriend
+ * prop to indicate that all data on this page should be for a friend, not the user
+ * themself.
+ *
+ * @param {*} props
+ * @return {*}
+ */
 const FriendProfile = (props) => {
   window.scrollTo(0, 0)
   const dispatch = useDispatch();

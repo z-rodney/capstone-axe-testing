@@ -5,6 +5,13 @@ import { getTestResults, addTestResults } from '../../redux/testResults'
 import { TestCard, FormQuestion, Submit, OuterWrapper  } from './StyleElements'
 import { RowContainer, ColumnContainer, ResultsCard } from '../styledComponents'
 
+
+/**
+ * Form component for adding test results. Appears if user clicks on the + button.
+ *
+ * @param {*} { setShowForm }
+ * @return {*}
+ */
 function TestResultForm({ setShowForm }) {
   const userId = useSelector(state => state.loginStatus.userId)
   const dispatch = useDispatch()
@@ -45,7 +52,15 @@ function TestResultForm({ setShowForm }) {
   )
 }
 
-function TestResults({forFriend}) {
+
+/**
+ * Component to display a user or their friend's test results in a list.
+ * User can click on the + to bring up a form to add test results if !forFriend.
+ *
+ * @param {*} { forFriend }
+ * @return {*}
+ */
+function TestResults({ forFriend }) {
   const [showForm, setShowForm] = useState(false)
   const dispatch = useDispatch()
   const userId = useSelector(state => state.loginStatus.userId)

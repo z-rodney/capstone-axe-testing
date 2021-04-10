@@ -12,7 +12,15 @@ const FriendCard = styled(Card)`
   margin-top: 28px;
 `
 
-const FriendList = ({forFriend}) => {
+
+/**
+ * Loop through user (or their friend's) friend list, displaying all the friend's
+ * pictures, names
+ *
+ * @param {*} { forFriend }
+ * @return {*}
+ */
+const FriendList = ({ forFriend }) => {
   const userId = useSelector(state => state.loginStatus.userId)
   const friendId = useSelector(state => state.singleFriend.userId)
   const userFriends = useSelector(state => state.friends)

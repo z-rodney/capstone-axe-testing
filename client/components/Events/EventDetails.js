@@ -31,6 +31,15 @@ const Title = styled.p`
   font-weight: 500;
 `
 
+
+/**
+ * Component containing event details (location, contacts with link to their page,
+ * COVID data for that location) for a given day. If events displayed are
+ * for a user's friends, view will adjust accordingly.
+ *
+ * @param {*} { dateSelected, forFriend }
+ * @return {*}
+ */
 function EventDetails({ dateSelected, forFriend }) {
   const userLocations = useSelector(state => state.locations);
   const friendLocations = useSelector(state => state.singleFriend.locations)
@@ -41,6 +50,8 @@ function EventDetails({ dateSelected, forFriend }) {
 
   dateSelected = new Date(dateSelected);
   dateSelected = moment(dateSelected).format('YYYY-MM-DD');
+
+  // Filter all friend or user's locations for those on the selected day
   const daysLocations = locations.filter(loc => loc.dateVisited === dateSelected);
 
   useEffect(() => {
