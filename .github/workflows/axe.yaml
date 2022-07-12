@@ -1,0 +1,29 @@
+name: Axe
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: ['*']
+    
+jobs:
+  axe:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix: 
+        node-version: [16.x]
+        
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - run: yarn start
+      - name: Run axe
+        run: |
+           yarn add -g @axe-core/cli
+           axe http://localhost:8080 --exit      
