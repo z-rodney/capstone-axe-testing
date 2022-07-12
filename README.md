@@ -15,9 +15,9 @@ Install Neo4j desktop (https://neo4j.com/download/) and create a new database wi
 Add the Neo4j APOC library to your database (https://neo4j.com/developer/neo4j-apoc/).
 
 ```
-npm install
-npm run seed
-npm run start-dev
+yarn install
+yarn seed
+yarn start-dev
 ```
 Navigate to http://localhost:8080 to see the application.
 
